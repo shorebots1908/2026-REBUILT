@@ -12,10 +12,20 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIOSpark;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.subsystems.vision.VisionIO;
+import frc.robot.subsystems.vision.VisionIOLimelight;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,11 +40,19 @@ public class RobotContainer {
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
+  //dashboard inputs
+  private final LoggedDashboardChooser<Command> autoChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive = initDrive();
     // Configure the trigger bindings
     configureBindings();
+    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+    configureAutoCommands();
+    autoChooser.addOption("path", DriveCommands.followPath(drive, "Example"));
+    autoChooser.addOption("path2", DriveCommands.followPath(drive, "Example"));
+    NamedCommands.registerCommand("path2", DriveCommands.followPath(drive, "Example"));
   }
 
   /**
@@ -63,14 +81,57 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Commands.none();
+    //return autoChooser.get();
+    //TODO; get autonimous working with auto chooser. Current autonimous was not pulling from the dashboard
+    //Current implementation is a workaround
+    return new PathPlannerAuto("TestPath");
+  }
+
+  private void configureAutoCommand(String name, Command command) {
+    autoChooser.addOption(name, command);
+    NamedCommands.registerCommand(name, command);
+  }
+
+  private void configureAutoCommands() {
+    configureAutoCommand("path", DriveCommands.followPath(drive, "Example"));
+
+    configureAutoCommand("TestPath", new PathPlannerAuto("TestPath"));
   }
 
   private Drive initDrive(){
     return new Drive(new GyroIOPigeon2(),
-     new ModuleIOSpark(0),
-      new ModuleIOSpark(1),
-       new ModuleIOSpark(2),
-       new ModuleIOSpark(3));
+    new ModuleIOSpark(0),
+    new ModuleIOSpark(1),
+    new ModuleIOSpark(2),
+    new ModuleIOSpark(3));
+  }
+
+  public Vision initVision() {
+    switch (Constants.currentMode) {
+      case REAL:
+        // Real robot, instantiate hardware IO implementations
+        return new Vision(
+            drive::addVisionMeasurement,
+            new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation)
+            // new VisionIOPhotonVision(VisionConstants.camera1Name, VisionConstants.robotToCamera1),
+            // new VisionIOPhotonVision(VisionConstants.camera2Name, VisionConstants.robotToCamera2)
+            );
+
+      case SIM:
+        // Sim robot, instantiate physics sim IO implementations
+        return new Vision(
+            drive::addVisionMeasurement,
+            new VisionIOPhotonVisionSim(
+                VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose)
+            // new VisionIOPhotonVisionSim(
+            //     VisionConstants.camera1Name, VisionConstants.robotToCamera1, drive::getPose),
+            // new VisionIOPhotonVisionSim(
+            //     VisionConstants.camera2Name, VisionConstants.robotToCamera2, drive::getPose)
+            );
+
+      default:
+        // Replayed robot, disable IO implementations
+        return new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
+    }
   }
 }

@@ -2,6 +2,9 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -67,5 +70,20 @@ public class DriveCommands {
         );
 
     }
+
+      public static Command followPath(Drive drive, String name) {
+    //
+    try {
+      // Load the path you want to follow using its name in the GUI
+      PathPlannerPath path = PathPlannerPath.fromPathFile(name);
+
+      // Create a path following command using AutoBuilder. This will also trigger event markers.
+      return AutoBuilder.followPath(path);
+    } catch (Exception e) {
+      DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+
     
 }
