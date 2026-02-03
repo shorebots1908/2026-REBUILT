@@ -49,10 +49,10 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-    configureAutoCommands();
     autoChooser.addOption("path", DriveCommands.followPath(drive, "Example"));
     autoChooser.addOption("path2", DriveCommands.followPath(drive, "Example"));
     NamedCommands.registerCommand("path2", DriveCommands.followPath(drive, "Example"));
+    configureAutoCommands();
   }
 
   /**
@@ -82,9 +82,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return autoChooser.get();
-    //TODO; get autonimous working with auto chooser. Current autonimous was not pulling from the dashboard
+    //TODO get autonomous working with auto chooser. Current autonimous was not pulling from the dashboard
     //Current implementation is a workaround
-    return new PathPlannerAuto("TestPath");
+    return autoChooser.get();
+    //return new PathPlannerAuto("TestPath");
   }
 
   private void configureAutoCommand(String name, Command command) {
