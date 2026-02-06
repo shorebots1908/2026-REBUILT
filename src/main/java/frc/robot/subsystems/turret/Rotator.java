@@ -18,6 +18,7 @@ public class Rotator extends SubsystemBase {
 
     public void setTurretRotationOpenLoop(double output) {
       //io.setTurretRotationOpenLoop(output);
+      turretRotator.set(output);
     }
 
   /**
