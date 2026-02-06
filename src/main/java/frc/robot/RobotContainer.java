@@ -35,6 +35,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  */
 public class RobotContainer {
   private final Drive drive;
+  private final Vision vision;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
@@ -46,13 +47,12 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive = initDrive();
+    vision = initVision();
     // Configure the trigger bindings
     configureBindings();
-    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-    autoChooser.addOption("path", DriveCommands.followPath(drive, "Example"));
-    autoChooser.addOption("path2", DriveCommands.followPath(drive, "Example"));
-    NamedCommands.registerCommand("path2", DriveCommands.followPath(drive, "Example"));
+    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser("TestPath"));
     configureAutoCommands();
+    autoChooser.addOption("extra Test", AutoBuilder.buildAuto("TestPath"));
   }
 
   /**
@@ -95,7 +95,6 @@ public class RobotContainer {
 
   private void configureAutoCommands() {
     configureAutoCommand("path", DriveCommands.followPath(drive, "Example"));
-
     configureAutoCommand("TestPath", new PathPlannerAuto("TestPath"));
   }
 
