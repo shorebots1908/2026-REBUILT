@@ -2,14 +2,16 @@ package frc.robot.subsystems.intake;
 
 import static frc.robot.subsystems.intake.IntakeConstants.*;
 
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.FeedbackSensor;
 
 public class Intake extends SubsystemBase {
-    public SparkMax intake;
+    public TalonFX intake;
     public SparkMax deploymentIntake;
         public double positionRad = 0;
         public double velocityRadPerSec = 0;
@@ -20,8 +22,8 @@ public class Intake extends SubsystemBase {
         public double intakeSpeed = 0;
 
         public Intake(){
-            intake = new SparkMax(intakeID, MotorType.kBrushless);
-            intake = new SparkMax(intakeDeployID, MotorType.kBrushless);
+            intake = new TalonFX(intakeID);
+            deploymentIntake = new SparkMax(intakeDeployID, MotorType.kBrushless);
         }
 
         public void runIntake(double speed){
