@@ -10,6 +10,7 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.turret.Spindexer;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIOSpark;
@@ -37,7 +38,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 public class RobotContainer {
   private final Drive drive;
   private final Intake intake;
-
+  private final Spindexer spindexer;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -49,6 +50,7 @@ public class RobotContainer {
   public RobotContainer() {
     drive = initDrive();
     intake = new Intake();
+    spindexer = new Spindexer();
     // Configure the trigger bindings
     configureBindings();
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -77,7 +79,7 @@ public class RobotContainer {
     //TODO: COMPOSE COMMANDS TO SIMPIFLY THIS 
     player1.a()
       .whileTrue(
-        Commands.run(() -> intake.runIntake(.3), intake)
+        Commands.run(() -> intake.runIntake(-.5), intake)
         .finallyDo((boolean interrupted) -> intake.stopIntake())
       );
   }

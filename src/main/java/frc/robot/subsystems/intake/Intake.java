@@ -12,7 +12,7 @@ import com.revrobotics.spark.FeedbackSensor;
 
 public class Intake extends SubsystemBase {
     public TalonFX intake;
-    public SparkMax deploymentIntake;
+    public TalonFX deploymentIntake;
         public double positionRad = 0;
         public double velocityRadPerSec = 0;
         public boolean atUpper = false;
@@ -23,7 +23,7 @@ public class Intake extends SubsystemBase {
 
         public Intake(){
             intake = new TalonFX(intakeID);
-            deploymentIntake = new SparkMax(intakeDeployID, MotorType.kBrushless);
+            deploymentIntake = new TalonFX(intakeDeployID);
         }
 
         public void runIntake(double speed){

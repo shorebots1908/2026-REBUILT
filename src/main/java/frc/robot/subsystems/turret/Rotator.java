@@ -4,16 +4,15 @@ import static frc.robot.subsystems.turret.TurretConstants.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.FeedbackSensor;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 public class Rotator extends SubsystemBase {
 
-  public SparkMax turretRotator;
+  public TalonFX turretRotator;
 
     public Rotator() {
-        turretRotator = new SparkMax(rotatorID, MotorType.kBrushless);
+        turretRotator = new TalonFX(rotatorID);
     }
 
     public void setTurretRotationOpenLoop(double output) {
