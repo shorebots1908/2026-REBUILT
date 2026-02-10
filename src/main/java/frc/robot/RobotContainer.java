@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.TurretCommands;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.intake.Intake;
@@ -76,6 +77,11 @@ public class RobotContainer {
       () -> -player1.getLeftX(), 
       () -> -player1.getRightX())
     );
+
+    //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
+    player1.x().onTrue(Commands.run(() -> spindexer.toggleRunning(), null));
+    player1.y().onTrue(Commands.run(() -> spindexer.toggleDirection(), null));
+
     //TODO: COMPOSE COMMANDS TO SIMPIFLY THIS 
     player1.a()
       .whileTrue(

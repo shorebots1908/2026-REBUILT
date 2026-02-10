@@ -7,4 +7,6 @@ public class TurretConstants {
     public static final int rotatorID = 25;
     public static final int spindexID = 28;
     public static final int feederID = 27;
+    public static final int shooterID = 26;
+    public static final double spinnerDefaultSpeed = 0.3;
 }
