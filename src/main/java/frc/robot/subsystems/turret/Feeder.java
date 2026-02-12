@@ -18,6 +18,10 @@ public class Feeder extends SubsystemBase{
     feeder.set(speed);
   }
 
+  public void runFeeder(){
+    feeder.set(feederSpeed);
+  }
+
   public void stopFeeder() {
     feeder.stopMotor();
   }
