@@ -22,7 +22,7 @@ public class Spindexer extends SubsystemBase{
 
   public Spindexer(){
     spinner = new SparkMax(spindexID, MotorType.kBrushless);
-    spinner.configure(new SparkMaxConfig().apply(), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    //spinner.configure(new SparkMaxConfig().apply(), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
   public void openLoopSpin(double speed){
     spinner.set(speed);

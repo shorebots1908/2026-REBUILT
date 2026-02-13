@@ -1,6 +1,8 @@
 package frc.robot.subsystems.turret;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
 public class TurretConstants {
@@ -13,4 +15,6 @@ public class TurretConstants {
     public static final double shooterSpeed = 1;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotatiionAcceleration = 160;
-}
+    public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
+    public static final Translation2d targetPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(158.84));
+}   
