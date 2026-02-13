@@ -25,4 +25,5 @@ public class Shooter extends SubsystemBase{
   public double getSpeed(){
     return shooterMotor.getRotorVelocity().getValueAsDouble();
   }
+  
 }
