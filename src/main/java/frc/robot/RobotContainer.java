@@ -7,8 +7,12 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.TurretCommands;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.turret.Rotator;
+import frc.robot.subsystems.turret.Spindexer;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIOSpark;
@@ -35,7 +39,9 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  */
 public class RobotContainer {
   private final Drive drive;
-
+  private final Intake intake;
+  private final Spindexer spindexer;
+  private final Rotator rotator;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -46,6 +52,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive = initDrive();
+    intake = new Intake();
+    spindexer = new Spindexer();
+    rotator = new Rotator(drive);
     // Configure the trigger bindings
     configureBindings();
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -71,6 +80,17 @@ public class RobotContainer {
       () -> -player1.getLeftX(), 
       () -> -player1.getRightX())
     );
+
+    //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
+    player1.x().onTrue(Commands.run(() -> spindexer.toggleRunning(), spindexer));
+    player1.y().onTrue(Commands.run(() -> spindexer.toggleDirection(), spindexer));
+
+    //TODO: COMPOSE COMMANDS TO SIMPIFLY THIS 
+    player1.a()
+      .whileTrue(
+        Commands.run(() -> intake.runIntake(-.5), intake)
+        .finallyDo((boolean interrupted) -> intake.stopIntake())
+      );
   }
 
 
