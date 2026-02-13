@@ -12,6 +12,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.turret.Rotator;
+import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Spindexer;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -42,6 +43,7 @@ public class RobotContainer {
   private final Intake intake;
   private final Spindexer spindexer;
   private final Rotator rotator;
+  private final Shooter shooter;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -55,6 +57,7 @@ public class RobotContainer {
     intake = new Intake();
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
+    shooter = new Shooter();
     // Configure the trigger bindings
     configureBindings();
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -90,6 +93,10 @@ public class RobotContainer {
       .whileTrue(
         Commands.run(() -> intake.runIntake(-.5), intake)
         .finallyDo((boolean interrupted) -> intake.stopIntake())
+      );
+      player1.rightBumper().whileTrue(
+        Commands.run(() -> shooter.runShooter(), shooter)
+        .finallyDo(() -> shooter.stopShooter())
       );
   }
 
