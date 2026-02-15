@@ -1,12 +1,85 @@
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.turret.Spindexer;
+import frc.robot.subsystems.turret.Rotator;
+import frc.robot.subsystems.turret.Shooter;
+import frc.robot.subsystems.turret.Feeder;
+//import frc.robot.subsystems.turret.Pitch;
 
 public class TurretCommands {
+  private static final double DEADBAND = 0.1;
+
   public static Command spindex(Spindexer spindexer) {
     return Commands.run(
       () -> {spindexer.runSpinner();}, spindexer);
+  }
+
+  public static Command openLoopRotate(Rotator rotator, DoubleSupplier rotationInput) {
+    return Commands.run(
+      () -> {
+        // Apply rotation deadband
+          double omega = MathUtil.applyDeadband(rotationInput.getAsDouble(), DEADBAND);
+
+          // Square rotation value for more precise control
+          omega = Math.copySign(omega * omega, omega);
+
+          rotator.setTurretRotationOpenLoop(0.5 * omega);
+      }, rotator
+    );
+  }
+
+  public static Command spindexCommand(Spindexer spindexer) {
+    return Commands.runOnce(
+      () -> {spindexer.toggleRunning();}, spindexer);
+  }
+
+  public static Command spindexDirectionCommand(Spindexer spindexer) {
+    return Commands.runOnce(
+      () -> {spindexer.toggleDirection();}, spindexer);
+  }
+
+  public static Command spindexStartCommand(Spindexer spindexer) {
+    return Commands.runOnce(
+      () -> {spindexer.setRunning(true);}, spindexer);
+  }
+
+  public static Command spindexForwardDirectionCommand(Spindexer spindexer) {
+    return Commands.runOnce(
+      () -> {spindexer.setClockwise(true);}, spindexer);
+  }
+
+  public static Command spindexStopCommand(Spindexer spindexer) {
+    return Commands.runOnce(
+      () -> {spindexer.setRunning(false);}, spindexer);
+  }
+
+  public static Command spindexReverseDirectionCommand(Spindexer spindexer) {
+    return Commands.runOnce(
+      () -> {spindexer.setClockwise(false);}, spindexer);
+  }
+
+  public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer) {
+    return Commands.run(
+      () -> {shooter.runShooter();}, shooter
+    ).alongWith(Commands.run(
+      () -> {if(shooter.getAcceleration() < shooter.getAccelerationThreshold()) {
+        feeder.runFeeder();
+      }}, feeder)
+    ).alongWith(Commands.runOnce(() -> spindexer.setClockwise(true), spindexer
+    ).andThen(Commands.run(() -> {
+      if(shooter.getAcceleration() < shooter.getAccelerationThreshold()) {
+        spindexer.setRunning(true);
+      }
+    }, spindexer))).finallyDo(() -> {
+      shooter.stopShooter();
+      feeder.stopFeeder();
+      spindexer.setRunning(false);
+    });
   }
 }

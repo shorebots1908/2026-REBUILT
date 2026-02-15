@@ -12,7 +12,8 @@ public class TurretConstants {
     public static final int shooterID = 26;
     public static final double spinnerDefaultSpeed = 0.3;
     public static final double feederSpeed = 0.6;
-    public static final double shooterSpeed = 1;
+    public static final double shooterSpeed = 0.7;
+    public static final double shooterAccelerationThreshold = 0.4;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotatiionAcceleration = 160;
     public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
