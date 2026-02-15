@@ -108,8 +108,8 @@ public class Drive extends SubsystemBase {
         });
     PathPlannerLogging.setLogTargetPoseCallback(
         (targetPose) -> {
-          Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose);
-        });
+          Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose);       
+         });
 
     // Configure SysId
     sysId =
