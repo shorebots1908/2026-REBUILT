@@ -8,9 +8,11 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.TurretCommands;
+import frc.robot.commands.IntakeCommands;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Spindexer;
@@ -44,6 +46,8 @@ public class RobotContainer {
   private final Spindexer spindexer;
   private final Rotator rotator;
   private final Shooter shooter;
+  private final Vision vision;
+  private final Feeder feeder;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -58,6 +62,8 @@ public class RobotContainer {
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
     shooter = new Shooter();
+    vision = initVision();
+    feeder = new Feeder();
     // Configure the trigger bindings
     configureBindings();
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -85,19 +91,39 @@ public class RobotContainer {
     );
 
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
-    player1.x().onTrue(Commands.run(() -> spindexer.toggleRunning(), spindexer));
-    player1.y().onTrue(Commands.run(() -> spindexer.toggleDirection(), spindexer));
+    player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    player1.y().onTrue(TurretCommands.spindexDirectionCommand(spindexer));
+
+    intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
     //TODO: COMPOSE COMMANDS TO SIMPIFLY THIS 
     player1.a()
+      .onTrue(
+        IntakeCommands.intakeRunCommand(intake)
+      );
+    
+    player1.b()
+      .onTrue(
+        IntakeCommands.intakeDeployCommand(intake)
+      );
+
+    player1.rightBumper()
       .whileTrue(
-        Commands.run(() -> intake.runIntake(-.5), intake)
-        .finallyDo((boolean interrupted) -> intake.stopIntake())
-      );
-      player1.rightBumper().whileTrue(
         Commands.run(() -> shooter.runShooter(), shooter)
-        .finallyDo(() -> shooter.stopShooter())
+          .finallyDo(() -> shooter.stopShooter())
       );
+      
+    player1.leftBumper()
+      .whileTrue(
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer)
+      );
+
+    rotator.setDefaultCommand(
+      TurretCommands.openLoopRotate(
+        rotator, 
+        () -> -player1.getRightY()
+      )
+    );
   }
 
 

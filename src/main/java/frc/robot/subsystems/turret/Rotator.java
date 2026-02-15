@@ -43,7 +43,7 @@ public class Rotator extends SubsystemBase {
         drive = _drive;
         var motorConfig = new TalonFXConfiguration();
         var slot0Configs = motorConfig.Slot0;
-        slot0Configs.kP  = 3;
+        slot0Configs.kP  = .3;
         slot0Configs.kI = 0;
         slot0Configs.kD = 0;
 

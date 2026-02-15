@@ -56,4 +56,10 @@ public class Spindexer extends SubsystemBase{
   public void toggleDirection(){
     clockwise = !clockwise;
   }
+
+  @Override
+  public void periodic() {
+    runSpinner();
+  }
+
 }
