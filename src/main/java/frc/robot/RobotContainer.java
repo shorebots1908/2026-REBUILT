@@ -83,7 +83,9 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("AbbyPath1", DriveCommands.followPath(drive, "AbbyPath1"));
     NamedCommands.registerCommand("intakeRunCommand", IntakeCommands.intakeRunCommand(intake));
     NamedCommands.registerCommand("fullSendCommand", 
-        TurretCommands.fullSendCommand(shooter, feeder, spindexer));
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer).withTimeout(5.0));
+    NamedCommands.registerCommand("intakeRunCommand", 
+        IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
 }
   
 

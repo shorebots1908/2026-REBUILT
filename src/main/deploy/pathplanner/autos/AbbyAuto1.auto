@@ -9,6 +9,30 @@
           "data": {
             "pathName": "AbbyPath1"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fullSendCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": []
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AbbyPath2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeRunCommand"
+          }
         }
       ]
     }
