@@ -6,11 +6,13 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.ClimbCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.TurretCommands;
 import frc.robot.commands.IntakeCommands;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+// import frc.robot.commands.ExampleCommand;
+// import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Rotator;
@@ -42,6 +44,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  private final Climb climb;
   private final Drive drive;
   private final Intake intake;
   private final Spindexer spindexer;
@@ -60,6 +63,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    climb = new Climb();
     drive = initDrive();
     intake = new Intake();
     spindexer = new Spindexer();
@@ -103,6 +107,10 @@ private void registerNamedCommands() {
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
     player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
     player1.y().onTrue(TurretCommands.spindexDirectionCommand(spindexer));
+
+    // climber commands
+    player1.povUp().whileTrue(ClimbCommands.climbUp(climb));
+    player1.povDown().whileTrue(ClimbCommands.climbDown(climb));
 
     intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
