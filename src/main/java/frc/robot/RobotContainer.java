@@ -14,6 +14,7 @@ import frc.robot.commands.IntakeCommands;
 // import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
@@ -47,6 +48,7 @@ public class RobotContainer {
   private final Climb climb;
   private final Drive drive;
   private final Intake intake;
+  private final LED led;
   private final Spindexer spindexer;
   private final Rotator rotator;
   private final Shooter shooter;
@@ -66,6 +68,7 @@ public class RobotContainer {
     climb = new Climb();
     drive = initDrive();
     intake = new Intake();
+    led = new LED(intake);
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
     shooter = new Shooter();
