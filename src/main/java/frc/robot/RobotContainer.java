@@ -28,7 +28,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -53,7 +54,9 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   //dashboard inputs
-  private final LoggedDashboardChooser<Command> autoChooser;
+  private final SendableChooser<Command> autoChooser;
+  
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -64,14 +67,21 @@ public class RobotContainer {
     shooter = new Shooter();
     vision = initVision();
     feeder = new Feeder();
-    // Configure the trigger bindings
+    
+    registerNamedCommands();
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Choices", autoChooser);
     configureBindings();
-    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-    configureAutoCommands();
-    autoChooser.addOption("path", DriveCommands.followPath(drive, "Example"));
-    autoChooser.addOption("path2", DriveCommands.followPath(drive, "Example"));
-    NamedCommands.registerCommand("path2", DriveCommands.followPath(drive, "Example"));
-  }
+}
+
+private void registerNamedCommands() {
+    NamedCommands.registerCommand("path", DriveCommands.followPath(drive, "Example"));
+    NamedCommands.registerCommand("AbbyPath1", DriveCommands.followPath(drive, "AbbyPath1"));
+    NamedCommands.registerCommand("intakeRunCommand", IntakeCommands.intakeRunCommand(intake));
+    NamedCommands.registerCommand("fullSendCommand", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer));
+}
+  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -132,24 +142,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    //return autoChooser.get();
-    //TODO; get autonimous working with auto chooser. Current autonimous was not pulling from the dashboard
-    //Current implementation is a workaround
-    return new PathPlannerAuto("TestPath");
-  }
-
-  private void configureAutoCommand(String name, Command command) {
-    autoChooser.addOption(name, command);
-    NamedCommands.registerCommand(name, command);
-  }
-
-  private void configureAutoCommands() {
-    configureAutoCommand("path", DriveCommands.followPath(drive, "Example"));
-
-    configureAutoCommand("TestPath", new PathPlannerAuto("TestPath"));
-  }
+public Command getAutonomousCommand() {
+  return autoChooser.getSelected();
+}
 
   private Drive initDrive(){
     return new Drive(new GyroIOPigeon2(),
