@@ -147,6 +147,10 @@ private void registerNamedCommands() {
         () -> -player1.getRightY()
       )
     );
+
+    player1.rightStick().onTrue(
+      TurretCommands.toggleTargeting(rotator)
+    );
   }
 
 

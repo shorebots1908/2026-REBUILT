@@ -2,6 +2,7 @@ package frc.robot.subsystems.turret;
 
 import static frc.robot.subsystems.turret.TurretConstants.*;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,7 @@ public class Rotator extends SubsystemBase {
   private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
   final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
   private Drive drive;
+  private Pose2d robotPose = new Pose2d();
 
     public Rotator() {
         turretRotator = new TalonFX(rotatorID);
@@ -50,16 +52,30 @@ public class Rotator extends SubsystemBase {
         turretRotator.getConfigurator().apply(slot0Configs);
     }
 
-    public boolean isClosedLoop(){
+    public boolean getIsClosedLoop(){
       return isClosedLoop;
     }
 
-    public void setClosedLoop(boolean closedLoop){
+    public void setIsClosedLoop(boolean closedLoop){
       isClosedLoop = closedLoop;
     }
 
+    public void startClosedLoop() {
+      isClosedLoop = true;
+    }
+
+    public void stopClosedLoop() {
+      isClosedLoop = false;
+    }
+
+    public void toggleOpenClosedLoop() {
+      isClosedLoop = !isClosedLoop;
+    }
+
     public void setTurretRotationOpenLoop(double speed) {
-      turretRotator.set(speed);
+      if(!isClosedLoop) {
+        turretRotator.set(speed);
+      }
       //io.setTurretRotationOpenLoop(output);
     }
     public void setTarget(Rotation2d _targetRotation){
@@ -81,7 +97,16 @@ public class Rotator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if(isClosedLoop){
-      targetRotation = (targetPoint.minus(drive.getPose().plus(turretOffSet).getTranslation())).getAngle();
+      robotPose = drive.getPose();
+      targetRotation = (targetPoint
+        .minus(robotPose
+          .plus(turretOffSet)
+          .getTranslation()))
+        .getAngle()
+        .plus(robotPose
+          .getRotation())
+        .plus(turretZeroOffset);
+      setTarget(targetRotation);
       m_setpoint = m_profile.calculate(0.020, m_setpoint, m_goal);
       m_request.Position = m_setpoint.position;
       m_request.Velocity = m_setpoint.velocity;
