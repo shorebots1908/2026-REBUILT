@@ -97,15 +97,25 @@ public class Rotator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if(isClosedLoop){
+      //set robot pose as this value will be reused
       robotPose = drive.getPose();
-      targetRotation = (targetPoint
+
+      //Calculate what the target parameter for the closedloop control should be
+      //first, get the target field angle relative to the turret center
+      Rotation2d targetTurretRelativeAngle = (targetPoint //constant. TODO: Need to swap based on team
         .minus(robotPose
-          .plus(turretOffSet)
-          .getTranslation()))
-        .getAngle()
-        .plus(robotPose
+          .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
+          .getTranslation())) //get only the translation component of the joint robot and turret pose
+        .getAngle(); //convert to an angle. 
+
+      //second, get the turret orientation in field space
+      Rotation2d turretFieldRelativeRotation = (robotPose
           .getRotation())
         .plus(turretZeroOffset);
+
+      //finally, set the target rotation equal to the difference between the two, giving how far to rotate
+      //in order to get the turret to point at the target. 
+      targetRotation = targetTurretRelativeAngle.minus(turretFieldRelativeRotation);
       setTarget(targetRotation);
       m_setpoint = m_profile.calculate(0.020, m_setpoint, m_goal);
       m_request.Position = m_setpoint.position;
