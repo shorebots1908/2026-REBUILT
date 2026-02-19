@@ -5,7 +5,6 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.turret.Spindexer;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
