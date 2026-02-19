@@ -30,7 +30,16 @@ public class TurretCommands {
           omega = Math.copySign(omega * omega, omega);
 
           rotator.setTurretRotationOpenLoop(0.5 * omega);
-      }, rotator
+      }, 
+      rotator
+    );
+  }
+
+  public static Command toggleTargeting(Rotator rotator) {
+    return Commands.runOnce(() -> {
+        rotator.toggleOpenClosedLoop();
+      }, 
+      rotator
     );
   }
 
