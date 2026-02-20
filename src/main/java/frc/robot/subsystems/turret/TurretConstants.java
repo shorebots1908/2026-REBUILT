@@ -6,13 +6,13 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
 public class TurretConstants {
-    public static final int rotatorID = 25;
+    public static final int rotatorID = 26;
     public static final int spindexID = 28;
     public static final int feederID = 27;
-    public static final int shooterID = 26;
+    public static final int shooterID = 24;
     public static final double spinnerDefaultSpeed = 0.5;
     public static final double feederSpeed = 0.6;
-    public static final double shooterSpeed = 0.7;
+    public static final double shooterSpeed = -0.7;
     public static final double shooterAccelerationThreshold = 0.4;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
