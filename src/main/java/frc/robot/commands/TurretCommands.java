@@ -72,11 +72,11 @@ public class TurretCommands {
       () -> {spindexer.setClockwise(false);}, spindexer);
   }
 
-  public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer) {
+  public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
     return Commands.run(
       () -> {shooter.runShooter();}, shooter
     ).alongWith(Commands.run(
-      () -> {if(shooter.getAcceleration() < shooter.getAccelerationThreshold()) {
+      () -> {if(shooter.getAcceleration() < shooter.getAccelerationThreshold() && rotator.isAligned()) {
         feeder.runFeeder();
       }}, feeder)
     ).alongWith(Commands.runOnce(() -> spindexer.setClockwise(true), spindexer

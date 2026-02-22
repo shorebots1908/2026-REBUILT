@@ -94,7 +94,7 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("AbbyAuto1", DriveCommands.followPath(drive, "AbbyAuto1"));
     NamedCommands.registerCommand("intakeRunCommand", IntakeCommands.intakeRunCommand(intake));
     NamedCommands.registerCommand("fullSendCommand", 
-        TurretCommands.fullSendCommand(shooter, feeder, spindexer).withTimeout(5.0));
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(5.0));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
 }
@@ -127,7 +127,6 @@ private void registerNamedCommands() {
 
     intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
-    //TODO: COMPOSE COMMANDS TO SIMPIFLY THIS 
     player1.a()
       .onTrue(
         IntakeCommands.intakeRunCommand(intake)
@@ -146,7 +145,7 @@ private void registerNamedCommands() {
       
     player1.leftBumper()
       .whileTrue(
-        TurretCommands.fullSendCommand(shooter, feeder, spindexer)
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
       );
 
     rotator.setDefaultCommand(

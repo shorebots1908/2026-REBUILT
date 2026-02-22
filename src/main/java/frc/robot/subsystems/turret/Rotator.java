@@ -60,9 +60,13 @@ public class Rotator extends SubsystemBase {
       slot0Configs.kS = rotatorS;
       var motorFeedbackConfig = motorConfig.Feedback;
       motorFeedbackConfig.SensorToMechanismRatio = rotatorGearRatio;
+      var motorLimitConfig = motorConfig.SoftwareLimitSwitch;
+      motorLimitConfig.ForwardSoftLimitThreshold = rotatorMaxLimit;
+      motorLimitConfig.ReverseSoftLimitThreshold = rotatorMinLimit;
 
       var closedLoopConfig = motorConfig.ClosedLoopGeneral;
       closedLoopConfig.GainSchedErrorThreshold = allowableRotatorError;
+      closedLoopConfig.ContinuousWrap = false;
 
       turretRotator.getConfigurator().apply(motorConfig);
       m_request = new PositionVoltage(0).withSlot(0);
