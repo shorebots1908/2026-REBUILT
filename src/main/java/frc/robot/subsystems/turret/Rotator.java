@@ -131,7 +131,11 @@ public class Rotator extends SubsystemBase {
       // m_setpoint = m_profile.calculate(0.020, m_setpoint, m_goal);
       // m_request.Position = m_setpoint.position;
       // m_request.Velocity = m_setpoint.velocity;
-      turretRotator.setControl(m_request.withPosition(targetRotation.getMeasure()));
+
+      // Aidan said to try commenting out this line and changing to the next line.  Something about getMeasure returning
+      // the angle in radians but the TalonFX expects units in rotations so getRotations might work
+      // turretRotator.setControl(m_request.withPosition(targetRotation.getMeasure()));
+      turretRotator.setControl(m_request.withPosition(targetRotation.getRotations()));
       //turretRotator.setControl(m_request.withPosition(60));
     }
     SmartDashboard.putNumber("turret position", turretRotator.getPosition().getValueAsDouble());

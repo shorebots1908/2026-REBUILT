@@ -84,6 +84,7 @@ public class RobotContainer {
 private void registerNamedCommands() {
     NamedCommands.registerCommand("path", DriveCommands.followPath(drive, "Example"));
     NamedCommands.registerCommand("AbbyPath1", DriveCommands.followPath(drive, "AbbyPath1"));
+    NamedCommands.registerCommand("AbbyAuto1", DriveCommands.followPath(drive, "AbbyAuto1"));
     NamedCommands.registerCommand("intakeRunCommand", IntakeCommands.intakeRunCommand(intake));
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer).withTimeout(5.0));
