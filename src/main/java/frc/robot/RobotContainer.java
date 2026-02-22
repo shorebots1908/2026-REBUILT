@@ -33,6 +33,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
+
+import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -60,6 +63,7 @@ public class RobotContainer {
 
   //dashboard inputs
   private final SendableChooser<Command> autoChooser;
+  private Optional<DriverStation.Alliance> alliance;
   
 
 
@@ -79,6 +83,9 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Choices", autoChooser);
     configureBindings();
+
+    alliance = DriverStation.getAlliance();
+    rotator.setAlliance(alliance);
 }
 
 private void registerNamedCommands() {

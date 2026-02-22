@@ -1,19 +1,27 @@
 package frc.robot.subsystems.turret;
 
 import static frc.robot.subsystems.turret.TurretConstants.*;
+import static frc.robot.subsystems.vision.VisionConstants.aprilTagLayout;
+
+import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.drive.Drive;
 
 import com.revrobotics.spark.FeedbackSensor;
+import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
 
 public class Rotator extends SubsystemBase {
   private boolean isClosedLoop = false;
@@ -21,12 +29,16 @@ public class Rotator extends SubsystemBase {
   public TalonFX turretRotator;
   final TrapezoidProfile m_profile = new TrapezoidProfile(
     new TrapezoidProfile.Constraints(turretMaxRotationSpeed, turretMaxRotationAcceleration)
+
   );
   // private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
   // private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
   private PositionVoltage m_request;
   private Drive drive;
   private Pose2d robotPose = new Pose2d();
+  private Translation2d goalPoint, upperTeamAreaPoint, lowerTeamAreaPoint;
+  private Optional<Alliance> alliance;
+  private double xTargetSwitchThreshold, yTargetSwitchThreshold;
 
     public Rotator() {
       rotatorInit();
@@ -45,11 +57,45 @@ public class Rotator extends SubsystemBase {
       slot0Configs.kP = rotatorP;
       slot0Configs.kI = rotatorI;
       slot0Configs.kD = rotatorD;
+      slot0Configs.kS = rotatorS;
       var motorFeedbackConfig = motorConfig.Feedback;
       motorFeedbackConfig.SensorToMechanismRatio = rotatorGearRatio;
 
+      var closedLoopConfig = motorConfig.ClosedLoopGeneral;
+      closedLoopConfig.GainSchedErrorThreshold = allowableRotatorError;
+
       turretRotator.getConfigurator().apply(motorConfig);
       m_request = new PositionVoltage(0).withSlot(0);
+      yTargetSwitchThreshold = aprilTagLayout.getFieldWidth() / 2;
+
+    }
+
+    public void setAlliance(Optional<Alliance> _alliance){
+      alliance = _alliance;
+      if (alliance.isPresent() && alliance.get() == Alliance.Red){
+        goalPoint = new Translation2d(
+          (aprilTagLayout.getFieldLength() - targetPoint.getX()), 
+          targetPoint.getY()
+        );
+        upperTeamAreaPoint = new Translation2d(aprilTagLayout.getFieldLength() - teamAreaPoint.getX(), aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+        lowerTeamAreaPoint = new Translation2d(aprilTagLayout.getFieldLength() - teamAreaPoint.getX(), teamAreaPoint.getY());
+        xTargetSwitchThreshold = aprilTagLayout.getFieldLength() - goalPoint.getX();
+      } 
+      else {
+        goalPoint = targetPoint;
+        upperTeamAreaPoint = new Translation2d(teamAreaPoint.getX(), aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+        lowerTeamAreaPoint = teamAreaPoint;
+        xTargetSwitchThreshold = goalPoint.getX();
+      }
+    }
+
+    public boolean isAligned(){
+      if (isClosedLoop){
+        return (Math.abs(turretRotator.getClosedLoopError().getValueAsDouble()) < targetAlignmentError);
+      } 
+      else {
+        return true;
+      }
     }
 
     public boolean getIsClosedLoop(){
@@ -83,6 +129,35 @@ public class Rotator extends SubsystemBase {
       //m_goal = new TrapezoidProfile.State(targetRotation.getRotations(), 0);
     }
 
+    private Translation2d determineTarget() {
+      if(alliance.isPresent() && alliance.get() == Alliance.Red) {
+        if(robotPose.getX() > xTargetSwitchThreshold) {
+          return goalPoint;
+        }
+        else {
+          if (robotPose.getY() > yTargetSwitchThreshold) {
+            return upperTeamAreaPoint;
+          }
+          else {
+            return lowerTeamAreaPoint;
+          }
+        }
+      }
+      else {
+        if(robotPose.getX() < xTargetSwitchThreshold) {
+          return goalPoint;
+        }
+        else {
+          if (robotPose.getY() > yTargetSwitchThreshold) {
+            return upperTeamAreaPoint;
+          }
+          else {
+            return lowerTeamAreaPoint;
+          }
+        }
+      }
+    }
+
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
@@ -113,7 +188,8 @@ public class Rotator extends SubsystemBase {
 
       //Calculate what the target parameter for the closedloop control should be
       //first, get the target field angle relative to the turret center
-      Rotation2d targetTurretRelativeAngle = (targetPoint //constant. TODO: Need to swap based on team
+      Rotation2d targetTurretRelativeAngle = (
+        determineTarget() //constant. 
         .minus(robotPose
           .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
           .getTranslation())) //get only the translation component of the joint robot and turret pose
