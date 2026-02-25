@@ -78,7 +78,7 @@ public class Intake extends SubsystemBase {
     public void oneButtonDeploy(){
       if(isUp){
         if (!autoFlipped){
-          if (deploymentIntake.getPosition().getValueAsDouble() < (intakeDeployRange - deployRangeError)) {
+          if (deploymentIntake.getPosition().getValueAsDouble() > -(intakeDeployRange - deployRangeError)) {
             deploymentIntake.set(intakeDeploySpeed);
           }
           else
@@ -90,7 +90,7 @@ public class Intake extends SubsystemBase {
           }
         }
         else {
-          if (deploymentIntake.getPosition().getValueAsDouble() > -(intakeDeployRange - deployRangeError)) {
+          if (deploymentIntake.getPosition().getValueAsDouble() < (intakeDeployRange - deployRangeError)) {
             deploymentIntake.set(-intakeDeploySpeed);
           }
           else {
@@ -100,7 +100,7 @@ public class Intake extends SubsystemBase {
       }
       else {
         if(!autoFlipped){
-          if(deploymentIntake.getPosition().getValueAsDouble() > (0 + deployRangeError)) {
+          if(deploymentIntake.getPosition().getValueAsDouble() < -(0 + deployRangeError)) {
             deploymentIntake.set(-intakeDeploySpeed);
           }
           else {
@@ -108,7 +108,7 @@ public class Intake extends SubsystemBase {
           }
         }
         else {
-          if(deploymentIntake.getPosition().getValueAsDouble() < -(0 + deployRangeError)) {
+          if(deploymentIntake.getPosition().getValueAsDouble() > (0 + deployRangeError)) {
             deploymentIntake.set(intakeDeploySpeed);
           }
           else {

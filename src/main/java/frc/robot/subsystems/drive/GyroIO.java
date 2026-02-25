@@ -28,5 +28,7 @@ public interface GyroIO {
 
   public default void reset() {}
 
+  public double getYawRateDegrees();
+
   public default void updateInputs(GyroIOInputs inputs) {}
 }

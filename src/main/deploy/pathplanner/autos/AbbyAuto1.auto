@@ -25,6 +25,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "AbbyPath3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "AbbyPath2"
           }
         },

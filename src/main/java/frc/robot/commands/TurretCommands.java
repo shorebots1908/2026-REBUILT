@@ -5,7 +5,6 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.turret.Spindexer;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
@@ -73,11 +72,11 @@ public class TurretCommands {
       () -> {spindexer.setClockwise(false);}, spindexer);
   }
 
-  public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer) {
+  public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
     return Commands.run(
       () -> {shooter.runShooter();}, shooter
     ).alongWith(Commands.run(
-      () -> {if(shooter.getAcceleration() < shooter.getAccelerationThreshold()) {
+      () -> {if(shooter.getAcceleration() < shooter.getAccelerationThreshold() && rotator.isAligned()) {
         feeder.runFeeder();
       }}, feeder)
     ).alongWith(Commands.runOnce(() -> spindexer.setClockwise(true), spindexer

@@ -16,6 +16,7 @@ import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.turret.Feeder;
+import frc.robot.subsystems.turret.Pitch;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Spindexer;
@@ -33,6 +34,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
+
+import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -54,12 +58,15 @@ public class RobotContainer {
   private final Shooter shooter;
   private final Vision vision;
   private final Feeder feeder;
+  private final Pitch pitch;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+  private final CommandXboxController player2 =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort1);
   //dashboard inputs
   private final SendableChooser<Command> autoChooser;
+  private Optional<DriverStation.Alliance> alliance;
   
 
 
@@ -74,19 +81,24 @@ public class RobotContainer {
     shooter = new Shooter();
     vision = initVision();
     feeder = new Feeder();
+    pitch = new Pitch();
     
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Choices", autoChooser);
     configureBindings();
+
+    alliance = DriverStation.getAlliance();
+    rotator.setAlliance(alliance);
 }
 
 private void registerNamedCommands() {
     NamedCommands.registerCommand("path", DriveCommands.followPath(drive, "Example"));
     NamedCommands.registerCommand("AbbyPath1", DriveCommands.followPath(drive, "AbbyPath1"));
+    NamedCommands.registerCommand("AbbyAuto1", DriveCommands.followPath(drive, "AbbyAuto1"));
     NamedCommands.registerCommand("intakeRunCommand", IntakeCommands.intakeRunCommand(intake));
     NamedCommands.registerCommand("fullSendCommand", 
-        TurretCommands.fullSendCommand(shooter, feeder, spindexer).withTimeout(5.0));
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(5.0));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
 }
@@ -119,7 +131,6 @@ private void registerNamedCommands() {
 
     intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
-    //TODO: COMPOSE COMMANDS TO SIMPIFLY THIS 
     player1.a()
       .onTrue(
         IntakeCommands.intakeRunCommand(intake)
@@ -138,7 +149,7 @@ private void registerNamedCommands() {
       
     player1.leftBumper()
       .whileTrue(
-        TurretCommands.fullSendCommand(shooter, feeder, spindexer)
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
       );
 
     rotator.setDefaultCommand(
@@ -150,6 +161,13 @@ private void registerNamedCommands() {
 
     player1.rightStick().onTrue(
       TurretCommands.toggleTargeting(rotator)
+    );
+
+    player2.povUp().onTrue(
+      Commands.runOnce(() -> {pitch.increasePitch(0.05);}, pitch)
+    );
+    player2.povDown().onTrue(
+      Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
     );
   }
 
@@ -177,7 +195,8 @@ public Command getAutonomousCommand() {
         // Real robot, instantiate hardware IO implementations
         return new Vision(
             drive::addVisionMeasurement,
-            new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation)
+            new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation),
+            new VisionIOLimelight(VisionConstants.camera1Name, drive::getRotation)
             // new VisionIOPhotonVision(VisionConstants.camera1Name, VisionConstants.robotToCamera1),
             // new VisionIOPhotonVision(VisionConstants.camera2Name, VisionConstants.robotToCamera2)
             );
