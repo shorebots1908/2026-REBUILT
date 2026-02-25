@@ -34,6 +34,10 @@ public class GyroIOADIS16470 implements GyroIO {
     yawPositionQueue = SparkOdometryThread.getInstance().makeTimestampQueue();
   }
 
+  public double getYawRateDegrees() {
+    return m_gyro.getAccelZ();
+  }
+
   @Override
   public void updateInputs(GyroIOInputs inputs) {
     inputs.connected = m_gyro.isConnected();

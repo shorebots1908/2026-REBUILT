@@ -48,6 +48,10 @@ public class GyroIOPigeon2 implements GyroIO {
     pigeon.reset();
   }
 
+  public double getYawRateDegrees() {
+    return yawVelocity.getValueAsDouble();
+  }
+
   @Override
   public void updateInputs(GyroIOInputs inputs) {
     inputs.connected = BaseStatusSignal.refreshAll(yaw, yawVelocity).equals(StatusCode.OK);

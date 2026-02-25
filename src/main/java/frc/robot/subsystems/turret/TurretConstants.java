@@ -22,14 +22,15 @@ public class TurretConstants {
     public static final Translation2d targetPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(158.84));
     public static final Translation2d teamAreaPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(50));
     //public static final Translation2d  
-    public static final Rotation2d turretZeroOffset = new Rotation2d(Units.degreesToRadians(90));
+    public static final Rotation2d turretZeroOffset = new Rotation2d(Units.degreesToRadians(45));
     public static final double rotatorP = 8.0;
     public static final double rotatorI = 0.2;
     public static final double rotatorD = 0.1;
     public static final double rotatorS = 0.1;
-    public static final double rotatorGearRatio = 32.0; //motor spins per turret revolution
+    public static final double rotatorGearRatio = 48.0; //motor spins per turret revolution
     public static final double allowableRotatorError = 0.005; 
     public static final double targetAlignmentError = 0.02;
     public static final double rotatorMinLimit = 0;
     public static final double rotatorMaxLimit = 0.75;
+    public static final boolean rotatorContinuousWrap = false;
 }   

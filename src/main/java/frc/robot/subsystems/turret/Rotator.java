@@ -63,10 +63,12 @@ public class Rotator extends SubsystemBase {
       var motorLimitConfig = motorConfig.SoftwareLimitSwitch;
       motorLimitConfig.ForwardSoftLimitThreshold = rotatorMaxLimit;
       motorLimitConfig.ReverseSoftLimitThreshold = rotatorMinLimit;
+      motorLimitConfig.ForwardSoftLimitEnable = true;
+      motorLimitConfig.ReverseSoftLimitEnable = true;
 
       var closedLoopConfig = motorConfig.ClosedLoopGeneral;
       closedLoopConfig.GainSchedErrorThreshold = allowableRotatorError;
-      closedLoopConfig.ContinuousWrap = false;
+      closedLoopConfig.ContinuousWrap = rotatorContinuousWrap;
 
       turretRotator.getConfigurator().apply(motorConfig);
       m_request = new PositionVoltage(0).withSlot(0);
@@ -189,24 +191,41 @@ public class Rotator extends SubsystemBase {
     if(isClosedLoop){
       //set robot pose as this value will be reused
       robotPose = drive.getPose();
+      SmartDashboard.putString("turret reported pose", robotPose.toString());
 
       //Calculate what the target parameter for the closedloop control should be
       //first, get the target field angle relative to the turret center
+      //DEBUG
+      SmartDashboard.putString("turret target coordinate", determineTarget().toString());
       Rotation2d targetTurretRelativeAngle = (
         determineTarget() //constant. 
         .minus(robotPose
           .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
           .getTranslation())) //get only the translation component of the joint robot and turret pose
         .getAngle(); //convert to an angle. 
+      
+      //DEBUG
+      SmartDashboard.putNumber("target turret relative angle", targetTurretRelativeAngle.getDegrees());
 
       //second, get the turret orientation in field space
       Rotation2d turretFieldRelativeRotation = (robotPose
           .getRotation())
         .plus(turretZeroOffset);
+      
+      //DEBUG
+      SmartDashboard.putNumber("turret field relative rotation", turretFieldRelativeRotation.getDegrees());
 
       //finally, set the target rotation equal to the difference between the two, giving how far to rotate
       //in order to get the turret to point at the target. 
       targetRotation = targetTurretRelativeAngle.minus(turretFieldRelativeRotation);
+      //targetRotation = targetRotation.getRotations() >= 0 ? targetRotation : targetRotation.plus(Rotation2d.fromRotations(1));
+      double targetRotationDouble = targetRotation.getRotations() >= 0 ? targetRotation.getRotations() : (targetRotation.getRotations() + 1);
+
+      //DEBUG
+      SmartDashboard.putNumber("target rotation", targetRotation.getRotations());
+      SmartDashboard.putNumber("target rotation degrees", targetRotation.getDegrees());
+      SmartDashboard.putNumber("target double", targetRotationDouble);
+
       //setTarget(targetRotation);
       // m_setpoint = m_profile.calculate(0.020, m_setpoint, m_goal);
       // m_request.Position = m_setpoint.position;
@@ -215,7 +234,7 @@ public class Rotator extends SubsystemBase {
       // Aidan said to try commenting out this line and changing to the next line.  Something about getMeasure returning
       // the angle in radians but the TalonFX expects units in rotations so getRotations might work
       // turretRotator.setControl(m_request.withPosition(targetRotation.getMeasure()));
-      turretRotator.setControl(m_request.withPosition(targetRotation.getRotations()));
+      turretRotator.setControl(m_request.withPosition(targetRotationDouble));
       //turretRotator.setControl(m_request.withPosition(60));
     }
     SmartDashboard.putNumber("turret position", turretRotator.getPosition().getValueAsDouble());

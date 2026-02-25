@@ -16,6 +16,7 @@ import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.turret.Feeder;
+import frc.robot.subsystems.turret.Pitch;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Spindexer;
@@ -57,10 +58,12 @@ public class RobotContainer {
   private final Shooter shooter;
   private final Vision vision;
   private final Feeder feeder;
+  private final Pitch pitch;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+  private final CommandXboxController player2 =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort1);
   //dashboard inputs
   private final SendableChooser<Command> autoChooser;
   private Optional<DriverStation.Alliance> alliance;
@@ -78,6 +81,7 @@ public class RobotContainer {
     shooter = new Shooter();
     vision = initVision();
     feeder = new Feeder();
+    pitch = new Pitch();
     
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -158,6 +162,13 @@ private void registerNamedCommands() {
     player1.rightStick().onTrue(
       TurretCommands.toggleTargeting(rotator)
     );
+
+    player2.povUp().onTrue(
+      Commands.runOnce(() -> {pitch.increasePitch(0.05);}, pitch)
+    );
+    player2.povDown().onTrue(
+      Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
+    );
   }
 
 
@@ -184,7 +195,8 @@ public Command getAutonomousCommand() {
         // Real robot, instantiate hardware IO implementations
         return new Vision(
             drive::addVisionMeasurement,
-            new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation)
+            new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation),
+            new VisionIOLimelight(VisionConstants.camera1Name, drive::getRotation)
             // new VisionIOPhotonVision(VisionConstants.camera1Name, VisionConstants.robotToCamera1),
             // new VisionIOPhotonVision(VisionConstants.camera2Name, VisionConstants.robotToCamera2)
             );
