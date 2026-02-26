@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0465049928673325,
-        "y": 5.788188302425108
+        "x": 3.778710843373494,
+        "y": 7.389807228915663
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.874579172610556,
-        "y": 4.960114122681883
+        "x": 5.868351047556846,
+        "y": 7.625696131172337
       },
       "isLocked": false,
-      "linkedName": "EndOfAbbyPath1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.09453637660485,
-        "y": 3.925021398002854
+        "x": 7.789180722891565,
+        "y": 6.898060240963855
       },
       "prevControl": {
-        "x": 3.1721683309557767,
-        "y": 4.947175463623396
+        "x": 7.1335180722891565,
+        "y": 7.5318674698795185
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofAbbyPath3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -45,10 +45,10 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "AbbyPaths",
+  "folder": "Swipe+Swipe",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -35.83765295427837
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

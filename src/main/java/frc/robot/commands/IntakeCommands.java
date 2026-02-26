@@ -12,10 +12,10 @@ public class IntakeCommands {
   }
 
   public static Command intakeDeployCommand(Intake intake) {
-    return Commands.runOnce(
-      () -> {intake.toggleIsUp();}, intake
-    );
-  }
+     return Commands.runOnce(
+       () -> {intake.toggleIsUp();}, intake
+     );
+   }
 
   public static Command intakeRunCommand(Intake intake) {
     return Commands.runOnce(

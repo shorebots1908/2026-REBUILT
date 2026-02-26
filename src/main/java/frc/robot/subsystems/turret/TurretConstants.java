@@ -15,7 +15,7 @@ public class TurretConstants {
     public static final double spinnerDefaultSpeed = 0.5;
     public static final double feederSpeed = 0.6;
     public static final double shooterSpeed = -0.7;
-    public static final double shooterAccelerationThreshold = 0.4;
+    public static final double shooterAccelerationThreshold = 0.01;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
     public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
@@ -23,9 +23,9 @@ public class TurretConstants {
     public static final Translation2d teamAreaPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(50));
     //public static final Translation2d  
     public static final Rotation2d turretZeroOffset = new Rotation2d(Units.degreesToRadians(45));
-    public static final double rotatorP = 8.0;
-    public static final double rotatorI = 0.2;
-    public static final double rotatorD = 0.1;
+    public static final double rotatorP = 35.0;
+    public static final double rotatorI = 0.0;
+    public static final double rotatorD = 0.0;
     public static final double rotatorS = 0.1;
     public static final double rotatorGearRatio = 48.0; //motor spins per turret revolution
     public static final double allowableRotatorError = 0.005; 

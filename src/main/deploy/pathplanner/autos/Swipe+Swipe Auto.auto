@@ -1,0 +1,38 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Swipe1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intakeDeployCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Swipe2"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

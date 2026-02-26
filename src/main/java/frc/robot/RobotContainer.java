@@ -96,11 +96,16 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("path", DriveCommands.followPath(drive, "Example"));
     NamedCommands.registerCommand("AbbyPath1", DriveCommands.followPath(drive, "AbbyPath1"));
     NamedCommands.registerCommand("AbbyAuto1", DriveCommands.followPath(drive, "AbbyAuto1"));
-    NamedCommands.registerCommand("intakeRunCommand", IntakeCommands.intakeRunCommand(intake));
+    NamedCommands.registerCommand("Swipe+Swipe Auto", DriveCommands.followPath(drive, "Swipe+Swipe Auto"));
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(5.0));
+    NamedCommands.registerCommand("toggleTargeting", 
+        TurretCommands.toggleTargeting(rotator));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
+    NamedCommands.registerCommand("intakeDeployCommand", 
+        IntakeCommands.intakeDeployCommand(intake));
+        
 }
   
 
