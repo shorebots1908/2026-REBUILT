@@ -15,7 +15,7 @@ public class TurretConstants {
     public static final double spinnerDefaultSpeed = 0.5;
     public static final double feederSpeed = 0.6;
     public static final double shooterSpeed = -0.7;
-    public static final double shooterAccelerationThreshold = 0.01;
+    public static final double shooterAccelerationThreshold = 0.1;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
     public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
@@ -33,4 +33,7 @@ public class TurretConstants {
     public static final double rotatorMinLimit = 0;
     public static final double rotatorMaxLimit = 0.75;
     public static final boolean rotatorContinuousWrap = false;
+    public static final double pitchCoefficientFeet = 1.05; //increase to make distance factor into pitch more
+    public static final double pitchInterceptFeet = 11.0; //reduce to make pitch response start closer to target
+    public static final double passingPitchHeight = 0.6; //current measurements indicate greatest distance at 0.6. 
 }   

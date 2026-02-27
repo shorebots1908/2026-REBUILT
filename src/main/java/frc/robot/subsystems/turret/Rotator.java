@@ -39,6 +39,9 @@ public class Rotator extends SubsystemBase {
   private Translation2d goalPoint, upperTeamAreaPoint, lowerTeamAreaPoint;
   private Optional<Alliance> alliance;
   private double xTargetSwitchThreshold, yTargetSwitchThreshold;
+  private Translation2d currentTarget = new Translation2d();
+  private boolean outsideTeamZone = false;
+  private double deadZoneSwitchRotation;
 
     public Rotator() {
       rotatorInit();
@@ -74,6 +77,8 @@ public class Rotator extends SubsystemBase {
       m_request = new PositionVoltage(0).withSlot(0);
       yTargetSwitchThreshold = aprilTagLayout.getFieldWidth() / 2;
 
+      //determine the rotation where the turret should rotate to 0 while target is in its deadzone. 
+      deadZoneSwitchRotation = rotatorMaxLimit + ((1.0 - rotatorMaxLimit)/2.0);
     }
 
     public void setAlliance(Optional<Alliance> _alliance){
@@ -138,9 +143,11 @@ public class Rotator extends SubsystemBase {
     private Translation2d determineTarget() {
       if(alliance.isPresent() && alliance.get() == Alliance.Red) {
         if(robotPose.getX() > xTargetSwitchThreshold) {
+          outsideTeamZone = false;
           return goalPoint;
         }
         else {
+          outsideTeamZone = true;
           if (robotPose.getY() > yTargetSwitchThreshold) {
             return upperTeamAreaPoint;
           }
@@ -151,9 +158,11 @@ public class Rotator extends SubsystemBase {
       }
       else {
         if(robotPose.getX() < xTargetSwitchThreshold) {
+          outsideTeamZone = false;
           return goalPoint;
         }
         else {
+          outsideTeamZone = true;
           if (robotPose.getY() > yTargetSwitchThreshold) {
             return upperTeamAreaPoint;
           }
@@ -164,14 +173,12 @@ public class Rotator extends SubsystemBase {
       }
     }
 
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
+  public Translation2d getCurrentTarget() {
+    return currentTarget;
+  }
+
+  public boolean getOutsideTeamZone() {
+    return outsideTeamZone;
   }
 
   @Override
@@ -193,12 +200,14 @@ public class Rotator extends SubsystemBase {
       robotPose = drive.getPose();
       SmartDashboard.putString("turret reported pose", robotPose.toString());
 
+      currentTarget = determineTarget();
+
       //Calculate what the target parameter for the closedloop control should be
       //first, get the target field angle relative to the turret center
       //DEBUG
       SmartDashboard.putString("turret target coordinate", determineTarget().toString());
       Rotation2d targetTurretRelativeAngle = (
-        determineTarget() //constant. 
+        currentTarget //constant. 
         .minus(robotPose
           .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
           .getTranslation())) //get only the translation component of the joint robot and turret pose
@@ -219,7 +228,9 @@ public class Rotator extends SubsystemBase {
       //in order to get the turret to point at the target. 
       targetRotation = targetTurretRelativeAngle.minus(turretFieldRelativeRotation);
       //targetRotation = targetRotation.getRotations() >= 0 ? targetRotation : targetRotation.plus(Rotation2d.fromRotations(1));
-      double targetRotationDouble = targetRotation.getRotations() >= 0 ? targetRotation.getRotations() : (targetRotation.getRotations() + 1);
+      double targetRotationDouble = targetRotation.getRotations() >= (deadZoneSwitchRotation - 1.0) ? targetRotation.getRotations() : (targetRotation.getRotations() + 1);
+
+      //use the motor limits to determine when the target point should swap sides. 
 
       //DEBUG
       SmartDashboard.putNumber("target rotation", targetRotation.getRotations());

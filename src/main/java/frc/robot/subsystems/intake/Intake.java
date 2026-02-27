@@ -2,29 +2,33 @@ package frc.robot.subsystems.intake;
 
 import static frc.robot.subsystems.intake.IntakeConstants.*;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
+
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.spark.FeedbackSensor;
 
 public class Intake extends SubsystemBase {
   public TalonFX intake;
   public TalonFX deploymentIntake;
     public double positionRad = 0;
     public double velocityRadPerSec = 0;
-    public boolean atUpper = false;
-    public boolean atLower = true;
+    public boolean atUpper = true;
+    public boolean atLower = false;
     public double targetEncoderPosition = 0;
-    public boolean isUp = false;
+    public boolean isUp = true;
     private boolean autoFlipped = false;
+    private boolean hasFaultedMaximum = false;
+    private double faultedMaximum = 0.0;
     private boolean isRunning = false;
 
     public Intake(){
         intake = new TalonFX(intakeID);
         deploymentIntake = new TalonFX(intakeDeployID);
+        if (deploymentIntake.getPosition().getValueAsDouble() < -5) {
+          atUpper = false;
+          atLower = true;
+          isUp = false;
+        }
     }
 
     public void runIntake(double speed){
@@ -63,64 +67,58 @@ public class Intake extends SubsystemBase {
       isRunning = !isRunning;
     }
 
-    private void stopAtTop() {
+    public void stopAtTop() {
       deploymentIntake.stopMotor();
         atLower = false; 
         atUpper = true;
     }
 
-    private void stopAtBottom() {
+    public void stopAtBottom() {
       deploymentIntake.stopMotor();
         atLower = true; 
         atUpper = false;
     }
 
+    public void undeployIntake() {
+      if(isUndeployed()) {
+        stopAtTop();
+      }
+      else {
+        deploymentIntake.set(-intakeDeploySpeed);
+      }
+    }
+
+    public void deployIntake() {
+      if(isDeployed()) {
+        stopAtBottom();
+      }
+      else {
+        deploymentIntake.set(intakeDeploySpeed);
+      }
+    }
+
+    public boolean isDeployed() {
+      return deploymentIntake.getPosition().getValueAsDouble() < (intakeDeployRange + deployRangeError);
+    }
+
+    public boolean isUndeployed() {
+      return deploymentIntake.getPosition().getValueAsDouble() > (0 - deployRangeError);
+    }
+
     public void oneButtonDeploy(){
-      if(isUp){
-        if (!autoFlipped){
-          if (deploymentIntake.getPosition().getValueAsDouble() > -(intakeDeployRange - deployRangeError)) {
-            deploymentIntake.set(intakeDeploySpeed);
-          }
-          else
-          {
-            stopAtTop();
-          }
-          if(deploymentIntake.getFault_StatorCurrLimit().getValue()){
-            autoFlipped = true;
-          }
-        }
-        else {
-          if (deploymentIntake.getPosition().getValueAsDouble() < (intakeDeployRange - deployRangeError)) {
-            deploymentIntake.set(-intakeDeploySpeed);
-          }
-          else {
-            stopAtTop();
-          }
-        }
+      if(isUp) {
+        undeployIntake();
       }
       else {
-        if(!autoFlipped){
-          if(deploymentIntake.getPosition().getValueAsDouble() < -(0 + deployRangeError)) {
-            deploymentIntake.set(-intakeDeploySpeed);
-          }
-          else {
-            stopAtBottom();
-          }
-        }
-        else {
-          if(deploymentIntake.getPosition().getValueAsDouble() > (0 + deployRangeError)) {
-            deploymentIntake.set(intakeDeploySpeed);
-          }
-          else {
-            stopAtBottom();
-          }
-        }
+        deployIntake();
       }
-      if(isRunning) {
-        runIntake(intakeSpeed);
-      }
-      else {
-        stopIntake();
-      }
+    }
+
+
+
+    @Override
+    public void periodic() {
+      oneButtonDeploy(); 
+      SmartDashboard.putNumber("Intake Encoder", deploymentIntake.getPosition().getValueAsDouble());
     }
 }

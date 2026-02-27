@@ -10,6 +10,7 @@ import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Feeder;
 //import frc.robot.subsystems.turret.Pitch;
+import frc.robot.subsystems.turret.Pitch;
 
 public class TurretCommands {
   private static final double DEADBAND = 0.1;
@@ -34,9 +35,17 @@ public class TurretCommands {
     );
   }
 
-  public static Command toggleTargeting(Rotator rotator) {
+  public static Command defaultPitchCommand(Pitch pitch) {
+    return Commands.run(() -> {
+      pitch.defaultPitchMethod();
+    }, 
+    pitch);
+  }
+
+  public static Command toggleTargeting(Rotator rotator, Pitch pitch) {
     return Commands.runOnce(() -> {
         rotator.toggleOpenClosedLoop();
+        pitch.toggleIsAutoPitched();
       }, 
       rotator
     );
@@ -76,12 +85,14 @@ public class TurretCommands {
     return Commands.run(
       () -> {shooter.runShooter();}, shooter
     ).alongWith(Commands.run(
-      () -> {if(shooter.getAcceleration() < shooter.getAccelerationThreshold() && rotator.isAligned()) {
+      () -> {if(shooter.getFilteredAcceleration() > -shooter.getAccelerationThreshold() 
+          && shooter.getFilteredAcceleration() < shooter.getAccelerationThreshold() 
+          && rotator.isAligned()) {
         feeder.runFeeder();
       }}, feeder)
     ).alongWith(Commands.runOnce(() -> spindexer.setClockwise(true), spindexer
     ).andThen(Commands.run(() -> {
-      if(shooter.getAcceleration() < shooter.getAccelerationThreshold()) {
+      if(shooter.getFilteredAcceleration() > -shooter.getAccelerationThreshold()) {
         spindexer.setRunning(true);
       }
     }, spindexer))).finallyDo(() -> {

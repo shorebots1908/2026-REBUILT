@@ -81,7 +81,7 @@ public class RobotContainer {
     shooter = new Shooter();
     vision = initVision();
     feeder = new Feeder();
-    pitch = new Pitch();
+    pitch = new Pitch(drive, rotator);
     
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -100,7 +100,7 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(5.0));
     NamedCommands.registerCommand("toggleTargeting", 
-        TurretCommands.toggleTargeting(rotator));
+        TurretCommands.toggleTargeting(rotator, pitch));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
     NamedCommands.registerCommand("intakeDeployCommand", 
@@ -134,6 +134,7 @@ private void registerNamedCommands() {
     player1.povUp().whileTrue(ClimbCommands.climbUp(climb));
     player1.povDown().whileTrue(ClimbCommands.climbDown(climb));
 
+    //Intake Default Command function has been implemented inside the subsystem's periodic function.
     intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
     player1.a()
@@ -152,7 +153,7 @@ private void registerNamedCommands() {
           .finallyDo(() -> shooter.stopShooter())
       );
       
-    player1.leftBumper()
+    player1.leftBumper()  
       .whileTrue(
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
       );
@@ -164,8 +165,10 @@ private void registerNamedCommands() {
       )
     );
 
+    pitch.setDefaultCommand(TurretCommands.defaultPitchCommand(pitch));
+
     player1.rightStick().onTrue(
-      TurretCommands.toggleTargeting(rotator)
+      TurretCommands.toggleTargeting(rotator, pitch)
     );
 
     player2.povUp().onTrue(
@@ -174,6 +177,14 @@ private void registerNamedCommands() {
     player2.povDown().onTrue(
       Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
     );
+    player2.leftBumper().whileTrue(
+      Commands.run(() -> {pitch.passingPitch();}, pitch)
+    );
+    // intake.setDefaultCommand(
+    //   IntakeCommands.deployIntakeOpenloop(() -> player2.getLeftY(), 
+    //   intake)
+    // );
+    
   }
 
 
