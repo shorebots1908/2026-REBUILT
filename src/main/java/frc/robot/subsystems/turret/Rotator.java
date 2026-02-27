@@ -181,6 +181,10 @@ public class Rotator extends SubsystemBase {
     return outsideTeamZone;
   }
 
+  public void setShooting(boolean _isShooting) {
+    drive.setShooting(_isShooting);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
