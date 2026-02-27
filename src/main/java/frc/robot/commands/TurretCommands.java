@@ -84,7 +84,8 @@ public class TurretCommands {
   public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
     return Commands.run(
       () -> {shooter.runShooter();
-      rotator.setShooting(true);}, shooter
+      //rotator.setShooting(true);
+    }, shooter
     ).alongWith(Commands.run(
       () -> {if(shooter.getFilteredAcceleration() > -shooter.getAccelerationThreshold() 
           && shooter.getFilteredAcceleration() < shooter.getAccelerationThreshold() 
@@ -100,7 +101,7 @@ public class TurretCommands {
       shooter.stopShooter();
       feeder.stopFeeder();
       spindexer.setRunning(false);
-      rotator.setShooting(false);
+      //rotator.setShooting(false);
     });
   }
 }

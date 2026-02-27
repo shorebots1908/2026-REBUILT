@@ -103,7 +103,7 @@ private void registerNamedCommands() {
         TurretCommands.toggleTargeting(rotator, pitch));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
-    NamedCommands.registerCommand("intakeDeployCommand", 
+    NamedCommands.registerCommand("autoDeployIntake", 
         IntakeCommands.intakeDeployCommand(intake));
         
 }
@@ -121,8 +121,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.87 * player1.getLeftY() : -player1.getLeftY(), 
-      () -> drive.isShooting() ? -0.87 * player1.getLeftX() : -player1.getLeftX(), 
+      () -> -player1.getLeftY(), //drive.isShooting() ? -0.87 * player1.getLeftY() : -player1.getLeftY(), 
+      () -> -player1.getLeftX(), //drive.isShooting() ? -0.87 * player1.getLeftX() : -player1.getLeftX(), 
       () -> -player1.getRightX())
     );
 

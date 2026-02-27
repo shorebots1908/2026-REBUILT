@@ -10,7 +10,13 @@ import frc.robot.subsystems.intake.Intake;
 public class IntakeCommands {
   public static Command intakeDefaultCommand(Intake intake) {
     return Commands.run(
-      () -> {intake.oneButtonDeploy();}, intake
+      () -> {intake.oneButtonDeploy();
+      if(intake.getIsRunning()) {
+        intake.runIntake();
+      }
+      else {
+        intake.stopIntake();
+      }}, intake
     );
   }
 
