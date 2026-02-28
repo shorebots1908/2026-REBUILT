@@ -21,43 +21,42 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Swipe+Swipe1"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "autoDeployIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Outpost1"
                 }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoRunIntake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Swipe+Swipe2"
-                }
-              }
-            ]
+            "waitTime": 2.5
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Swipe+Swipe3"
+            "pathName": "Outpost2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fullSendCommand"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoUndeployIntake"
           }
         },
         {

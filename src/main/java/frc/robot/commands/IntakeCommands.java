@@ -54,6 +54,14 @@ public class IntakeCommands {
       );
   }
 
+public static Command autoRunIntake(Intake intake) {
+    return Commands.runEnd(
+      () -> {intake.runIntake();}, 
+      () -> {intake.stopIntake(); 
+        intake.setIsRunning(false);}, 
+      intake);
+  }
+
   public static Command autoDeployIntake(Intake intake) {
     return Commands.runEnd(
       () -> {intake.deployIntake();}, 

@@ -51,6 +51,15 @@ public class TurretCommands {
     );
   }
 
+  public static Command targetingIsOnCommand(Rotator rotator, Pitch pitch) {
+    return Commands.runOnce(() -> {
+        rotator.startClosedLoop();
+        pitch.setIsAutoPitched(true);
+    },
+    rotator
+    );
+  }
+
   public static Command spindexCommand(Spindexer spindexer) {
     return Commands.runOnce(
       () -> {spindexer.toggleRunning();}, spindexer);
