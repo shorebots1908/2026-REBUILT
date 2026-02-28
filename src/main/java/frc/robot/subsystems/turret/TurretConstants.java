@@ -12,9 +12,9 @@ public class TurretConstants {
     public static final int shooterID = 24;
     public static final int pitchChannel1 = 0;
     public static final int pitchChannel2 = 1;
-    public static final double spinnerDefaultSpeed = 0.7;
+    public static final double spinnerDefaultSpeed = 1.0;
     public static final double feederSpeed = 0.6;
-    public static final double shooterSpeed = -0.65; //was -0.7
+    public static final double shooterSpeed = -0.55; //was -0.7
     public static final double shooterAccelerationThreshold = 0.1;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
@@ -34,6 +34,6 @@ public class TurretConstants {
     public static final double rotatorMaxLimit = 0.75;
     public static final boolean rotatorContinuousWrap = false;
     public static final double pitchCoefficientFeet = 1.05; //increase to make distance factor into pitch more
-    public static final double pitchInterceptFeet = 11.0; //reduce to make pitch response start closer to target
+    public static final double pitchInterceptFeet = 9.5; //reduce to make pitch response start closer to target
     public static final double passingPitchHeight = 0.2; //current measurements indicate greatest distance at 0.6. //editing to 0.0 for wk0 safety purposes
 }   

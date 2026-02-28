@@ -99,6 +99,8 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("Swipe+Swipe Auto", DriveCommands.followPath(drive, "Swipe+Swipe Auto"));
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
+    NamedCommands.registerCommand("fullSendCommand6Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
     NamedCommands.registerCommand("toggleTargeting", 
         TurretCommands.toggleTargeting(rotator, pitch));
     NamedCommands.registerCommand("targetingIsOnCommand", 
