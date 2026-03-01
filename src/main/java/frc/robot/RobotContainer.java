@@ -88,9 +88,24 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Choices", autoChooser);
     configureBindings();
 
+    // Try to get alliance at startup (may be empty if FMS hasn't assigned yet)
     alliance = DriverStation.getAlliance();
-    rotator.setAlliance(alliance);
-}
+    if (alliance.isPresent()) {
+      rotator.setAlliance(alliance);
+    }
+  }
+
+  // Checks if the alliance has been assigned by the FMS and updates subsystems if it has changed.
+  // We call this in disabledPeriodic, autonomousInit, and teleopInit to ensure we catch the alliance assignment from the FMS.
+  public void checkAndUpdateAlliance() {
+    Optional<DriverStation.Alliance> currentAlliance = DriverStation.getAlliance();
+    // Update if we now have an alliance and either didn't before, or it changed
+    if (currentAlliance.isPresent() && !currentAlliance.equals(alliance)) {
+      alliance = currentAlliance;
+      rotator.setAlliance(alliance);
+      // Add any other subsystems that need alliance info here
+    }
+  }
 
 private void registerNamedCommands() {
     NamedCommands.registerCommand("path", DriveCommands.followPath(drive, "Example"));
@@ -98,13 +113,21 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("AbbyAuto1", DriveCommands.followPath(drive, "AbbyAuto1"));
     NamedCommands.registerCommand("Swipe+Swipe Auto", DriveCommands.followPath(drive, "Swipe+Swipe Auto"));
     NamedCommands.registerCommand("fullSendCommand", 
-        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(5.0));
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
+    NamedCommands.registerCommand("fullSendCommand6Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
     NamedCommands.registerCommand("toggleTargeting", 
         TurretCommands.toggleTargeting(rotator, pitch));
+    NamedCommands.registerCommand("targetingIsOnCommand", 
+        TurretCommands.targetingIsOnCommand(rotator, pitch));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
     NamedCommands.registerCommand("autoDeployIntake", 
-        IntakeCommands.intakeDeployCommand(intake));
+        IntakeCommands.autoDeployIntake(intake));
+    NamedCommands.registerCommand("autoUndeployIntake", 
+        IntakeCommands.autoUndeployIntake(intake));
+    NamedCommands.registerCommand("autoRunIntake", 
+        IntakeCommands.autoRunIntake(intake).withTimeout(3.0));
         
 }
   

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.0,
-        "y": 7.379643366619116
+        "x": 0.3692650602409637,
+        "y": 0.669265060240964
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5769900142653355,
-        "y": 7.263195435092724
+        "x": 1.0249277108433734,
+        "y": 1.2375060240963864
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "EndofOutpost1"
     },
     {
       "anchor": {
-        "x": 2.0465049928673325,
-        "y": 5.788188302425108
+        "x": 1.7243012048192772,
+        "y": 1.6090481927710845
       },
       "prevControl": {
-        "x": 2.162952924393723,
-        "y": 6.486875891583452
+        "x": 1.0904939759036143,
+        "y": 1.2593614457831324
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndOfAbbyPath1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.83765295427837
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "AbbyPaths",
+  "folder": "Outpost",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

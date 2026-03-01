@@ -14,7 +14,7 @@ import frc.robot.subsystems.drive.Drive;
 public class Pitch extends SubsystemBase{
   private double actuatorValue = 0.2; //minimum control value for the linear actuator
   private Servo linA1, linA2;
-  private boolean isAutoPitched = false;
+  public boolean isAutoPitched = false;
   private Drive drive;
   private Rotator rotator;
   private double pitchCoefficient = Units.feetToMeters(1.05);
