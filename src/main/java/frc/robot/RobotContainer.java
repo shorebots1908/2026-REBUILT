@@ -16,7 +16,6 @@ import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.turret.Feeder;
-import frc.robot.subsystems.turret.Pitch;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Spindexer;
@@ -58,7 +57,7 @@ public class RobotContainer {
   private final Shooter shooter;
   private final Vision vision;
   private final Feeder feeder;
-  private final Pitch pitch;
+  //private final Pitch pitch;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -78,10 +77,10 @@ public class RobotContainer {
     led = new LED(intake);
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
-    shooter = new Shooter();
+    shooter = new Shooter(rotator, drive);
     vision = initVision();
     feeder = new Feeder();
-    pitch = new Pitch(drive, rotator);
+    //pitch = new Pitch(drive, rotator);
     
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -117,9 +116,9 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
     NamedCommands.registerCommand("toggleTargeting", 
-        TurretCommands.toggleTargeting(rotator, pitch));
+        TurretCommands.toggleTargeting(rotator, shooter));
     NamedCommands.registerCommand("targetingIsOnCommand", 
-        TurretCommands.targetingIsOnCommand(rotator, pitch));
+        TurretCommands.targetingIsOnCommand(rotator, shooter));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
     NamedCommands.registerCommand("autoDeployIntake", 
@@ -187,21 +186,21 @@ private void registerNamedCommands() {
       )
     );
 
-    pitch.setDefaultCommand(TurretCommands.defaultPitchCommand(pitch));
+    //pitch.setDefaultCommand(TurretCommands.defaultPitchCommand(pitch));
 
     player1.rightStick().onTrue(
-      TurretCommands.toggleTargeting(rotator, pitch)
+      TurretCommands.toggleTargeting(rotator, shooter)
     );
 
-    player2.povUp().onTrue(
-      Commands.runOnce(() -> {pitch.increasePitch(0.05);}, pitch)
-    );
-    player2.povDown().onTrue(
-      Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
-    );
-    player2.leftBumper().whileTrue(
-      Commands.run(() -> {pitch.passingPitch();}, pitch)
-    );
+    // player2.povUp().onTrue(
+    //   Commands.runOnce(() -> {pitch.increasePitch(0.05);}, pitch)
+    // );
+    // player2.povDown().onTrue(
+    //   Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
+    // );
+    // player2.leftBumper().whileTrue(
+    //   Commands.run(() -> {pitch.passingPitch();}, pitch)
+    // );
     // intake.setDefaultCommand(
     //   IntakeCommands.deployIntakeOpenloop(() -> player2.getLeftY(), 
     //   intake)

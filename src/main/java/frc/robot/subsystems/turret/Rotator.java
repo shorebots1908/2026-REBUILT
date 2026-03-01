@@ -42,6 +42,7 @@ public class Rotator extends SubsystemBase {
   private Translation2d currentTarget = new Translation2d();
   private boolean outsideTeamZone = false;
   private double deadZoneSwitchRotation;
+  private double estimatedFlightTime = 0.0;
 
     public Rotator() {
       rotatorInit();
@@ -177,6 +178,13 @@ public class Rotator extends SubsystemBase {
     return currentTarget;
   }
 
+  public double targetDistance() {
+    return currentTarget
+      .getDistance(drive.getPose()
+        .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
+        .getTranslation());
+  }
+
   public boolean getOutsideTeamZone() {
     return outsideTeamZone;
   }
@@ -224,6 +232,9 @@ public class Rotator extends SubsystemBase {
       Rotation2d turretFieldRelativeRotation = (robotPose
           .getRotation())
         .plus(turretZeroOffset);
+
+      //calculate approximate flight time
+      estimatedFlightTime = (targetDistance() * timeCoefficient) + timeIntercept;
       
       //DEBUG
       SmartDashboard.putNumber("turret field relative rotation", turretFieldRelativeRotation.getDegrees());

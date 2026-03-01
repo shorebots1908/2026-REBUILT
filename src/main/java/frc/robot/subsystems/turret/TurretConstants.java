@@ -14,7 +14,7 @@ public class TurretConstants {
     public static final int pitchChannel2 = 1;
     public static final double spinnerDefaultSpeed = 1.0;
     public static final double feederSpeed = 0.6;
-    public static final double shooterSpeed = -0.55; //was -0.7
+    public static final double shooterSpeed = -0.8; //was -0.7
     public static final double shooterAccelerationThreshold = 0.1;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
