@@ -35,26 +35,24 @@ public class TurretCommands {
     );
   }
 
-  public static Command defaultPitchCommand(Pitch pitch) {
-    return Commands.run(() -> {
-      pitch.defaultPitchMethod();
-    }, 
-    pitch);
-  }
+  // public static Command defaultPitchCommand(Pitch pitch) {
+  //   return Commands.run(() -> {
+  //     pitch.defaultPitchMethod();
+  //   }, 
+  //   pitch);
+  // }
 
-  public static Command toggleTargeting(Rotator rotator, Pitch pitch) {
+  public static Command toggleTargeting(Rotator rotator, Shooter shooter) {
     return Commands.runOnce(() -> {
         rotator.toggleOpenClosedLoop();
-        pitch.toggleIsAutoPitched();
       }, 
       rotator
     );
   }
 
-  public static Command targetingIsOnCommand(Rotator rotator, Pitch pitch) {
+  public static Command targetingIsOnCommand(Rotator rotator, Shooter shooter) {
     return Commands.runOnce(() -> {
         rotator.startClosedLoop();
-        pitch.setIsAutoPitched(true);
     },
     rotator
     );

@@ -235,6 +235,8 @@ public class Rotator extends SubsystemBase {
 
       //calculate approximate flight time
       estimatedFlightTime = (targetDistance() * timeCoefficient) + timeIntercept;
+      Translation2d estimatedDeviation = new Translation2d(estimatedFlightTime * drive.getChassisSpeeds().vxMetersPerSecond, estimatedFlightTime * drive.getChassisSpeeds().vyMetersPerSecond);
+      
       
       //DEBUG
       SmartDashboard.putNumber("turret field relative rotation", turretFieldRelativeRotation.getDegrees());

@@ -8,6 +8,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.turret.Rotator;
 
 
 public class Shooter extends SubsystemBase{
@@ -15,9 +17,14 @@ public class Shooter extends SubsystemBase{
   private double shooterAccelerationThreshold;
   private LinearFilter accelerationFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
   private double filteredAcceleration = 0.0;
+  private Rotator rotator;
+  private Drive drive;
+  private double calculatedPower = 0.0;
 
-  public Shooter() {
+  public Shooter(Rotator _rotator, Drive _drive) {
     shooterMotor = new TalonFX(shooterID);
+    rotator = _rotator;
+    drive = _drive;
     this.shooterAccelerationThreshold = TurretConstants.shooterAccelerationThreshold;
   }
 
@@ -37,6 +44,17 @@ public class Shooter extends SubsystemBase{
 
   public void stopShooter() {
     shooterMotor.stopMotor();
+  }
+
+  public double calculatePower() {
+    if(rotator.getOutsideTeamZone()) {
+      return passingShooterPower;
+    }
+    else {
+      double targetDistance = rotator.targetDistance();
+      calculatedPower = Math.min(Math.max((-(targetDistance - shooterDistanceIntercept) / shooterDistanceCoefficient), -1.0), -0.2);
+      return calculatedPower;
+    }
   }
 
   public double getSpeed() {

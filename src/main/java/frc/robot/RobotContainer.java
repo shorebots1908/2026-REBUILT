@@ -115,12 +115,14 @@ private void registerNamedCommands() {
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
+    NamedCommands.registerCommand("fullSendCommandNoTimeout", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator));
     NamedCommands.registerCommand("toggleTargeting", 
         TurretCommands.toggleTargeting(rotator, shooter));
     NamedCommands.registerCommand("targetingIsOnCommand", 
         TurretCommands.targetingIsOnCommand(rotator, shooter));
     NamedCommands.registerCommand("intakeRunCommand", 
-        IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
+        IntakeCommands.intakeRunCommand(intake).withTimeout(3.0));
     NamedCommands.registerCommand("autoDeployIntake", 
         IntakeCommands.autoDeployIntake(intake));
     NamedCommands.registerCommand("autoUndeployIntake", 

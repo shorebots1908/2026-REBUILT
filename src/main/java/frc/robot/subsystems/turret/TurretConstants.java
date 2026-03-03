@@ -33,7 +33,14 @@ public class TurretConstants {
     public static final double rotatorMinLimit = 0;
     public static final double rotatorMaxLimit = 0.75;
     public static final boolean rotatorContinuousWrap = false;
-    public static final double pitchCoefficientFeet = 1.05; //increase to make distance factor into pitch more
-    public static final double pitchInterceptFeet = 9.5; //reduce to make pitch response start closer to target
-    public static final double passingPitchHeight = 0.2; //current measurements indicate greatest distance at 0.6. //editing to 0.0 for wk0 safety purposes
-}   
+    //public static final double pitchCoefficientFeet = 1.05; //increase to make distance factor into pitch more
+    //public static final double pitchInterceptFeet = 9.5; //reduce to make pitch response start closer to target
+    //public static final double passingPitchHeight = 0.2; //current measurements indicate greatest distance at 0.6. //editing to 0.0 for wk0 safety purposes
+    public static final double shooterDistanceCoefficient = 9.125;
+    public static final double shooterDistanceIntercept = -1.18;
+    public static final double passingShooterPower = -0.4;
+    public static final double timeCoefficient = 0.197;
+    public static final double timeIntercept = 0.795;
+
+  }   
+

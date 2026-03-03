@@ -76,7 +76,7 @@ public class Pitch extends SubsystemBase{
       double targetPitchFactor = Math.min(Math.max((((targetDistance - pitchIntercept) / pitchCoefficient)/10.0 + 0.1), 0.2), 0.8);
       SmartDashboard.putNumber("ClosedLoop PitchFactor", targetPitchFactor);
       if(rotator.getOutsideTeamZone()){
-        setPitch(passingPitchHeight);
+        setPitch(0);
       }
       else{
         setPitch(targetPitchFactor);
