@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.09453637660485,
-        "y": 3.925021398002854
+        "x": 0.82,
+        "y": 2.99
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6416833095577745,
-        "y": 5.956390870185448
+        "x": 1.8199999999999998,
+        "y": 2.99
       },
       "isLocked": false,
-      "linkedName": "EndofAbbyPath3"
+      "linkedName": "EndofOutpostClimb"
     },
     {
       "anchor": {
-        "x": 1.2313694721825963,
-        "y": 6.046961483594864
+        "x": 4.0,
+        "y": 6.0
       },
       "prevControl": {
-        "x": 2.654621968616262,
-        "y": 5.956390870185448
+        "x": 3.0,
+        "y": 6.0
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.07595464722723
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "AbbyPaths",
+  "folder": "Outpost+Climb",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

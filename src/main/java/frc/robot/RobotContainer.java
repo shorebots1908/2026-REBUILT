@@ -77,7 +77,7 @@ public class RobotContainer {
     led = new LED(intake);
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
-    shooter = new Shooter(rotator, drive);
+    shooter = new Shooter(rotator);
     vision = initVision();
     feeder = new Feeder();
     //pitch = new Pitch(drive, rotator);
@@ -145,8 +145,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> -player1.getLeftY(), //drive.isShooting() ? -0.87 * player1.getLeftY() : -player1.getLeftY(), 
-      () -> -player1.getLeftX(), //drive.isShooting() ? -0.87 * player1.getLeftX() : -player1.getLeftX(), 
+      () -> drive.isShooting() ? -0.87 * player1.getLeftY() : -player1.getLeftY(), 
+      () -> drive.isShooting() ? -0.87 * player1.getLeftX() : -player1.getLeftX(), 
       () -> -player1.getRightX())
     );
 
@@ -161,6 +161,8 @@ private void registerNamedCommands() {
     //Intake Default Command function has been implemented inside the subsystem's periodic function.
     intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
+    shooter.setDefaultCommand(TurretCommands.primeShooter(shooter));
+
     player1.a()
       .onTrue(
         IntakeCommands.intakeRunCommand(intake)
@@ -171,11 +173,11 @@ private void registerNamedCommands() {
         IntakeCommands.intakeDeployCommand(intake)
       );
 
-    player1.rightBumper()
-      .whileTrue(
-        Commands.run(() -> shooter.runShooter(), shooter)
-          .finallyDo(() -> shooter.stopShooter())
-      );
+    // player1.rightBumper()
+    //   .whileTrue(
+    //     Commands.run(() -> shooter.runShooter(), shooter)
+    //       .finallyDo(() -> shooter.stopShooter())
+    //   );
       
     player1.leftBumper()
       .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)

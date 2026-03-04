@@ -3,9 +3,11 @@
   "robotLength": 0.75,
   "holonomicMode": true,
   "pathFolders": [
-    "AbbyPaths",
-    "Swipe+Depot",
+    "ClimbPaths",
+    "Outpost+Climb",
     "Outpost",
+    "Swipe+Depot",
+    "Swipe+Outpost",
     "Swipe+Swipe"
   ],
   "autoFolders": [],

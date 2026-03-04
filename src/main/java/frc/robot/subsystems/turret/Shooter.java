@@ -3,7 +3,10 @@ package frc.robot.subsystems.turret;
 import static frc.robot.subsystems.turret.TurretConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,18 +17,33 @@ import frc.robot.subsystems.turret.Rotator;
 
 public class Shooter extends SubsystemBase{
   private TalonFX shooterMotor;
+  //private Talon shooterMotor2;
   private double shooterAccelerationThreshold;
   private LinearFilter accelerationFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
   private double filteredAcceleration = 0.0;
   private Rotator rotator;
-  private Drive drive;
   private double calculatedPower = 0.0;
 
-  public Shooter(Rotator _rotator, Drive _drive) {
+
+  public Shooter(Rotator _rotator) {
     shooterMotor = new TalonFX(shooterID);
+    //shooterMotor2 = new TalonFX(shooterID2);
     rotator = _rotator;
-    drive = _drive;
     this.shooterAccelerationThreshold = TurretConstants.shooterAccelerationThreshold;
+    var motorConfig1 = new TalonFXConfiguration();
+    var motorOutputConfig1 = motorConfig1.MotorOutput;
+    motorOutputConfig1.Inverted = InvertedValue.valueOf(1);
+    var motorConfig2 = new TalonFXConfiguration();
+    var motorOutputConfig2 = motorConfig2.MotorOutput;
+    motorOutputConfig2.Inverted = InvertedValue.valueOf(0);
+    if(shooterMotorInversionSwapped) {
+      shooterMotor.getConfigurator().apply(motorConfig1);
+      //shooterMotor2.getConfigurator().apply(motorConfig2);
+    }
+    else {
+      shooterMotor.getConfigurator().apply(motorConfig2);
+      //shooterMotor2.getConfigurator().apply(motorConfig1);
+    }
   }
 
   public double getAccelerationThreshold() {
@@ -34,11 +52,13 @@ public class Shooter extends SubsystemBase{
 
   public void runShooter(double speed){
     shooterMotor.set(speed);
+    //shooterMotor2.set(speed);
     runFilter();
   }
 
   public void runShooter() {
     shooterMotor.set(shooterSpeed);
+   // shooterMotor2.set(shooterSpeed);
     runFilter();
   }
 
@@ -77,6 +97,11 @@ public class Shooter extends SubsystemBase{
   public void periodic() {
     
     SmartDashboard.putNumber("Filtered Shooter Acceleration", filteredAcceleration);
+    //SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
+  }
+
+  public void primeShooter(){
+    shooterMotor.set(shooterPrespinPower);
   }
   
 }

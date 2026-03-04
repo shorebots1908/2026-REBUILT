@@ -8,6 +8,7 @@ import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -214,12 +215,19 @@ public class Rotator extends SubsystemBase {
 
       currentTarget = determineTarget();
 
+      //calculate approximate flight time
+      estimatedFlightTime = (targetDistance() * timeCoefficient) + timeIntercept;
+      ChassisSpeeds fieldRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(drive.getChassisSpeeds(), drive.getPose().getRotation());
+      Translation2d estimatedDeviation = new Translation2d(estimatedFlightTime * fieldRelativeSpeeds.vxMetersPerSecond, estimatedFlightTime * fieldRelativeSpeeds.vyMetersPerSecond);
+      
+
       //Calculate what the target parameter for the closedloop control should be
       //first, get the target field angle relative to the turret center
       //DEBUG
       SmartDashboard.putString("turret target coordinate", determineTarget().toString());
       Rotation2d targetTurretRelativeAngle = (
-        currentTarget //constant. 
+        currentTarget //constant.
+        .minus(estimatedDeviation) 
         .minus(robotPose
           .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
           .getTranslation())) //get only the translation component of the joint robot and turret pose
@@ -233,9 +241,6 @@ public class Rotator extends SubsystemBase {
           .getRotation())
         .plus(turretZeroOffset);
 
-      //calculate approximate flight time
-      estimatedFlightTime = (targetDistance() * timeCoefficient) + timeIntercept;
-      Translation2d estimatedDeviation = new Translation2d(estimatedFlightTime * drive.getChassisSpeeds().vxMetersPerSecond, estimatedFlightTime * drive.getChassisSpeeds().vyMetersPerSecond);
       
       
       //DEBUG

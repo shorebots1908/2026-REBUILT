@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 4.0,
-        "y": 7.379643366619116
+        "y": 0.680192771084337
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5769900142653355,
-        "y": 7.263195435092724
+        "x": 2.052132530120482,
+        "y": 0.702048192771084
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.0465049928673325,
-        "y": 5.788188302425108
+        "x": 0.4239036144578311,
+        "y": 0.680192771084337
       },
       "prevControl": {
-        "x": 2.162952924393723,
-        "y": 6.486875891583452
+        "x": 1.423903614457831,
+        "y": 0.6801927710843368
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndOfAbbyPath1"
+      "linkedName": "EndofSwipe+Outpost3"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -35.83765295427837
+    "velocity": 0.0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "AbbyPaths",
+  "folder": "Swipe+Outpost",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 180.0
+    "velocity": 0.75,
+    "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
