@@ -35,26 +35,28 @@ public class TurretCommands {
     );
   }
 
-  public static Command defaultPitchCommand(Pitch pitch) {
-    return Commands.run(() -> {
-      pitch.defaultPitchMethod();
-    }, 
-    pitch);
+  public static Command primeShooter(Shooter shooter){
+    return Commands.run(() -> shooter.primeShooter(), shooter);
   }
 
-  public static Command toggleTargeting(Rotator rotator, Pitch pitch) {
+  // public static Command defaultPitchCommand(Pitch pitch) {
+  //   return Commands.run(() -> {
+  //     pitch.defaultPitchMethod();
+  //   }, 
+  //   pitch);
+  // }
+
+  public static Command toggleTargeting(Rotator rotator, Shooter shooter) {
     return Commands.runOnce(() -> {
         rotator.toggleOpenClosedLoop();
-        pitch.toggleIsAutoPitched();
       }, 
       rotator
     );
   }
 
-  public static Command targetingIsOnCommand(Rotator rotator, Pitch pitch) {
+  public static Command targetingIsOnCommand(Rotator rotator, Shooter shooter) {
     return Commands.runOnce(() -> {
         rotator.startClosedLoop();
-        pitch.setIsAutoPitched(true);
     },
     rotator
     );
@@ -92,25 +94,24 @@ public class TurretCommands {
 
   public static Command fullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
     return Commands.run(
-      () -> {shooter.runShooter();
-      //rotator.setShooting(true);
+      () -> {shooter.runShooter(shooter.calculatePower());
+      rotator.setShooting(true);
     }, shooter
     ).alongWith(Commands.run(
-      () -> {if(shooter.getFilteredAcceleration() > -shooter.getAccelerationThreshold() 
-          && shooter.getFilteredAcceleration() < shooter.getAccelerationThreshold() 
+      () -> {if(Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold() 
           && rotator.isAligned()) {
         feeder.runFeeder();
       }}, feeder)
     ).alongWith(Commands.runOnce(() -> spindexer.setClockwise(true), spindexer
     ).andThen(Commands.run(() -> {
-      if(shooter.getFilteredAcceleration() > -shooter.getAccelerationThreshold()) {
+      if(Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold()) {
         spindexer.setRunning(true);
       }
     }, spindexer))).finallyDo(() -> {
       shooter.stopShooter();
       feeder.stopFeeder();
       spindexer.setRunning(false);
-      //rotator.setShooting(false);
+      rotator.setShooting(false);
     });
   }
 }

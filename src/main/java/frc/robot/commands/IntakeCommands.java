@@ -20,6 +20,21 @@ public class IntakeCommands {
     );
   }
 
+  public static Command autoDeployAndRunIntake(Intake intake) {
+    return Commands.runEnd(
+      () -> {intake.deployIntake();
+            intake.runIntake();
+      },
+      () -> {
+        intake.stopIntake();
+        intake.stopAtBottom();
+        intake.setIsRunning(false);
+        intake.setIsUp(false);
+      },
+      intake
+      ).until(intake::isDeployed);
+  }
+
   public static Command intakeDeployCommand(Intake intake) {
      return Commands.runOnce(
        () -> {intake.toggleIsUp();}, intake
@@ -59,6 +74,14 @@ public static Command autoRunIntake(Intake intake) {
       () -> {intake.runIntake();}, 
       () -> {intake.stopIntake(); 
         intake.setIsRunning(false);}, 
+      intake);
+  }
+
+public static Command autoStopIntake(Intake intake) {
+    return Commands.runEnd(
+      () -> {intake.stopIntake();}, 
+      () -> {intake.runIntake(); 
+        intake.setIsRunning(true);}, 
       intake);
   }
 

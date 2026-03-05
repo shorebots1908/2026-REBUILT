@@ -16,7 +16,6 @@ import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.turret.Feeder;
-import frc.robot.subsystems.turret.Pitch;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Spindexer;
@@ -58,7 +57,7 @@ public class RobotContainer {
   private final Shooter shooter;
   private final Vision vision;
   private final Feeder feeder;
-  private final Pitch pitch;
+  //private final Pitch pitch;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -78,10 +77,10 @@ public class RobotContainer {
     led = new LED(intake);
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
-    shooter = new Shooter();
+    shooter = new Shooter(rotator);
     vision = initVision();
     feeder = new Feeder();
-    pitch = new Pitch(drive, rotator);
+    //pitch = new Pitch(drive, rotator);
     
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -116,18 +115,27 @@ private void registerNamedCommands() {
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
+    NamedCommands.registerCommand("fullSendCommandNoTimeout", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator));
     NamedCommands.registerCommand("toggleTargeting", 
-        TurretCommands.toggleTargeting(rotator, pitch));
+        TurretCommands.toggleTargeting(rotator, shooter));
     NamedCommands.registerCommand("targetingIsOnCommand", 
-        TurretCommands.targetingIsOnCommand(rotator, pitch));
+        TurretCommands.targetingIsOnCommand(rotator, shooter));
     NamedCommands.registerCommand("intakeRunCommand", 
-        IntakeCommands.intakeRunCommand(intake).withTimeout(5.0));
+        IntakeCommands.intakeRunCommand(intake).withTimeout(3.0));
     NamedCommands.registerCommand("autoDeployIntake", 
         IntakeCommands.autoDeployIntake(intake));
     NamedCommands.registerCommand("autoUndeployIntake", 
         IntakeCommands.autoUndeployIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
-        IntakeCommands.autoRunIntake(intake).withTimeout(3.0));
+        IntakeCommands.autoRunIntake(intake).withTimeout(5.5));
+    NamedCommands.registerCommand("autoDeployAndRunIntake", 
+        IntakeCommands.autoDeployAndRunIntake(intake));
+    NamedCommands.registerCommand("climbUp", 
+        ClimbCommands.climbUp(climb).withTimeout(2));
+    NamedCommands.registerCommand("climbDown", 
+        ClimbCommands.climbDown(climb).withTimeout(2));
+    
         
 }
   
@@ -144,8 +152,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> -player1.getLeftY(), //drive.isShooting() ? -0.87 * player1.getLeftY() : -player1.getLeftY(), 
-      () -> -player1.getLeftX(), //drive.isShooting() ? -0.87 * player1.getLeftX() : -player1.getLeftX(), 
+      () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+      () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
       () -> -player1.getRightX())
     );
 
@@ -160,6 +168,8 @@ private void registerNamedCommands() {
     //Intake Default Command function has been implemented inside the subsystem's periodic function.
     intake.setDefaultCommand(IntakeCommands.intakeDefaultCommand(intake));
 
+    shooter.setDefaultCommand(TurretCommands.primeShooter(shooter));
+
     player1.a()
       .onTrue(
         IntakeCommands.intakeRunCommand(intake)
@@ -170,11 +180,11 @@ private void registerNamedCommands() {
         IntakeCommands.intakeDeployCommand(intake)
       );
 
-    player1.rightBumper()
-      .whileTrue(
-        Commands.run(() -> shooter.runShooter(), shooter)
-          .finallyDo(() -> shooter.stopShooter())
-      );
+    // player1.rightBumper()
+    //   .whileTrue(
+    //     Commands.run(() -> shooter.runShooter(), shooter)
+    //       .finallyDo(() -> shooter.stopShooter())
+    //   );
       
     player1.leftBumper()
       .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
@@ -187,21 +197,37 @@ private void registerNamedCommands() {
       )
     );
 
-    pitch.setDefaultCommand(TurretCommands.defaultPitchCommand(pitch));
+    //pitch.setDefaultCommand(TurretCommands.defaultPitchCommand(pitch));
 
     player1.rightStick().onTrue(
-      TurretCommands.toggleTargeting(rotator, pitch)
+      TurretCommands.toggleTargeting(rotator, shooter)
     );
 
-    player2.povUp().onTrue(
-      Commands.runOnce(() -> {pitch.increasePitch(0.05);}, pitch)
+    player2.rightBumper()
+      .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
     );
-    player2.povDown().onTrue(
-      Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
+
+    rotator.setDefaultCommand(
+      TurretCommands.openLoopRotate(
+        rotator, 
+        () -> -player2.getRightY()
+      )
     );
-    player2.leftBumper().whileTrue(
-      Commands.run(() -> {pitch.passingPitch();}, pitch)
-    );
+    player2.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    player2.y().whileTrue(TurretCommands.spindexReverseDirectionCommand(spindexer));
+
+    player2.a()
+      .onTrue(
+        IntakeCommands.intakeRunCommand(intake)
+      );
+    
+    player2.b()
+      .onTrue(
+        IntakeCommands.intakeDeployCommand(intake)
+      );
+    player2.povUp().whileTrue(ClimbCommands.climbUp(climb));
+    player2.povDown().whileTrue(ClimbCommands.climbDown(climb));
+    
     // intake.setDefaultCommand(
     //   IntakeCommands.deployIntakeOpenloop(() -> player2.getLeftY(), 
     //   intake)

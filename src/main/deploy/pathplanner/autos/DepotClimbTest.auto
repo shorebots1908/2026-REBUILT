@@ -7,37 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AbbyPath1"
+            "pathName": "DepotClimbPath"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "fullSendCommand"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": []
+            "name": "climbUp"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "AbbyPath3"
+            "pathName": "DepotSideClimb"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "AbbyPath2"
+            "waitTime": 2.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "climbDown"
           }
         }
       ]

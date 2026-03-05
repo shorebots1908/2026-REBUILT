@@ -5,9 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "autoDeployIntake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Depot1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoDeployIntake"
+                }
+              }
+            ]
           }
         },
         {
@@ -17,7 +30,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Swipe1"
+                  "pathName": "Swipe+Depot2"
                 }
               },
               {
@@ -30,15 +43,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Swipe+Swipe2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Depot3"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "targetingIsOnCommand"
+            "name": "autoStopIntake"
           }
         },
         {
@@ -48,7 +68,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Swipe3"
+                  "pathName": "Swipe+Depot4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "fullSendCommandNoTimeout"
                 }
               },
               {
@@ -58,12 +84,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Swipe+Swipe4"
           }
         }
       ]
