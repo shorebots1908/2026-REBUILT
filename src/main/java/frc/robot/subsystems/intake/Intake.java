@@ -122,7 +122,7 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-      oneButtonDeploy(); 
+      //oneButtonDeploy(); 
       SmartDashboard.putNumber("Intake Encoder", deploymentIntake.getPosition().getValueAsDouble());
     }
 }

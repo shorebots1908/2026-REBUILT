@@ -128,7 +128,14 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoUndeployIntake", 
         IntakeCommands.autoUndeployIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
-        IntakeCommands.autoRunIntake(intake).withTimeout(3.0));
+        IntakeCommands.autoRunIntake(intake).withTimeout(5.5));
+    NamedCommands.registerCommand("autoDeployAndRunIntake", 
+        IntakeCommands.autoDeployAndRunIntake(intake));
+    NamedCommands.registerCommand("climbUp", 
+        ClimbCommands.climbUp(climb).withTimeout(2));
+    NamedCommands.registerCommand("climbDown", 
+        ClimbCommands.climbDown(climb).withTimeout(2));
+    
         
 }
   
@@ -145,8 +152,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.87 * player1.getLeftY() : -player1.getLeftY(), 
-      () -> drive.isShooting() ? -0.87 * player1.getLeftX() : -player1.getLeftX(), 
+      () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+      () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
       () -> -player1.getRightX())
     );
 
@@ -196,15 +203,31 @@ private void registerNamedCommands() {
       TurretCommands.toggleTargeting(rotator, shooter)
     );
 
-    // player2.povUp().onTrue(
-    //   Commands.runOnce(() -> {pitch.increasePitch(0.05);}, pitch)
-    // );
-    // player2.povDown().onTrue(
-    //   Commands.runOnce(() -> {pitch.decreasePitch(0.05);}, pitch)
-    // );
-    // player2.leftBumper().whileTrue(
-    //   Commands.run(() -> {pitch.passingPitch();}, pitch)
-    // );
+    player2.rightBumper()
+      .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+    );
+
+    rotator.setDefaultCommand(
+      TurretCommands.openLoopRotate(
+        rotator, 
+        () -> -player2.getRightY()
+      )
+    );
+    player2.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    player2.y().whileTrue(TurretCommands.spindexReverseDirectionCommand(spindexer));
+
+    player2.a()
+      .onTrue(
+        IntakeCommands.intakeRunCommand(intake)
+      );
+    
+    player2.b()
+      .onTrue(
+        IntakeCommands.intakeDeployCommand(intake)
+      );
+    player2.povUp().whileTrue(ClimbCommands.climbUp(climb));
+    player2.povDown().whileTrue(ClimbCommands.climbDown(climb));
+    
     // intake.setDefaultCommand(
     //   IntakeCommands.deployIntakeOpenloop(() -> player2.getLeftY(), 
     //   intake)
