@@ -38,8 +38,8 @@ public class TurretConstants {
     //public static final double pitchCoefficientFeet = 1.05; //increase to make distance factor into pitch more
     //public static final double pitchInterceptFeet = 9.5; //reduce to make pitch response start closer to target
     //public static final double passingPitchHeight = 0.2; //current measurements indicate greatest distance at 0.6. //editing to 0.0 for wk0 safety purposes
-    public static final double shooterDistanceCoefficient = 8.65; // -- determining power relative to distance from target -- 9.125 is calculated value for target on ground 
-    public static final double shooterDistanceIntercept = -1.9; // -- determining starting amount that is adding to the power -- -1.18 is calculated value for target on ground
+    public static final double shooterDistanceCoefficient = 8.8; // -- determining power relative to distance from target -- 9.125 is calculated value for target on ground 
+    public static final double shooterDistanceIntercept = -2.1; // -- determining starting amount that is adding to the power -- -1.18 is calculated value for target on ground
     public static final double passingShooterPower = -0.6;
     public static final double timeCoefficient = 0.197; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less)
     public static final double timeIntercept = 0.795; // starting amount that we get from any thrown ball in terms of time -- used same as above ()

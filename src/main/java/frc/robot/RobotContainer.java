@@ -207,12 +207,12 @@ private void registerNamedCommands() {
       .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
     );
 
-    rotator.setDefaultCommand(
-      TurretCommands.openLoopRotate(
-        rotator, 
-        () -> -player2.getRightY()
-      )
-    );
+    // rotator.setDefaultCommand(
+    //   TurretCommands.openLoopRotate(
+    //     rotator, 
+    //     () -> -player2.getRightY()
+    //   )
+    // );
     player2.x().onTrue(TurretCommands.spindexCommand(spindexer));
     player2.y().whileTrue(TurretCommands.spindexReverseDirectionCommand(spindexer));
 

@@ -45,6 +45,9 @@ public class Rotator extends SubsystemBase {
   private double deadZoneSwitchRotation;
   private double estimatedFlightTime = 0.0;
 
+  private static final Translation2d BLUE_HUB = new Translation2d(4.636, 4.034);
+  private static final Translation2d RED_HUB  = new Translation2d(11.912, 4.034);
+
     public Rotator() {
       rotatorInit();
     }
@@ -83,24 +86,54 @@ public class Rotator extends SubsystemBase {
       deadZoneSwitchRotation = rotatorMaxLimit + ((1.0 - rotatorMaxLimit)/2.0);
     }
 
-    public void setAlliance(Optional<Alliance> _alliance){
-      alliance = _alliance;
-      if (alliance.isPresent() && alliance.get() == Alliance.Red){
-        goalPoint = new Translation2d(
-          (aprilTagLayout.getFieldLength() - targetPoint.getX()), 
-          targetPoint.getY()
-        );
-        upperTeamAreaPoint = new Translation2d(aprilTagLayout.getFieldLength() - teamAreaPoint.getX(), aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
-        lowerTeamAreaPoint = new Translation2d(aprilTagLayout.getFieldLength() - teamAreaPoint.getX(), teamAreaPoint.getY());
-        xTargetSwitchThreshold = aprilTagLayout.getFieldLength() - goalPoint.getX();
-      } 
-      else {
-        goalPoint = targetPoint;
-        upperTeamAreaPoint = new Translation2d(teamAreaPoint.getX(), aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
-        lowerTeamAreaPoint = teamAreaPoint;
-        xTargetSwitchThreshold = goalPoint.getX();
+      public void setAlliance(Optional<Alliance> _alliance) {
+        alliance = _alliance;
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+          goalPoint = RED_HUB;
+
+          upperTeamAreaPoint = new Translation2d(
+              aprilTagLayout.getFieldLength() - teamAreaPoint.getX(),
+              aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+
+          lowerTeamAreaPoint = new Translation2d(
+              aprilTagLayout.getFieldLength() - teamAreaPoint.getX(),
+              teamAreaPoint.getY());
+
+          xTargetSwitchThreshold = goalPoint.getX();
+        } else {
+          goalPoint = BLUE_HUB;
+
+          upperTeamAreaPoint = new Translation2d(
+              teamAreaPoint.getX(),
+              aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+
+          lowerTeamAreaPoint = teamAreaPoint;
+
+          xTargetSwitchThreshold = goalPoint.getX();
+        }
       }
-    }
+      // alliance = _alliance;
+      //  if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      //     goalPoint = RED_HUB;
+      //   } else {
+      //     goalPoint = BLUE_HUB;
+      // }
+      // if (alliance.isPresent() && alliance.get() == Alliance.Red){
+      //   goalPoint = new Translation2d(
+      //     (aprilTagLayout.getFieldLength() - targetPoint.getX()), 
+      //     targetPoint.getY()
+      //   );
+      //   upperTeamAreaPoint = new Translation2d(aprilTagLayout.getFieldLength() - teamAreaPoint.getX(), aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+      //   lowerTeamAreaPoint = new Translation2d(aprilTagLayout.getFieldLength() - teamAreaPoint.getX(), teamAreaPoint.getY());
+      //   xTargetSwitchThreshold = aprilTagLayout.getFieldLength() - goalPoint.getX();
+      // } 
+      // else {
+      //   goalPoint = targetPoint;
+      //   upperTeamAreaPoint = new Translation2d(teamAreaPoint.getX(), aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+      //   lowerTeamAreaPoint = teamAreaPoint;
+      //   xTargetSwitchThreshold = goalPoint.getX();
+      // }
 
     public boolean isAligned(){
       if (isClosedLoop){
