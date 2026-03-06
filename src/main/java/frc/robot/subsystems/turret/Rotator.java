@@ -88,16 +88,18 @@ public class Rotator extends SubsystemBase {
 
       public void setAlliance(Optional<Alliance> _alliance) {
         alliance = _alliance;
+        
+      SmartDashboard.putNumber("aprilTagLayout.getFieldLength()", aprilTagLayout.getFieldLength());
 
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
           goalPoint = RED_HUB;
 
           upperTeamAreaPoint = new Translation2d(
-              aprilTagLayout.getFieldLength() - teamAreaPoint.getX(),
-              aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+              fieldLength - teamAreaPoint.getX(),
+              fieldWidth - teamAreaPoint.getY());
 
           lowerTeamAreaPoint = new Translation2d(
-              aprilTagLayout.getFieldLength() - teamAreaPoint.getX(),
+              fieldLength - teamAreaPoint.getX(),
               teamAreaPoint.getY());
 
           xTargetSwitchThreshold = goalPoint.getX();
@@ -106,7 +108,7 @@ public class Rotator extends SubsystemBase {
 
           upperTeamAreaPoint = new Translation2d(
               teamAreaPoint.getX(),
-              aprilTagLayout.getFieldWidth() - teamAreaPoint.getY());
+              fieldWidth - teamAreaPoint.getY());
 
           lowerTeamAreaPoint = teamAreaPoint;
 

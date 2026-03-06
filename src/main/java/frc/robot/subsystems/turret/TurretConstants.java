@@ -17,13 +17,14 @@ public class TurretConstants {
     public static final double spinnerDefaultSpeed = 0.9; 
     public static final double feederSpeed = 0.6;
     public static final double shooterSpeed = -0.0; //was -0.7
-    public static final double shooterAccelerationThreshold = 0.1;
+    public static final double shooterAccelerationThreshold = 0.15;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
     public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
     public static final Translation2d targetPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(158.84));
-    public static final Translation2d teamAreaPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(50));
-    //public static final Translation2d  
+    public static final Translation2d teamAreaPoint = new Translation2d(Units.inchesToMeters(150.0), Units.inchesToMeters(90));
+    public static final double fieldLength = (Units.inchesToMeters(651.22));
+    public static final double fieldWidth = (Units.inchesToMeters(317.69));
     public static final Rotation2d turretZeroOffset = new Rotation2d(Units.degreesToRadians(0));
     public static final double rotatorP = 30.0; //was 35.0
     public static final double rotatorI = 1.0;
@@ -43,7 +44,7 @@ public class TurretConstants {
     public static final double passingShooterPower = -0.6;
     public static final double timeCoefficient = 0.197; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less)
     public static final double timeIntercept = 0.795; // starting amount that we get from any thrown ball in terms of time -- used same as above ()
-    public static final double shooterPrespinPower = -0.2; //was -0.4. changed because shots seemed to be overpowered
+    public static final double shooterPrespinPower = -0.35; //was -0.4. changed because shots seemed to be overpowered
     
   }   
 
