@@ -42,6 +42,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "fullSendCommand"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -64,6 +70,12 @@
           "type": "path",
           "data": {
             "pathName": "Swipe+Swipe4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fullSendCommandNoTimeout"
           }
         }
       ]

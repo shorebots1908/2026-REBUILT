@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Outpost1"
+                  "pathName": "SAFE OutpostSwipe1"
                 }
               },
               {
@@ -30,27 +30,28 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SAFE OutpostSwipe2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "targetingIsOnCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Swipe+Outpost2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "targetingIsOnCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fullSendCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Swipe+Outpost3"
+            "pathName": "SAFE OutpostSwipe3"
           }
         },
         {
