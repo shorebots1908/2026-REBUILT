@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Outpost1"
+                  "pathName": "Swipe1"
                 }
               },
               {
@@ -30,33 +30,53 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "targetingIsOnCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Swipe+Outpost2"
+            "pathName": "Swipe3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "targetingIsOnCommand"
+            "name": "fullSendCommand9Sec"
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "fullSendCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Swipe+Outpost3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fullSendCommandNoTimeout"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRunIntake"
+                }
+              }
+            ]
           }
         }
       ]

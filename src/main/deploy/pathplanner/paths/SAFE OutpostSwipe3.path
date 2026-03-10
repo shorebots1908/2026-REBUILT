@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.008192771084337,
-        "y": 7.400734939759036
+        "x": 4.0,
+        "y": 0.680192771084337
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7187228915662653,
-        "y": 7.204036144578313
+        "x": 2.4673855421686746,
+        "y": 0.6692650602409641
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartofSAFEOutpostSwipe"
     },
     {
       "anchor": {
-        "x": 2.740578313253012,
-        "y": 5.608590361445783
+        "x": 2.6968674698795176,
+        "y": 2.3084216867469887
       },
       "prevControl": {
-        "x": 2.7077951807228917,
-        "y": 6.701361445783132
+        "x": 2.7187228915662653,
+        "y": 0.7676144578313244
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofSwipe3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -41,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 90.0
+    "velocity": 0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "SAFE Swipe",
+  "folder": "SAFE OutpostSwipe",
   "idealStartingState": {
-    "velocity": 1.5,
+    "velocity": 0,
     "rotation": 0.0
   },
   "useDefaultConstraints": true

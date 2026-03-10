@@ -57,26 +57,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fullSendCommand6Sec"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoUndeployIntake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "fullSendCommandNoTimeout"
-                }
-              }
-            ]
+            "name": "fullSendCommandNoTimeout"
           }
         }
       ]

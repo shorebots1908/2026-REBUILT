@@ -115,6 +115,8 @@ private void registerNamedCommands() {
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
+    NamedCommands.registerCommand("fullSendCommand9Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(9.0));
     NamedCommands.registerCommand("fullSendCommandNoTimeout", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator));
     NamedCommands.registerCommand("toggleTargeting", 
@@ -152,8 +154,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
-      () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+      () -> drive.isShooting() ? -0.5 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+      () -> drive.isShooting() ? -0.5 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
       () -> -player1.getRightX())
     );
 
