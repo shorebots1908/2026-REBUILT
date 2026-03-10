@@ -233,13 +233,7 @@ public class Rotator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    /* TODO: break out different commands for calculating target point 
-     * based on different field positions and call them when the field position changes. 
-     * TODO: get flag boolean for if turret is rotating and off target (target deviation
-     * is above threshold.) If target deviation is above threshold, feeder should be 
-     * blocked from feeding balls into the shooter. 
-     * TODO: use drive odometry to get current vector and alter turret rotation accordingly
-     * based on distance and estimated flight time. 
+    /* /
      * TODO: break out functions for calculating aiming so that they can be easily called 
      * in both the rotator and the pitch controller, for more fine control of game pieces. 
      */

@@ -10,13 +10,13 @@ public class TurretConstants {
     public static final int spindexID = 28;
     public static final int feederID = 27;
     public static final int shooterID = 24;
-    //public static final int shooterID2 = 9; //motor for double motor shooter
-    public static final boolean shooterMotorInversionSwapped = false;
+    public static final int shooterID2 = 9; //motor for double motor shooter
+    public static final boolean shooterMotorInversionSwapped = true;
     public static final int pitchChannel1 = 0;
     public static final int pitchChannel2 = 1;
     public static final double spinnerDefaultSpeed = 0.9; 
     public static final double feederSpeed = 0.6;
-    public static final double shooterSpeed = -0.6; //was -0.7
+    public static final double shooterSpeed = -0.5; //was -0.7
     public static final double shooterAccelerationThreshold = 0.175;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;

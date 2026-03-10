@@ -5,13 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.TurretCommands;
 import frc.robot.commands.IntakeCommands;
-// import frc.robot.commands.ExampleCommand;
-// import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.LED.LED;
