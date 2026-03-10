@@ -102,4 +102,8 @@ public static Command autoStopIntake(Intake intake) {
       intake).until(
         intake::isUndeployed);
   }
+
+  public static Command intakeShake(Intake intake){
+    return Commands.run(() -> intake.shake(), intake);
+  }
 }

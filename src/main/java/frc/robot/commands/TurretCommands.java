@@ -114,4 +114,17 @@ public class TurretCommands {
       rotator.setShooting(false);
     });
   }
+
+  public static Command unjam(Spindexer spindexer, Feeder feeder){
+    return Commands.runOnce(
+      () -> {spindexer.setClockwise(false);
+        spindexer.setRunning(true);
+      }, 
+      spindexer)
+      .alongWith(Commands.run(() -> {feeder.reverseFeeder();}, feeder))
+      .finallyDo(
+        () -> {feeder.stopFeeder();
+        spindexer.setRunning(false);
+      spindexer.setClockwise(true);});
+  }
 }

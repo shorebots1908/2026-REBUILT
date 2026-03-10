@@ -161,7 +161,7 @@ private void registerNamedCommands() {
 
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
     player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
-    player1.y().onTrue(TurretCommands.spindexDirectionCommand(spindexer));
+    player1.y().whileTrue(TurretCommands.unjam(spindexer, feeder));
 
     // climber commands
     player1.povUp().whileTrue(ClimbCommands.climbUp(climb));
@@ -216,11 +216,11 @@ private void registerNamedCommands() {
     //   )
     // );
     player2.x().onTrue(TurretCommands.spindexCommand(spindexer));
-    player2.y().whileTrue(TurretCommands.spindexReverseDirectionCommand(spindexer));
+    player2.y().whileTrue(TurretCommands.unjam(spindexer, feeder));
 
     player2.a()
-      .onTrue(
-        IntakeCommands.intakeRunCommand(intake)
+      .whileTrue(
+        IntakeCommands.intakeShake(intake)
       );
     
     player2.b()

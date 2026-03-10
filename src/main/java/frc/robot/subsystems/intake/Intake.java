@@ -21,6 +21,8 @@ public class Intake extends SubsystemBase {
     private double faultedMaximum = 0.0;
     private boolean isRunning = false;
 
+    private boolean shakeForwardFlag = false;
+
     public Intake(){
         intake = new TalonFX(intakeID);
         deploymentIntake = new TalonFX(intakeDeployID);
@@ -101,12 +103,45 @@ public class Intake extends SubsystemBase {
       }
     }
 
+    public void shakeLift(){
+      if (isLifted()) {
+        deploymentIntake.stopMotor(); 
+        shakeForwardFlag = true;
+      }
+      else {
+        deploymentIntake.set(intakeDeploySpeed);
+      }
+    }
+
+    public void shakeLower(){
+      if (isDeployed()) {
+        deploymentIntake.stopMotor();
+        shakeForwardFlag = false;
+      }
+      else{
+        deploymentIntake.set(-intakeDeploySpeed);
+      }
+    }
+
+    public void shake(){
+      if (shakeForwardFlag) {
+        shakeLower();
+      }
+      else{
+        shakeLift();
+      }
+    }
+
     public boolean isDeployed() {
       return deploymentIntake.getPosition().getValueAsDouble() < (intakeDeployRange + deployRangeError);
     }
 
     public boolean isUndeployed() {
       return deploymentIntake.getPosition().getValueAsDouble() > (0 - deployRangeError);
+    }
+
+    public boolean isLifted(){
+      return deploymentIntake.getPosition().getValueAsDouble() > (intakeDeployRange * (1 - intakeLiftScale));
     }
 
     public void oneButtonDeploy(){

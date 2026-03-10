@@ -7,5 +7,5 @@ public class IntakeConstants {
   public static final double deployRangeError = 0.2;
   public static final double intakeDeploySpeed = -0.15;
   public static final double intakeSpeed = -0.75;
-
+  public static final double intakeLiftScale = 0.2;
 }
