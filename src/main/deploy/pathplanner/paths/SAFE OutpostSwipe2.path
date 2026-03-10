@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.789180722891565,
-        "y": 3.3246987951807228
+        "y": 2.87666265060241
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.7454698795180725,
-        "y": 0.6474096385542167
+        "y": 0.1993734939759042
       },
       "isLocked": false,
       "linkedName": "EndofSAFEOutpostSwipe1"

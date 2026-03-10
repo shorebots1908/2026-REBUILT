@@ -115,6 +115,8 @@ private void registerNamedCommands() {
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
+    NamedCommands.registerCommand("fullSendCommand9Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(9.0));
     NamedCommands.registerCommand("fullSendCommandNoTimeout", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator));
     NamedCommands.registerCommand("toggleTargeting", 

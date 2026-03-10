@@ -57,7 +57,26 @@
         {
           "type": "named",
           "data": {
-            "name": "fullSendCommandNoTimeout"
+            "name": "fullSendCommand9Sec"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRunIntake"
+                }
+              }
+            ]
           }
         }
       ]

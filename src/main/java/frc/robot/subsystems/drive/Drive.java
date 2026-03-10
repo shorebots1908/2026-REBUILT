@@ -239,6 +239,7 @@ public class Drive extends SubsystemBase {
     }
 
     SmartDashboard.putString("RobotPose", getPose().toString());
+    SmartDashboard.putBoolean("isShooting", isShooting);
 
   }
 
