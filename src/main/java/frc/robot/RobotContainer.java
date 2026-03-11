@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 
 import java.util.Optional;
 
@@ -188,6 +189,9 @@ private void registerNamedCommands() {
     player1.leftBumper()
       .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
       );
+    player1.rightBumper()
+      .whileTrue(TurretCommands.fullSendCommandOpen(shooter, feeder, spindexer, rotator)
+      );
 
     rotator.setDefaultCommand(
       TurretCommands.openLoopRotate(
@@ -202,8 +206,20 @@ private void registerNamedCommands() {
       TurretCommands.toggleTargeting(rotator, shooter)
     );
 
+    // player2.rightBumper()
+    //   .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+    // );
+
+    // rumble while shooting
     player2.rightBumper()
-      .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+    .whileTrue(
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+            .deadlineWith(
+                Commands.startEnd(
+                    () -> player2.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 1.0),
+                    () -> player2.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0)
+                )
+            )
     );
 
     // rotator.setDefaultCommand(

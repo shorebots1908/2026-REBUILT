@@ -115,6 +115,30 @@ public class TurretCommands {
     });
   }
 
+    public static Command fullSendCommandOpen(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
+    return Commands.run(
+      () -> {shooter.runShooter(-0.7);
+      rotator.setShooting(true);
+    }, shooter
+    ).alongWith(Commands.run(
+      () -> {if(Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold() 
+          && rotator.isAligned()) {
+        feeder.runFeeder();
+      }}, feeder)
+    ).alongWith(Commands.runOnce(() -> spindexer.setClockwise(true), spindexer
+    ).andThen(Commands.run(() -> {
+      if(Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold()) {
+        spindexer.setRunning(true);
+      }
+    }, spindexer))).finallyDo(() -> {
+      shooter.stopShooter();
+      feeder.stopFeeder();
+      spindexer.setRunning(false);
+      rotator.setShooting(false);
+    });
+  }
+
+
   public static Command unjam(Spindexer spindexer, Feeder feeder){
     return Commands.runOnce(
       () -> {spindexer.setClockwise(false);
