@@ -32,6 +32,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.Optional;
 
@@ -83,6 +85,7 @@ public class RobotContainer {
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Choices", autoChooser);
+    SmartDashboard.putString("AutoWinOverride", "");   // blank = use real game data
     configureBindings();
 
     // Try to get alliance at startup (may be empty if FMS hasn't assigned yet)
@@ -295,6 +298,48 @@ public Command getAutonomousCommand() {
       default:
         // Replayed robot, disable IO implementations
         return new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
+    }
+  }
+
+  // Check networktables after auto to see if our alliance won auto.  B=blue, R=red, blank=no FMS
+  // SmartDashboard key "AutoWinOverride" can be set to "B" or "R" to simulate without a FMS
+    public void checkAutoWinAndRumble() {
+    // Prefer the SmartDashboard override (for home practice); fall back to FMS data.
+    String override = SmartDashboard.getString("AutoWinOverride", "");
+    String gameData = (override != null && !override.isEmpty())
+        ? override
+        : DriverStation.getGameSpecificMessage();
+
+    if (gameData == null || gameData.isEmpty()) {
+      return;
+    }
+
+    // Read alliance directly rather than relying on the cached field
+    Optional<DriverStation.Alliance> currentAlliance = DriverStation.getAlliance();
+
+    boolean weWon = false;
+    switch (gameData.charAt(0)) {
+      case 'B':
+        weWon = currentAlliance.isPresent()
+            && currentAlliance.get() == DriverStation.Alliance.Blue;
+        break;
+      case 'R':
+        weWon = currentAlliance.isPresent()
+            && currentAlliance.get() == DriverStation.Alliance.Red;
+        break;
+      default:
+        return;
+    }
+
+    if (weWon) {
+      // Schedule aone time command: full rumble for 5 s, then stop.
+      Commands.sequence(
+          Commands.runOnce(() ->
+              player1.getHID().setRumble(RumbleType.kBothRumble, 1.0)),
+          new WaitCommand(3.0),
+          Commands.runOnce(() ->
+              player1.getHID().setRumble(RumbleType.kBothRumble, 0.0))
+      ).ignoringDisable(true).schedule();
     }
   }
 }
