@@ -132,16 +132,16 @@ private void registerNamedCommands() {
         IntakeCommands.autoUndeployIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
         IntakeCommands.autoRunIntake(intake).withTimeout(5.5));
-    NamedCommands.registerCommand("autoDeployAndRunIntake", 
-        IntakeCommands.autoDeployAndRunIntake(intake));
+    // NamedCommands.registerCommand("autoDeployAndRunIntake", 
+    //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 
         ClimbCommands.climbUp(climb).withTimeout(2));
     NamedCommands.registerCommand("climbDown", 
         ClimbCommands.climbDown(climb).withTimeout(2));
-    
-        
+    NamedCommands.registerCommand("autoDeployAndRunIntake",
+        IntakeCommands.autoDeployIntake(intake)
+        .andThen(IntakeCommands.autoRunIntake(intake).withTimeout(5.5)));
 }
-  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
