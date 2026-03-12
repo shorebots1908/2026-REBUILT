@@ -109,7 +109,7 @@ public class Intake extends SubsystemBase {
         shakeForwardFlag = true;
       }
       else {
-        deploymentIntake.set(intakeDeploySpeed);
+        deploymentIntake.set(-intakeDeploySpeed);
       }
     }
 
@@ -119,7 +119,7 @@ public class Intake extends SubsystemBase {
         shakeForwardFlag = false;
       }
       else{
-        deploymentIntake.set(-intakeDeploySpeed);
+        deploymentIntake.set(intakeDeploySpeed);
       }
     }
 
