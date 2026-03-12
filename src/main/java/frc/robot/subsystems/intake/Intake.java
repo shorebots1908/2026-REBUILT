@@ -5,7 +5,9 @@ import static frc.robot.subsystems.intake.IntakeConstants.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Intake extends SubsystemBase {
   public TalonFX intake;
@@ -31,6 +33,9 @@ public class Intake extends SubsystemBase {
           atLower = true;
           isUp = false;
         }
+        var motorConfig = new TalonFXConfiguration();
+        motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        deploymentIntake.getConfigurator().apply(motorConfig);
     }
 
     public void runIntake(double speed){
