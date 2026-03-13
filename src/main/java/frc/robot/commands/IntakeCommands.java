@@ -5,6 +5,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import frc.robot.subsystems.intake.Intake;
 
 public class IntakeCommands {
@@ -84,6 +85,7 @@ public static Command autoStopIntake(Intake intake) {
         intake.setIsRunning(true);}, 
       intake);
   }
+
 
   public static Command autoDeployIntake(Intake intake) {
     return Commands.runEnd(

@@ -18,8 +18,8 @@ public class Intake extends SubsystemBase {
     public boolean atLower = false;
     public double targetEncoderPosition = 0;
     public boolean isUp = true;
-    private boolean autoFlipped = false;
-    private boolean hasFaultedMaximum = false;
+    // private boolean autoFlipped = false;
+    // private boolean hasFaultedMaximum = false;
     private double faultedMaximum = 0.0;
     private boolean isRunning = false;
 
