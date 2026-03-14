@@ -65,6 +65,7 @@ public class Shooter extends SubsystemBase{
 
   public void stopShooter() {
     shooterMotor.stopMotor();
+    shooterMotor2.stopMotor();
   }
 
   public double calculatePower() {
@@ -100,11 +101,12 @@ public class Shooter extends SubsystemBase{
   public void periodic() {
     
     SmartDashboard.putNumber("Filtered Shooter Acceleration", filteredAcceleration);
-    //SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
+    SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
   }
 
   public void primeShooter(){
     shooterMotor.set(shooterPrespinPower);
+    shooterMotor2.set(shooterPrespinPower);
   }
   
 }

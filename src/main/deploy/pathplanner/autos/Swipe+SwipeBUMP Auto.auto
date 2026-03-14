@@ -11,26 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Swipe1"
+                  "pathName": "Swipe+SwipeBUMP1"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoDeployIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoRunIntake"
-                      }
-                    }
-                  ]
+                  "name": "autoDeployIntake"
                 }
               }
             ]
@@ -43,7 +30,26 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Swipe2"
+                  "pathName": "Swipe+SwipeBUMP2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRunIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+SwipeBUMP3"
                 }
               },
               {
@@ -62,41 +68,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "fullSendCommand3Sec"
+                  "name": "fullSendCommand6Sec"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Swipe+Swipe3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoRunIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Swipe+Swipe4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fullSendCommand6Sec"
           }
         }
       ]

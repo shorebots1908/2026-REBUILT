@@ -114,6 +114,8 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("Swipe+Swipe Auto", DriveCommands.followPath(drive, "Swipe+Swipe Auto"));
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
+    NamedCommands.registerCommand("fullSendCommand3Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(3.0));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
     NamedCommands.registerCommand("fullSendCommand9Sec", 
@@ -131,7 +133,9 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoUndeployIntake", 
         IntakeCommands.autoUndeployIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
-        IntakeCommands.autoRunIntake(intake).withTimeout(5.5));
+        IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
+    NamedCommands.registerCommand("intakePumpFake", 
+        IntakeCommands.intakeShake(intake).withTimeout(4));
     // NamedCommands.registerCommand("autoDeployAndRunIntake", 
     //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 
