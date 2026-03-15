@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "autoDeployIntake"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -21,42 +15,69 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "autoRunIntake"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoDeployIntake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoRunIntake"
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Swipe+Outpost2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Outpost2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "targetingIsOnCommand"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "targetingIsOnCommand"
+            "name": "fullSendCommand3Sec"
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "fullSendCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Swipe+Outpost3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fullSendCommandNoTimeout"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Outpost3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "fullSendCommandNoTimeout"
+                }
+              }
+            ]
           }
         }
       ]

@@ -5,13 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.TurretCommands;
 import frc.robot.commands.IntakeCommands;
-// import frc.robot.commands.ExampleCommand;
-// import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.LED.LED;
@@ -34,6 +31,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.Optional;
 
@@ -85,6 +85,7 @@ public class RobotContainer {
     registerNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Choices", autoChooser);
+    SmartDashboard.putString("AutoWinOverride", "");   // blank = use real game data
     configureBindings();
 
     // Try to get alliance at startup (may be empty if FMS hasn't assigned yet)
@@ -113,6 +114,8 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("Swipe+Swipe Auto", DriveCommands.followPath(drive, "Swipe+Swipe Auto"));
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
+    NamedCommands.registerCommand("fullSendCommand3Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(3.0));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
     NamedCommands.registerCommand("fullSendCommand9Sec", 
@@ -130,17 +133,19 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoUndeployIntake", 
         IntakeCommands.autoUndeployIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
-        IntakeCommands.autoRunIntake(intake).withTimeout(5.5));
-    NamedCommands.registerCommand("autoDeployAndRunIntake", 
-        IntakeCommands.autoDeployAndRunIntake(intake));
+        IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
+    NamedCommands.registerCommand("intakePumpFake", 
+        IntakeCommands.intakeShake(intake).withTimeout(4));
+    // NamedCommands.registerCommand("autoDeployAndRunIntake", 
+    //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 
         ClimbCommands.climbUp(climb).withTimeout(2));
     NamedCommands.registerCommand("climbDown", 
         ClimbCommands.climbDown(climb).withTimeout(2));
-    
-        
+    NamedCommands.registerCommand("autoDeployAndRunIntake",
+        IntakeCommands.autoDeployIntake(intake)
+        .andThen(IntakeCommands.autoRunIntake(intake).withTimeout(5.5)));
 }
-  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -154,14 +159,14 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.5 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
-      () -> drive.isShooting() ? -0.5 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+      () -> drive.isShooting() ? -0.86 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+      () -> drive.isShooting() ? -0.86 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
       () -> -player1.getRightX())
     );
 
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
     player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
-    player1.y().onTrue(TurretCommands.spindexDirectionCommand(spindexer));
+    player1.y().whileTrue(TurretCommands.unjam(spindexer, feeder));
 
     // climber commands
     player1.povUp().whileTrue(ClimbCommands.climbUp(climb));
@@ -182,6 +187,8 @@ private void registerNamedCommands() {
         IntakeCommands.intakeDeployCommand(intake)
       );
 
+    
+
     // player1.rightBumper()
     //   .whileTrue(
     //     Commands.run(() -> shooter.runShooter(), shooter)
@@ -190,6 +197,9 @@ private void registerNamedCommands() {
       
     player1.leftBumper()
       .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+      );
+    player1.rightBumper()
+      .whileTrue(TurretCommands.fullSendCommandOpen(shooter, feeder, spindexer, rotator)
       );
 
     rotator.setDefaultCommand(
@@ -205,8 +215,20 @@ private void registerNamedCommands() {
       TurretCommands.toggleTargeting(rotator, shooter)
     );
 
+    // player2.rightBumper()
+    //   .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+    // );
+
+    // rumble while shooting
     player2.rightBumper()
-      .whileTrue(TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+    .whileTrue(
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator)
+            .deadlineWith(
+                Commands.startEnd(
+                    () -> player2.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 1.0),
+                    () -> player2.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0)
+                )
+            )
     );
 
     // rotator.setDefaultCommand(
@@ -216,11 +238,11 @@ private void registerNamedCommands() {
     //   )
     // );
     player2.x().onTrue(TurretCommands.spindexCommand(spindexer));
-    player2.y().whileTrue(TurretCommands.spindexReverseDirectionCommand(spindexer));
+    player2.y().whileTrue(TurretCommands.unjam(spindexer, feeder));
 
     player2.a()
-      .onTrue(
-        IntakeCommands.intakeRunCommand(intake)
+      .whileTrue(
+        IntakeCommands.intakeShake(intake)
       );
     
     player2.b()
@@ -235,6 +257,12 @@ private void registerNamedCommands() {
     //   intake)
     // );
     
+  }
+
+  //add oomph function
+  public void addOomph() {
+    double normalizedInput = Math.max((Math.abs(player2.getRightTriggerAxis()) - OperatorConstants.deadband), 0) / (1.0 - OperatorConstants.deadband);
+    shooter.addOomph((normalizedInput * normalizedInput) * OperatorConstants.maxOomph);
   }
 
 
@@ -282,6 +310,48 @@ public Command getAutonomousCommand() {
       default:
         // Replayed robot, disable IO implementations
         return new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
+    }
+  }
+
+  // Check networktables after auto to see if our alliance won auto.  B=blue, R=red, blank=no FMS
+  // SmartDashboard key "AutoWinOverride" can be set to "B" or "R" to simulate without a FMS
+    public void checkAutoWinAndRumble() {
+    // Prefer the SmartDashboard override (for home practice); fall back to FMS data.
+    String override = SmartDashboard.getString("AutoWinOverride", "");
+    String gameData = (override != null && !override.isEmpty())
+        ? override
+        : DriverStation.getGameSpecificMessage();
+
+    if (gameData == null || gameData.isEmpty()) {
+      return;
+    }
+
+    // Read alliance directly rather than relying on the cached field
+    Optional<DriverStation.Alliance> currentAlliance = DriverStation.getAlliance();
+
+    boolean weWon = false;
+    switch (gameData.charAt(0)) {
+      case 'B':
+        weWon = currentAlliance.isPresent()
+            && currentAlliance.get() == DriverStation.Alliance.Blue;
+        break;
+      case 'R':
+        weWon = currentAlliance.isPresent()
+            && currentAlliance.get() == DriverStation.Alliance.Red;
+        break;
+      default:
+        return;
+    }
+
+    if (weWon) {
+      // Schedule aone time command: full rumble for 5 s, then stop.
+      Commands.sequence(
+          Commands.runOnce(() ->
+              player1.getHID().setRumble(RumbleType.kBothRumble, 1.0)),
+          new WaitCommand(3.0),
+          Commands.runOnce(() ->
+              player1.getHID().setRumble(RumbleType.kBothRumble, 0.0))
+      ).ignoringDisable(true).schedule();
     }
   }
 }

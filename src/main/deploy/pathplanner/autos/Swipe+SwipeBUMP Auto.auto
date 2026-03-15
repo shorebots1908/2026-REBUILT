@@ -11,26 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SAFE OutpostSwipe1"
+                  "pathName": "Swipe+SwipeBUMP1"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoDeployIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoRunIntake"
-                      }
-                    }
-                  ]
+                  "name": "autoDeployIntake"
                 }
               }
             ]
@@ -43,7 +30,26 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SAFE OutpostSwipe2"
+                  "pathName": "Swipe+SwipeBUMP2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRunIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+SwipeBUMP3"
                 }
               },
               {
@@ -56,15 +62,16 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SAFE OutpostSwipe3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fullSendCommandNoTimeout"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "fullSendCommand6Sec"
+                }
+              }
+            ]
           }
         }
       ]

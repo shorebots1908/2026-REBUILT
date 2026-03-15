@@ -44,6 +44,11 @@ public class Rotator extends SubsystemBase {
   private boolean outsideTeamZone = false;
   private double deadZoneSwitchRotation;
   private double estimatedFlightTime = 0.0;
+  private Translation2d estimatedTranslationDeviation = new Translation2d();
+  private Translation2d estimatedRotationDeviation = new Translation2d();
+  private ChassisSpeeds robotRelativeChassisSpeeds;
+  private ChassisSpeeds fieldRelativeChassisSpeeds;
+  private Rotation2d robotFieldRotation = new Rotation2d();
 
   private static final Translation2d BLUE_HUB = new Translation2d(4.636, 4.034);
   private static final Translation2d RED_HUB  = new Translation2d(11.912, 4.034);
@@ -221,6 +226,15 @@ public class Rotator extends SubsystemBase {
         .getTranslation());
   }
 
+  public double revisedTargetDistance() {
+    return currentTarget
+      .minus(estimatedTranslationDeviation)
+      .minus(estimatedRotationDeviation)
+      .getDistance(drive.getPose()
+        .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
+        .getTranslation()); 
+  }
+
   public boolean getOutsideTeamZone() {
     return outsideTeamZone;
   }
@@ -229,17 +243,22 @@ public class Rotator extends SubsystemBase {
     drive.setShooting(_isShooting);
   }
 
+  public void updateRotationDeviation() {
+    estimatedRotationDeviation = 
+      new Translation2d(
+          turretOffsetDistance * 
+            robotRelativeChassisSpeeds.omegaRadiansPerSecond, 
+          robotFieldRotation
+            .plus(turretPositionRotation)
+            .plus(new Rotation2d(Math.PI/2.0)))
+        .times(estimatedFlightTime);
+  } 
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
-    /* TODO: break out different commands for calculating target point 
-     * based on different field positions and call them when the field position changes. 
-     * TODO: get flag boolean for if turret is rotating and off target (target deviation
-     * is above threshold.) If target deviation is above threshold, feeder should be 
-     * blocked from feeding balls into the shooter. 
-     * TODO: use drive odometry to get current vector and alter turret rotation accordingly
-     * based on distance and estimated flight time. 
+    /* /
      * TODO: break out functions for calculating aiming so that they can be easily called 
      * in both the rotator and the pitch controller, for more fine control of game pieces. 
      */
@@ -252,8 +271,10 @@ public class Rotator extends SubsystemBase {
 
       //calculate approximate flight time
       estimatedFlightTime = (targetDistance() * timeCoefficient) + timeIntercept;
-      ChassisSpeeds fieldRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(drive.getChassisSpeeds(), drive.getPose().getRotation());
-      Translation2d estimatedDeviation = new Translation2d(estimatedFlightTime * fieldRelativeSpeeds.vxMetersPerSecond, estimatedFlightTime * fieldRelativeSpeeds.vyMetersPerSecond);
+      robotRelativeChassisSpeeds = drive.getChassisSpeeds();
+      robotFieldRotation = drive.getPose().getRotation();
+      fieldRelativeChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotRelativeChassisSpeeds, robotFieldRotation);
+      estimatedTranslationDeviation = new Translation2d(estimatedFlightTime * fieldRelativeChassisSpeeds.vxMetersPerSecond, estimatedFlightTime * fieldRelativeChassisSpeeds.vyMetersPerSecond);
       
 
       //Calculate what the target parameter for the closedloop control should be
@@ -262,7 +283,8 @@ public class Rotator extends SubsystemBase {
       SmartDashboard.putString("turret target coordinate", determineTarget().toString());
       Rotation2d targetTurretRelativeAngle = (
         currentTarget //constant.
-        .minus(estimatedDeviation) 
+        .minus(estimatedTranslationDeviation)
+        .minus(estimatedRotationDeviation)
         .minus(robotPose
           .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
           .getTranslation())) //get only the translation component of the joint robot and turret pose

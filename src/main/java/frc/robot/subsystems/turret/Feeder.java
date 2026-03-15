@@ -22,6 +22,10 @@ public class Feeder extends SubsystemBase{
     feeder.set(feederSpeed);
   }
 
+  public void reverseFeeder(){
+    feeder.set(-feederSpeed / 2);
+  }
+
   public void stopFeeder() {
     feeder.stopMotor();
   }

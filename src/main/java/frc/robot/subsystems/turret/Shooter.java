@@ -17,17 +17,19 @@ import frc.robot.subsystems.turret.Rotator;
 
 public class Shooter extends SubsystemBase{
   private TalonFX shooterMotor;
-  //private Talon shooterMotor2;
+  private TalonFX shooterMotor2;
   private double shooterAccelerationThreshold;
   private LinearFilter accelerationFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
   private double filteredAcceleration = 0.0;
   private Rotator rotator;
   private double calculatedPower = 0.0;
+  private double targetDistance = 0.0;
+  private double oomph = 0.0;
 
 
   public Shooter(Rotator _rotator) {
     shooterMotor = new TalonFX(shooterID);
-    //shooterMotor2 = new TalonFX(shooterID2);
+    shooterMotor2 = new TalonFX(shooterID2);
     rotator = _rotator;
     this.shooterAccelerationThreshold = TurretConstants.shooterAccelerationThreshold;
     var motorConfig1 = new TalonFXConfiguration();
@@ -38,11 +40,11 @@ public class Shooter extends SubsystemBase{
     motorOutputConfig2.Inverted = InvertedValue.valueOf(0);
     if(shooterMotorInversionSwapped) {
       shooterMotor.getConfigurator().apply(motorConfig1);
-      //shooterMotor2.getConfigurator().apply(motorConfig2);
+      shooterMotor2.getConfigurator().apply(motorConfig2);
     }
     else {
       shooterMotor.getConfigurator().apply(motorConfig2);
-      //shooterMotor2.getConfigurator().apply(motorConfig1);
+      shooterMotor2.getConfigurator().apply(motorConfig1);
     }
   }
 
@@ -52,28 +54,31 @@ public class Shooter extends SubsystemBase{
 
   public void runShooter(double speed){
     shooterMotor.set(speed);
-    //shooterMotor2.set(speed);
+    shooterMotor2.set(speed);
     runFilter();
   }
 
   public void runShooter() {
     shooterMotor.set(shooterSpeed);
-   // shooterMotor2.set(shooterSpeed);
+    shooterMotor2.set(shooterSpeed);
     runFilter();
   }
 
   public void stopShooter() {
     shooterMotor.stopMotor();
+    shooterMotor2.stopMotor();
   }
 
   public double calculatePower() {
     if(rotator.getOutsideTeamZone()) {
-      return passingShooterPower;
+      targetDistance = rotator.revisedTargetDistance();
+      calculatedPower = Math.min(Math.max((-((passingDistanceCoefficient * targetDistance) + shooterDistanceIntercept)), shooterMaximumPower), shooterMinimumPower);
+      return calculatedPower - oomph;
     }
     else {
-      double targetDistance = rotator.targetDistance();
-      calculatedPower = Math.min(Math.max((-(targetDistance - shooterDistanceIntercept) / shooterDistanceCoefficient), -1.0), -0.2);
-      return calculatedPower;
+      targetDistance = rotator.revisedTargetDistance();
+      calculatedPower = Math.min(Math.max((-((shooterDistanceCoefficient * targetDistance) + shooterDistanceIntercept)), shooterMaximumPower), shooterMinimumPower);
+      return calculatedPower - oomph;
     }
   }
 
@@ -93,15 +98,20 @@ public class Shooter extends SubsystemBase{
     filteredAcceleration = accelerationFilter.calculate(getAcceleration());
   }
 
+  public void addOomph(double _oomph) {
+    oomph = _oomph;
+  }
+
   @Override
   public void periodic() {
     
     SmartDashboard.putNumber("Filtered Shooter Acceleration", filteredAcceleration);
-    //SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
+    SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
   }
 
   public void primeShooter(){
     shooterMotor.set(shooterPrespinPower);
+    shooterMotor2.set(shooterPrespinPower);
   }
   
 }

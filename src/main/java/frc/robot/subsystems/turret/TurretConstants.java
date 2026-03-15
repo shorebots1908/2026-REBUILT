@@ -10,17 +10,19 @@ public class TurretConstants {
     public static final int spindexID = 28;
     public static final int feederID = 27;
     public static final int shooterID = 24;
-    //public static final int shooterID2 = 9; //motor for double motor shooter
-    public static final boolean shooterMotorInversionSwapped = false;
+    public static final int shooterID2 = 9; //motor for double motor shooter
+    public static final boolean shooterMotorInversionSwapped = true;
     public static final int pitchChannel1 = 0;
     public static final int pitchChannel2 = 1;
     public static final double spinnerDefaultSpeed = 0.9; 
     public static final double feederSpeed = 0.6;
-    public static final double shooterSpeed = -0.6; //was -0.7
+    public static final double shooterSpeed = -0.9; //was -0.7
     public static final double shooterAccelerationThreshold = 0.175;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
     public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
+    public static final Rotation2d turretPositionRotation = turretOffSet.getTranslation().getAngle();
+    public static final double turretOffsetDistance = turretOffSet.getTranslation().getDistance(new Translation2d());
     public static final Translation2d targetPoint = new Translation2d(Units.inchesToMeters(182.11), Units.inchesToMeters(158.84));
     public static final Translation2d teamAreaPoint = new Translation2d(Units.inchesToMeters(150.0), Units.inchesToMeters(90));
     public static final double fieldLength = (Units.inchesToMeters(651.22));
@@ -39,12 +41,13 @@ public class TurretConstants {
     //public static final double pitchCoefficientFeet = 1.05; //increase to make distance factor into pitch more
     //public static final double pitchInterceptFeet = 9.5; //reduce to make pitch response start closer to target
     //public static final double passingPitchHeight = 0.2; //current measurements indicate greatest distance at 0.6. //editing to 0.0 for wk0 safety purposes
-    public static final double shooterDistanceCoefficient = 8.45; // -- determining power relative to distance from target -- 9.125 is calculated value for target on ground 
-    public static final double shooterDistanceIntercept = -2.1; // -- determining starting amount that is adding to the power -- -1.18 is calculated value for target on ground
-    public static final double passingShooterPower = -0.8;
-    public static final double timeCoefficient = 0.197; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less)
-    public static final double timeIntercept = 0.795; // starting amount that we get from any thrown ball in terms of time -- used same as above ()
-    public static final double shooterPrespinPower = -0.35; //was -0.4. changed because shots seemed to be overpowered
-    
+    public static final double shooterDistanceCoefficient = 0.071; // -- determining power relative to distance from target. directly proportional. -- 0.0832 is calculated value for target on ground 
+    public static final double shooterDistanceIntercept = 0.16; // -- determining starting amount that is adding to the power -- 0.0452 is calculated value for target on ground
+    public static final double passingDistanceCoefficient = 0.0832;
+    public static final double timeCoefficient = 0.225; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less) --initial calculated as 0.225
+    public static final double timeIntercept = 0.385; // starting amount that we get from any thrown ball in terms of time -- used same as above () -- initial calculated 0.385
+    public static final double shooterPrespinPower = -0.3; //was -0.4. changed because shots seemed to be overpowered
+    public static final double shooterMinimumPower = -0.3;
+    public static final double shooterMaximumPower = -1.0; //ADJUST THIS!!!!!!!!!!!
   }   
 
