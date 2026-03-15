@@ -24,6 +24,7 @@ public class Shooter extends SubsystemBase{
   private Rotator rotator;
   private double calculatedPower = 0.0;
   private double targetDistance = 0.0;
+  private double oomph = 0.0;
 
 
   public Shooter(Rotator _rotator) {
@@ -70,14 +71,14 @@ public class Shooter extends SubsystemBase{
 
   public double calculatePower() {
     if(rotator.getOutsideTeamZone()) {
-      targetDistance = rotator.targetDistance();
-      calculatedPower = Math.min(Math.max((-(passingDistanceCoefficient * targetDistance)), shooterMaximumPower), shooterMinimumPower);
-      return calculatedPower;
+      targetDistance = rotator.revisedTargetDistance();
+      calculatedPower = Math.min(Math.max((-((passingDistanceCoefficient * targetDistance) + shooterDistanceIntercept)), shooterMaximumPower), shooterMinimumPower);
+      return calculatedPower - oomph;
     }
     else {
-      targetDistance = rotator.targetDistance();
+      targetDistance = rotator.revisedTargetDistance();
       calculatedPower = Math.min(Math.max((-((shooterDistanceCoefficient * targetDistance) + shooterDistanceIntercept)), shooterMaximumPower), shooterMinimumPower);
-      return calculatedPower;
+      return calculatedPower - oomph;
     }
   }
 
@@ -95,6 +96,10 @@ public class Shooter extends SubsystemBase{
 
   private void runFilter() {
     filteredAcceleration = accelerationFilter.calculate(getAcceleration());
+  }
+
+  public void addOomph(double _oomph) {
+    oomph = _oomph;
   }
 
   @Override

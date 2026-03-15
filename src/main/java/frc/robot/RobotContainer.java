@@ -159,8 +159,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.5 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
-      () -> drive.isShooting() ? -0.5 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+      () -> drive.isShooting() ? -0.86 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+      () -> drive.isShooting() ? -0.86 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
       () -> -player1.getRightX())
     );
 
@@ -186,6 +186,8 @@ private void registerNamedCommands() {
       .onTrue(
         IntakeCommands.intakeDeployCommand(intake)
       );
+
+    
 
     // player1.rightBumper()
     //   .whileTrue(
@@ -255,6 +257,12 @@ private void registerNamedCommands() {
     //   intake)
     // );
     
+  }
+
+  //add oomph function
+  public void addOomph() {
+    double normalizedInput = Math.max((Math.abs(player2.getRightTriggerAxis()) - OperatorConstants.deadband), 0) / (1.0 - OperatorConstants.deadband);
+    shooter.addOomph((normalizedInput * normalizedInput) * OperatorConstants.maxOomph);
   }
 
 

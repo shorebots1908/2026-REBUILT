@@ -44,6 +44,11 @@ public class Rotator extends SubsystemBase {
   private boolean outsideTeamZone = false;
   private double deadZoneSwitchRotation;
   private double estimatedFlightTime = 0.0;
+  private Translation2d estimatedTranslationDeviation = new Translation2d();
+  private Translation2d estimatedRotationDeviation = new Translation2d();
+  private ChassisSpeeds robotRelativeChassisSpeeds;
+  private ChassisSpeeds fieldRelativeChassisSpeeds;
+  private Rotation2d robotFieldRotation = new Rotation2d();
 
   private static final Translation2d BLUE_HUB = new Translation2d(4.636, 4.034);
   private static final Translation2d RED_HUB  = new Translation2d(11.912, 4.034);
@@ -221,6 +226,15 @@ public class Rotator extends SubsystemBase {
         .getTranslation());
   }
 
+  public double revisedTargetDistance() {
+    return currentTarget
+      .minus(estimatedTranslationDeviation)
+      .minus(estimatedRotationDeviation)
+      .getDistance(drive.getPose()
+        .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
+        .getTranslation()); 
+  }
+
   public boolean getOutsideTeamZone() {
     return outsideTeamZone;
   }
@@ -228,6 +242,17 @@ public class Rotator extends SubsystemBase {
   public void setShooting(boolean _isShooting) {
     drive.setShooting(_isShooting);
   }
+
+  public void updateRotationDeviation() {
+    estimatedRotationDeviation = 
+      new Translation2d(
+          turretOffsetDistance * 
+            robotRelativeChassisSpeeds.omegaRadiansPerSecond, 
+          robotFieldRotation
+            .plus(turretPositionRotation)
+            .plus(new Rotation2d(Math.PI/2.0)))
+        .times(estimatedFlightTime);
+  } 
 
   @Override
   public void periodic() {
@@ -246,8 +271,10 @@ public class Rotator extends SubsystemBase {
 
       //calculate approximate flight time
       estimatedFlightTime = (targetDistance() * timeCoefficient) + timeIntercept;
-      ChassisSpeeds fieldRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(drive.getChassisSpeeds(), drive.getPose().getRotation());
-      Translation2d estimatedDeviation = new Translation2d(estimatedFlightTime * fieldRelativeSpeeds.vxMetersPerSecond, estimatedFlightTime * fieldRelativeSpeeds.vyMetersPerSecond);
+      robotRelativeChassisSpeeds = drive.getChassisSpeeds();
+      robotFieldRotation = drive.getPose().getRotation();
+      fieldRelativeChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotRelativeChassisSpeeds, robotFieldRotation);
+      estimatedTranslationDeviation = new Translation2d(estimatedFlightTime * fieldRelativeChassisSpeeds.vxMetersPerSecond, estimatedFlightTime * fieldRelativeChassisSpeeds.vyMetersPerSecond);
       
 
       //Calculate what the target parameter for the closedloop control should be
@@ -256,7 +283,8 @@ public class Rotator extends SubsystemBase {
       SmartDashboard.putString("turret target coordinate", determineTarget().toString());
       Rotation2d targetTurretRelativeAngle = (
         currentTarget //constant.
-        .minus(estimatedDeviation) 
+        .minus(estimatedTranslationDeviation)
+        .minus(estimatedRotationDeviation)
         .minus(robotPose
           .plus(turretOffSet) //add turret position relative to the robot center to get the point we should aim from
           .getTranslation())) //get only the translation component of the joint robot and turret pose

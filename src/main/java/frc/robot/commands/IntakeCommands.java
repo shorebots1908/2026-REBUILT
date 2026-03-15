@@ -108,4 +108,8 @@ public static Command autoStopIntake(Intake intake) {
   public static Command intakeShake(Intake intake){
     return Commands.run(() -> intake.shake(), intake);
   }
+
+  public static Command autoIntakeShake(Intake intake){
+    return Commands.run(() -> intake.shake(), intake).andThen(() -> intake.deployIntake(), intake).until(intake::isDeployed);
+  }
 }
