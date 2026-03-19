@@ -17,7 +17,7 @@ public class TurretConstants {
     public static final double spinnerDefaultSpeed = 0.9; 
     public static final double feederSpeed = 0.6;
     public static final double shooterSpeed = -0.9; //was -0.7
-    public static final double shooterAccelerationThreshold = 0.175;
+    public static final double shooterAccelerationThreshold = 0.2;
     public static final double turretMaxRotationSpeed = 80;
     public static final double turretMaxRotationAcceleration = 160;
     public static final Transform2d turretOffSet = new Transform2d(Units.inchesToMeters(-5.5), Units.inchesToMeters(4.75), new Rotation2d());
@@ -42,7 +42,7 @@ public class TurretConstants {
     //public static final double pitchInterceptFeet = 9.5; //reduce to make pitch response start closer to target
     //public static final double passingPitchHeight = 0.2; //current measurements indicate greatest distance at 0.6. //editing to 0.0 for wk0 safety purposes
     public static final double shooterDistanceCoefficient = 0.071; // -- determining power relative to distance from target. directly proportional. -- 0.0832 is calculated value for target on ground 
-    public static final double shooterDistanceIntercept = 0.16; // -- determining starting amount that is adding to the power -- 0.0452 is calculated value for target on ground
+    public static final double shooterDistanceIntercept = 0.15; // -- determining starting amount that is adding to the power -- 0.0452 is calculated value for target on ground
     public static final double passingDistanceCoefficient = 0.0832;
     public static final double timeCoefficient = 0.225; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less) --initial calculated as 0.225
     public static final double timeIntercept = 0.385; // starting amount that we get from any thrown ball in terms of time -- used same as above () -- initial calculated 0.385

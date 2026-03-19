@@ -128,6 +128,8 @@ private void registerNamedCommands() {
         TurretCommands.targetingIsOnCommand(rotator, shooter));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(3.0));
+    NamedCommands.registerCommand("intakeRunCommand2Sec", 
+        IntakeCommands.intakeRunCommand(intake).withTimeout(2.0));
     NamedCommands.registerCommand("autoDeployIntake", 
         IntakeCommands.autoDeployIntake(intake));
     NamedCommands.registerCommand("autoUndeployIntake", 
@@ -135,7 +137,7 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoRunIntake", 
         IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
     NamedCommands.registerCommand("intakePumpFake", 
-        IntakeCommands.intakeShake(intake).withTimeout(4));
+        IntakeCommands.autoIntakeShake(intake).withTimeout(4));
     // NamedCommands.registerCommand("autoDeployAndRunIntake", 
     //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 

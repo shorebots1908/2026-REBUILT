@@ -56,9 +56,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "fullSendCommand3Sec"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "fullSendCommand3Sec"
+                }
+              }
+            ]
           }
         },
         {

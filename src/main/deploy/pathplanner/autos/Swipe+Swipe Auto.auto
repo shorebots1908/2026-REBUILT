@@ -11,26 +11,32 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Swipe1"
+                  "pathName": "Swipe+Swipe0"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoDeployIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoRunIntake"
-                      }
-                    }
-                  ]
+                  "name": "autoDeployIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe+Swipe1+"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intakeRunCommand2Sec"
                 }
               }
             ]
@@ -62,7 +68,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "fullSendCommand3Sec"
+                  "name": "fullSendCommand6Sec"
                 }
               }
             ]

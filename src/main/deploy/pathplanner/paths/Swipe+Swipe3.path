@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.947507449511735,
-        "y": 7.413789784742942
+        "x": 6.251569186874873,
+        "y": 7.418459343790747
       },
       "isLocked": false,
       "linkedName": "StartofSwipe+Swipe"
     },
     {
       "anchor": {
-        "x": 7.115983913130403,
-        "y": 4.989193721361237
+        "x": 6.349578036935066,
+        "y": 5.026363959393357
       },
       "prevControl": {
-        "x": 6.940182385876142,
-        "y": 7.479715357463291
+        "x": 6.2903851640503365,
+        "y": 7.34082738943982
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.5,
-    "maxAcceleration": 2.25,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -50,5 +50,5 @@
     "velocity": 0.0,
     "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
