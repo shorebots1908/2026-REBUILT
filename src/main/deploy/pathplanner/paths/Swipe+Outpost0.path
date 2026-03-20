@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.4239036144578311,
+        "x": 4.0,
         "y": 0.680192771084337
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.423903614457831,
-        "y": 0.6801927710843367
+        "x": 7.4548644793152645,
+        "y": 0.6903566333808839
       },
       "isLocked": false,
-      "linkedName": "EndofSwipe+Outpost3"
+      "linkedName": "StartofSwipe+Outpost"
     },
     {
       "anchor": {
-        "x": 3.0137710843373493,
-        "y": 1.4560602409638557
+        "x": 7.713637660485022,
+        "y": 1.3502282453637668
       },
       "prevControl": {
-        "x": 2.0137710843373493,
-        "y": 1.456060240963856
+        "x": 7.66188302425107,
+        "y": 0.7679885877318122
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "EndofSwipe+Outpost0"
     }
   ],
   "rotationTargets": [],
@@ -33,22 +33,22 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 0.0
+    "velocity": 1.0,
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "Swipe+Outpost",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

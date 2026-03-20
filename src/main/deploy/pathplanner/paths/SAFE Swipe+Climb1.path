@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.4239036144578311,
-        "y": 0.680192771084337
+        "x": 4.008192771084337,
+        "y": 7.400734939759036
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.423903614457831,
-        "y": 0.6801927710843367
+        "x": 2.8083893179169284,
+        "y": 7.400734939759036
       },
       "isLocked": false,
-      "linkedName": "EndofSwipe+Outpost3"
+      "linkedName": "StartofSwipe+Swipe"
     },
     {
       "anchor": {
-        "x": 3.0137710843373493,
-        "y": 1.4560602409638557
+        "x": 2.439119394436732,
+        "y": 5.793954162754725
       },
       "prevControl": {
-        "x": 2.0137710843373493,
-        "y": 1.456060240963856
+        "x": 2.439119394436732,
+        "y": 7.399628378313731
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "EndofSwipe3"
     }
   ],
   "rotationTargets": [],
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 0.0
+    "velocity": 0,
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Swipe+Outpost",
+  "folder": "SAFE Swipe+Climb",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

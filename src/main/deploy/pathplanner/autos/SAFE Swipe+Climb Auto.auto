@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "targetingIsOnCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SAFE Swipe+Climb1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fullSendCommand6Sec"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoUndeployIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SAFE Swipe+Climb2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "climbUp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SAFE Swipe+Climb3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "climbDown"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

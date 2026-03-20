@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 6.051674698795181,
-        "y": 5.390036144578313
+        "y": 5.390036144578312
       },
       "isLocked": false,
       "linkedName": "EndofSwipe+SwipeBUMP1"
@@ -20,7 +20,7 @@
         "y": 5.532096385542169
       },
       "prevControl": {
-        "x": 5.483433734939758,
+        "x": 5.483433734939757,
         "y": 5.5758072289156635
       },
       "nextControl": null,

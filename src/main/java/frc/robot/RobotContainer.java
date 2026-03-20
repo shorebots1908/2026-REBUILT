@@ -116,6 +116,8 @@ private void registerNamedCommands() {
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
     NamedCommands.registerCommand("fullSendCommand3Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(3.0));
+    NamedCommands.registerCommand("fullSendCommand4.5Sec", 
+        TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.5));
     NamedCommands.registerCommand("fullSendCommand6Sec", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(6.0));
     NamedCommands.registerCommand("fullSendCommand9Sec", 
@@ -128,14 +130,14 @@ private void registerNamedCommands() {
         TurretCommands.targetingIsOnCommand(rotator, shooter));
     NamedCommands.registerCommand("intakeRunCommand", 
         IntakeCommands.intakeRunCommand(intake).withTimeout(3.0));
-    NamedCommands.registerCommand("intakeRunCommand2Sec", 
-        IntakeCommands.intakeRunCommand(intake).withTimeout(2.0));
     NamedCommands.registerCommand("autoDeployIntake", 
         IntakeCommands.autoDeployIntake(intake));
     NamedCommands.registerCommand("autoUndeployIntake", 
         IntakeCommands.autoUndeployIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
         IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
+    NamedCommands.registerCommand("autoRunIntake2Sec", 
+        IntakeCommands.autoRunIntake(intake).withTimeout(2.0));
     NamedCommands.registerCommand("intakePumpFake", 
         IntakeCommands.autoIntakeShake(intake).withTimeout(4));
     // NamedCommands.registerCommand("autoDeployAndRunIntake", 
@@ -161,8 +163,8 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.86 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
-      () -> drive.isShooting() ? -0.86 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+      () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+      () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
       () -> -player1.getRightX())
     );
 

@@ -4,14 +4,15 @@
   "holonomicMode": true,
   "pathFolders": [
     "ClimbPaths",
-    "Swipe+SwipeBUMP",
+    "SAFE Swipe+Climb",
     "Outpost",
     "Outpost+Climb",
     "SAFE OutpostSwipe",
     "SAFE Swipe",
     "Swipe+Depot",
     "Swipe+Outpost",
-    "Swipe+Swipe"
+    "Swipe+Swipe",
+    "Swipe+SwipeBUMP"
   ],
   "autoFolders": [],
   "defaultMaxVel": 2.5,
