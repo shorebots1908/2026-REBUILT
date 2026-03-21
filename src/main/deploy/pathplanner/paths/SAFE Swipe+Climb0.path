@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8083893179169284,
-        "y": 7.400734939759036
+        "x": 5.811654778887304,
+        "y": 7.405520684736091
       },
       "isLocked": false,
       "linkedName": "StartofSwipe+Swipe"
     },
     {
       "anchor": {
-        "x": 2.439119394436732,
-        "y": 5.793954162754725
+        "x": 7.791115099828193,
+        "y": 6.7419065385426435
       },
       "prevControl": {
-        "x": 2.439119394436732,
-        "y": 7.399628378313731
+        "x": 7.778330955777461,
+        "y": 7.314950071326677
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofSwipe3"
+      "linkedName": "EndofSwipe+Swipe0"
     }
   ],
   "rotationTargets": [],
@@ -33,16 +33,16 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 1.0,
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "SAFE Swipe+Climb",
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

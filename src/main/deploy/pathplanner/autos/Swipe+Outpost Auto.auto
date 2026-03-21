@@ -62,60 +62,21 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "fullSendCommand4.5Sec"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 3.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoUndeployIntake"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "name": "fullSendCommand4.5Sec"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Swipe+Outpost3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "fullSendCommandNoTimeout"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoDeployIntake"
-                }
-              }
-            ]
+            "pathName": "Swipe+Outpost3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fullSendCommandNoTimeout"
           }
         }
       ]

@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.439119394436732,
-        "y": 5.793954162754725
+        "x": 7.801585812862806,
+        "y": 5.3795697807037515
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3963741995443586,
-        "y": 5.086087933755969
+        "x": 7.584251069900143,
+        "y": 7.431398002853067
       },
       "isLocked": false,
-      "linkedName": "EndofSwipe3"
+      "linkedName": "EndofSwipe+Swipe1"
     },
     {
       "anchor": {
-        "x": 0.7523186656615566,
-        "y": 5.035085147876533
+        "x": 4.008192771084337,
+        "y": 7.400734939759036
       },
       "prevControl": {
-        "x": 1.3253821052711157,
-        "y": 5.07065256277738
-      },
-      "nextControl": {
-        "x": 0.5027987932998632,
-        "y": 5.019598595755285
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 0.877,
-        "y": 4.575
-      },
-      "prevControl": {
-        "x": 0.35660733824593405,
-        "y": 4.573713723895293
+        "x": 7.5066191155492135,
+        "y": 7.405520684736091
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "StartofDepotClimb"
+      "linkedName": "StartofSwipe+Swipe"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 2.5,
     "maxAcceleration": 2.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -57,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": 0.0
   },
   "reversed": false,
   "folder": "SAFE Swipe+Climb",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 0.5,
+    "rotation": -90.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
