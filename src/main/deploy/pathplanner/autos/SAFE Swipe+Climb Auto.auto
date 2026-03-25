@@ -5,21 +5,72 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "targetingIsOnCommand"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SAFE Swipe+Climb0"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoDeployIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SAFE Swipe+Climb1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRunIntake2Sec"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SAFE Swipe+Climb2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "targetingIsOnCommand"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "SAFE Swipe+Climb1"
+            "pathName": "SAFE Swipe+Climb3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "fullSendCommand6Sec"
+            "name": "fullSendCommand4.5Sec"
           }
         },
         {
@@ -31,7 +82,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SAFE Swipe+Climb2"
+            "pathName": "SAFE Swipe+Climb4"
           }
         },
         {
@@ -43,7 +94,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SAFE Swipe+Climb3"
+            "pathName": "SAFE Swipe+Climb5"
           }
         },
         {

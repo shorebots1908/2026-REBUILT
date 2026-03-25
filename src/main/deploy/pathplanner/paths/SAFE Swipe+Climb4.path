@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.778253012048193,
-        "y": 5.171481927710842
+        "x": 2.318216833095578,
+        "y": 5.775249643366619
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7345421686747,
-        "y": 7.815987951807228
+        "x": 2.2754716382032045,
+        "y": 5.067383414367863
       },
       "isLocked": false,
-      "linkedName": "EndofSwipe1"
+      "linkedName": "EndofSwipe3"
     },
     {
       "anchor": {
-        "x": 3.9863373493975898,
-        "y": 7.335168674698796
+        "x": 0.7523186656615566,
+        "y": 5.035085147876533
       },
       "prevControl": {
-        "x": 6.750721066124571,
-        "y": 7.377697654956132
+        "x": 1.3253821052711157,
+        "y": 5.07065256277738
       },
       "nextControl": {
-        "x": 2.565734939759036,
-        "y": 7.3133132530120495
+        "x": 0.502798793299863,
+        "y": 5.019598595755285
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.439119394436732,
-        "y": 5.793954162754725
+        "x": 0.877,
+        "y": 4.575
       },
       "prevControl": {
-        "x": 2.4609748161234792,
-        "y": 7.597026451911351
+        "x": 0.35660733824593416,
+        "y": 4.573713723895293
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofSwipe3"
+      "linkedName": "StartofDepotClimb"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +49,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
+    "maxVelocity": 1.5,
     "maxAcceleration": 2.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -57,14 +57,14 @@
     "unlimited": false
   },
   "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "SAFE Swipe+Climb",
+  "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0
   },
-  "reversed": false,
-  "folder": "SAFE Swipe",
-  "idealStartingState": {
-    "velocity": 0.5,
-    "rotation": -90.0
-  },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

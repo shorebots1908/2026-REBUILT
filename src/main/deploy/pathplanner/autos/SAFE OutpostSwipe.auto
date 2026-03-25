@@ -56,12 +56,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "SAFE OutpostSwipe3"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "fullSendCommandNoTimeout"

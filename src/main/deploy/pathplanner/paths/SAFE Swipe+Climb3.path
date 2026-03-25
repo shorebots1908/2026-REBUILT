@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.877,
-        "y": 4.575
+        "x": 4.008192771084337,
+        "y": 7.400734939759036
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1266528013049706,
-        "y": 4.58817113512879
+        "x": 2.8083893179169284,
+        "y": 7.400734939759036
       },
       "isLocked": false,
-      "linkedName": "StartofDepotClimb"
+      "linkedName": "StartofSwipe+Swipe"
     },
     {
       "anchor": {
-        "x": 1.19,
-        "y": 4.575
+        "x": 2.318216833095578,
+        "y": 5.775249643366619
       },
       "prevControl": {
-        "x": 0.9400084112013378,
-        "y": 4.577050738871881
+        "x": 2.318216833095578,
+        "y": 7.380923858925626
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofDepotClimb"
+      "linkedName": "EndofSwipe3"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.75,
-    "maxAcceleration": 1.25,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "SAFE Swipe+Climb",
   "idealStartingState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": 0.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

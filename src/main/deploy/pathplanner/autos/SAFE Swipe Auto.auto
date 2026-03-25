@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "autoDeployIntake"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -21,9 +15,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "autoRunIntake"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoDeployIntake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoRunIntake"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -55,9 +62,73 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "fullSendCommandNoTimeout"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "fullSendCommand6Sec"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 5.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoUndeployIntake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoDeployIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Swipe5"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRunIntake"
+                }
+              }
+            ]
           }
         }
       ]

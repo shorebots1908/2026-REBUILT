@@ -1,5 +1,6 @@
 package frc.robot.subsystems.turret;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
@@ -33,6 +34,7 @@ public class Spindexer extends SubsystemBase{
   public void runSpinner(){
     if(isRunning){
       openLoopSpin(clockwise ? spinnerDefaultSpeed : -spinnerDefaultSpeed);
+      SmartDashboard.putNumber("spindexer applied output", spinner.getAppliedOutput());
     }
     else{
       stopSpinner();
