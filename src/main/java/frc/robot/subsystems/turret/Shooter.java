@@ -5,6 +5,7 @@ import static frc.robot.subsystems.turret.TurretConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
@@ -25,6 +26,7 @@ public class Shooter extends SubsystemBase{
   private double calculatedPower = 0.0;
   private double targetDistance = 0.0;
   private double oomph = 0.0;
+  final VoltageOut m_request = new VoltageOut(0);
 
 
   public Shooter(Rotator _rotator) {
@@ -53,8 +55,8 @@ public class Shooter extends SubsystemBase{
   }
 
   public void runShooter(double speed){
-    shooterMotor.set(speed);
-    shooterMotor2.set(speed);
+    shooterMotor.setControl(m_request.withOutput(shooterNominalVoltage * speed));
+    shooterMotor2.setControl(m_request.withOutput(shooterNominalVoltage * speed));
     runFilter();
   }
 

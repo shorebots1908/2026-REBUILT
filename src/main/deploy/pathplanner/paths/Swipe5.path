@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.778253012048193,
-        "y": 5.171481927710842
+        "x": 4.008192771084337,
+        "y": 7.400734939759036
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7345421686747,
-        "y": 7.815987951807228
-      },
-      "isLocked": false,
-      "linkedName": "EndofSwipe1"
-    },
-    {
-      "anchor": {
-        "x": 3.9863373493975898,
-        "y": 7.335168674698796
-      },
-      "prevControl": {
-        "x": 6.750721066124571,
-        "y": 7.377697654956132
-      },
-      "nextControl": {
-        "x": 2.565734939759036,
-        "y": 7.3133132530120495
+        "x": 6.898502139800283,
+        "y": 7.198502139800285
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.439119394436732,
-        "y": 5.793954162754725
+        "x": 6.380955777460769,
+        "y": 4.843666191155493
       },
       "prevControl": {
-        "x": 2.4609748161234792,
-        "y": 7.597026451911351
+        "x": 7.079643366619115,
+        "y": 6.913851640513553
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofSwipe3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -58,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -110.46227152342225
   },
   "reversed": false,
   "folder": "SAFE Swipe",
   "idealStartingState": {
-    "velocity": 0.5,
-    "rotation": -90.0
+    "velocity": 2.0,
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

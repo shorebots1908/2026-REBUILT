@@ -145,7 +145,7 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("climbUp", 
         ClimbCommands.climbUp(climb).withTimeout(2));
     NamedCommands.registerCommand("climbDown", 
-        ClimbCommands.climbDown(climb).withTimeout(2));
+        ClimbCommands.climbDown(climb).withTimeout(2.5));
     NamedCommands.registerCommand("autoDeployAndRunIntake",
         IntakeCommands.autoDeployIntake(intake)
         .andThen(IntakeCommands.autoRunIntake(intake).withTimeout(5.5)));
@@ -265,8 +265,9 @@ private void registerNamedCommands() {
 
   //add oomph function
   public void addOomph() {
-    double normalizedInput = Math.max((Math.abs(player2.getRightTriggerAxis()) - OperatorConstants.deadband), 0) / (1.0 - OperatorConstants.deadband);
-    shooter.addOomph((normalizedInput * normalizedInput) * OperatorConstants.maxOomph);
+    double normalizedInput1 = Math.max((Math.abs(player2.getRightTriggerAxis()) - OperatorConstants.deadband), 0) / (1.0 - OperatorConstants.deadband);
+    double normalizedInput2 = Math.max((Math.abs(player2.getLeftTriggerAxis()) - OperatorConstants.deadband), 0) / (1.0 - OperatorConstants.deadband);
+    shooter.addOomph(((normalizedInput1 * normalizedInput1) - (normalizedInput2 * normalizedInput2)) * OperatorConstants.maxOomph);
   }
 
 
