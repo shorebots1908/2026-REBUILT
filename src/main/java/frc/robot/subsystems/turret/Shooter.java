@@ -10,11 +10,12 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.math.filter.LinearFilter;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.turret.Rotator;
-
+import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Shooter extends SubsystemBase{
   private TalonFX shooterMotor;
@@ -27,12 +28,14 @@ public class Shooter extends SubsystemBase{
   private double targetDistance = 0.0;
   private double oomph = 0.0;
   final VoltageOut m_request = new VoltageOut(0);
+  private final AnalogInput ballSensor;
 
 
   public Shooter(Rotator _rotator) {
     shooterMotor = new TalonFX(shooterID);
     shooterMotor2 = new TalonFX(shooterID2);
     rotator = _rotator;
+    ballSensor = new AnalogInput(0);
     this.shooterAccelerationThreshold = TurretConstants.shooterAccelerationThreshold;
     var motorConfig1 = new TalonFXConfiguration();
     var motorOutputConfig1 = motorConfig1.MotorOutput;
@@ -109,6 +112,7 @@ public class Shooter extends SubsystemBase{
     
     SmartDashboard.putNumber("Filtered Shooter Acceleration", filteredAcceleration);
     SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
+    SmartDashboard.putNumber("ballSensor value", ballSensor.getValue());
   }
 
   public void primeShooter(){

@@ -57,8 +57,7 @@ public class RobotContainer {
   private final Shooter shooter;
   private final Vision vision;
   private final Feeder feeder;
-  //private final Pitch pitch;
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final CommandXboxController player2 =

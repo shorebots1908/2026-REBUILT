@@ -28,10 +28,10 @@ public class TurretConstants {
     public static final double fieldLength = (Units.inchesToMeters(651.22));
     public static final double fieldWidth = (Units.inchesToMeters(317.69));
     public static final Rotation2d turretZeroOffset = new Rotation2d(Units.degreesToRadians(0));
-    public static final double rotatorP = 30.0; //was 35.0
-    public static final double rotatorI = 1.0;
-    public static final double rotatorD = 0.1;
-    public static final double rotatorS = 0.1;
+    public static final double rotatorP = 75.0; //was 30.0
+    public static final double rotatorI = 0.9;  //was 1.0
+    public static final double rotatorD = 0.2;  //was 0.1
+    public static final double rotatorS = 0.1;  //was 0.1
     public static final double rotatorGearRatio = 48.0; //motor spins per turret revolution
     public static final double allowableRotatorError = 0.005; 
     public static final double targetAlignmentError = 0.02;
