@@ -82,8 +82,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    // Check if our alliance won the autonomous period and rumble player1 if we did
-    m_robotContainer.checkAutoWinAndRumble();
   }
 
   /** This function is called periodically during operator control. */

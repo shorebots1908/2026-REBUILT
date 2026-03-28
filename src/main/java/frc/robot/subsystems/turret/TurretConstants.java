@@ -46,7 +46,7 @@ public class TurretConstants {
     public static final double passingDistanceCoefficient = 0.0832;
     public static final double timeCoefficient = 0.225; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less) --initial calculated as 0.225
     public static final double timeIntercept = 0.385; // starting amount that we get from any thrown ball in terms of time -- used same as above () -- initial calculated 0.385
-    public static final double shooterPrespinPower = -0.3; //was -0.4. changed because shots seemed to be overpowered
+    public static final double shooterPrespinPower = -0.3; //was -0.3. 
     public static final double shooterMinimumPower = -0.3;
     public static final double shooterMaximumPower = -0.9; //ADJUST THIS!!!!!!!!!!!
     public static final double shooterNominalVoltage = 11.0; // 12v battery but setting lower for when power dips

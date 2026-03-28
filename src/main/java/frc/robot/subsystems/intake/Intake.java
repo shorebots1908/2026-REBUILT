@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
     public boolean isUp = true;
     // private boolean autoFlipped = false;
     // private boolean hasFaultedMaximum = false;
-    private double faultedMaximum = 0.0;
+    // private double faultedMaximum = 0.0;
     private boolean isRunning = false;
 
     private boolean shakeForwardFlag = false;

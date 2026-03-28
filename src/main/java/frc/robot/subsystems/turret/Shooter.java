@@ -12,10 +12,9 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
+// import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.turret.Rotator;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Shooter extends SubsystemBase{
   private TalonFX shooterMotor;
