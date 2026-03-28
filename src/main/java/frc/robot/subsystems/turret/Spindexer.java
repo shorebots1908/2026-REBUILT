@@ -34,7 +34,7 @@ public class Spindexer extends SubsystemBase{
   public void runSpinner(){
     if(isRunning){
       openLoopSpin(clockwise ? spinnerDefaultSpeed : -spinnerDefaultSpeed);
-      SmartDashboard.putNumber("spindexer applied output", spinner.getAppliedOutput());
+      SmartDashboard.putNumber("spindexer current", spinner.getOutputCurrent());
     }
     else{
       stopSpinner();
