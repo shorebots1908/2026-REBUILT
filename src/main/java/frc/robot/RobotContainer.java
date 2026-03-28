@@ -11,7 +11,7 @@ import frc.robot.commands.TurretCommands;
 import frc.robot.commands.IntakeCommands;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.LED.LED;
+// import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.turret.Feeder;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
@@ -32,8 +32,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+//import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+//import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.Optional;
 
@@ -51,14 +51,13 @@ public class RobotContainer {
   private final Climb climb;
   private final Drive drive;
   private final Intake intake;
-  private final LED led;
+  // private final LED led;
   private final Spindexer spindexer;
   private final Rotator rotator;
   private final Shooter shooter;
   private final Vision vision;
   private final Feeder feeder;
-  //private final Pitch pitch;
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  
   private final CommandXboxController player1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final CommandXboxController player2 =
@@ -74,7 +73,7 @@ public class RobotContainer {
     climb = new Climb();
     drive = initDrive();
     intake = new Intake();
-    led = new LED(intake);
+    // led = new LED(intake);
     spindexer = new Spindexer();
     rotator = new Rotator(drive);
     shooter = new Shooter(rotator);
@@ -149,6 +148,8 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoDeployAndRunIntake",
         IntakeCommands.autoDeployIntake(intake)
         .andThen(IntakeCommands.autoRunIntake(intake).withTimeout(5.5)));
+    NamedCommands.registerCommand("autoFullSendCommand",
+        TurretCommands.autoFullSendCommand(shooter, feeder, spindexer, rotator)); // runs until ball sensor reaches set value
 }
 
   /**
@@ -256,11 +257,6 @@ private void registerNamedCommands() {
     player2.povUp().whileTrue(ClimbCommands.climbUp(climb));
     player2.povDown().whileTrue(ClimbCommands.climbDown(climb));
     
-    // intake.setDefaultCommand(
-    //   IntakeCommands.deployIntakeOpenloop(() -> player2.getLeftY(), 
-    //   intake)
-    // );
-    
   }
 
   //add oomph function
@@ -318,45 +314,7 @@ public Command getAutonomousCommand() {
     }
   }
 
-  // Check networktables after auto to see if our alliance won auto.  B=blue, R=red, blank=no FMS
-  // SmartDashboard key "AutoWinOverride" can be set to "B" or "R" to simulate without a FMS
-    public void checkAutoWinAndRumble() {
-    // Prefer the SmartDashboard override (for home practice); fall back to FMS data.
-    String override = SmartDashboard.getString("AutoWinOverride", "");
-    String gameData = (override != null && !override.isEmpty())
-        ? override
-        : DriverStation.getGameSpecificMessage();
 
-    if (gameData == null || gameData.isEmpty()) {
-      return;
-    }
-
-    // Read alliance directly rather than relying on the cached field
-    Optional<DriverStation.Alliance> currentAlliance = DriverStation.getAlliance();
-
-    boolean weWon = false;
-    switch (gameData.charAt(0)) {
-      case 'B':
-        weWon = currentAlliance.isPresent()
-            && currentAlliance.get() == DriverStation.Alliance.Blue;
-        break;
-      case 'R':
-        weWon = currentAlliance.isPresent()
-            && currentAlliance.get() == DriverStation.Alliance.Red;
-        break;
-      default:
-        return;
-    }
-
-    if (weWon) {
-      // Schedule aone time command: full rumble for 5 s, then stop.
-      Commands.sequence(
-          Commands.runOnce(() ->
-              player1.getHID().setRumble(RumbleType.kBothRumble, 1.0)),
-          new WaitCommand(3.0),
-          Commands.runOnce(() ->
-              player1.getHID().setRumble(RumbleType.kBothRumble, 0.0))
-      ).ignoringDisable(true).schedule();
-    }
-  }
+   
 }
+
