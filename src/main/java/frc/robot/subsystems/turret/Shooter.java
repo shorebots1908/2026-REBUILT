@@ -106,6 +106,10 @@ public class Shooter extends SubsystemBase{
     oomph = _oomph;
   }
 
+  public int getBallSensorValue() {
+    return ballSensor.getValue();
+  }
+
   @Override
   public void periodic() {
     

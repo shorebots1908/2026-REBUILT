@@ -9,8 +9,6 @@ import frc.robot.subsystems.turret.Spindexer;
 import frc.robot.subsystems.turret.Rotator;
 import frc.robot.subsystems.turret.Shooter;
 import frc.robot.subsystems.turret.Feeder;
-//import frc.robot.subsystems.turret.Pitch;
-//import frc.robot.subsystems.turret.Pitch;
 
 public class TurretCommands {
   private static final double DEADBAND = 0.1;
@@ -38,13 +36,6 @@ public class TurretCommands {
   public static Command primeShooter(Shooter shooter){
     return Commands.run(() -> shooter.primeShooter(), shooter);
   }
-
-  // public static Command defaultPitchCommand(Pitch pitch) {
-  //   return Commands.run(() -> {
-  //     pitch.defaultPitchMethod();
-  //   }, 
-  //   pitch);
-  // }
 
   public static Command toggleTargeting(Rotator rotator, Shooter shooter) {
     return Commands.runOnce(() -> {
@@ -137,6 +128,35 @@ public class TurretCommands {
       rotator.setShooting(false);
     });
   }
+
+  public static Command autoFullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
+    return Commands.run(
+        () -> {
+            shooter.runShooter(shooter.calculatePower());
+            rotator.setShooting(true);
+        }, shooter
+    ).alongWith(Commands.run(
+        () -> {
+            if (Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold()
+                    && rotator.isAligned()) {
+                feeder.runFeeder();
+            }
+        }, feeder)
+    ).alongWith(
+        Commands.runOnce(() -> spindexer.setClockwise(true), spindexer)
+        .andThen(Commands.run(() -> {
+            if (Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold()) {
+                spindexer.setRunning(true);
+            }
+        }, spindexer))
+    ).until(() -> shooter.getBallSensorValue() < 100  // <-- ends the command
+    ).finallyDo(() -> {
+        shooter.stopShooter();
+        feeder.stopFeeder();
+        spindexer.setRunning(false);
+        rotator.setShooting(false);
+    });
+}
 
 
   public static Command unjam(Spindexer spindexer, Feeder feeder){

@@ -33,7 +33,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+//import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.Optional;
 
@@ -148,6 +148,8 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoDeployAndRunIntake",
         IntakeCommands.autoDeployIntake(intake)
         .andThen(IntakeCommands.autoRunIntake(intake).withTimeout(5.5)));
+    NamedCommands.registerCommand("autoFullSendCommand",
+        TurretCommands.autoFullSendCommand(shooter, feeder, spindexer, rotator)); // runs until ball sensor reaches set value
 }
 
   /**
