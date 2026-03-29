@@ -108,8 +108,6 @@ public class RobotContainer {
 
 private void registerNamedCommands() {
     NamedCommands.registerCommand("path", DriveCommands.followPath(drive, "Example"));
-    NamedCommands.registerCommand("AbbyPath1", DriveCommands.followPath(drive, "AbbyPath1"));
-    NamedCommands.registerCommand("AbbyAuto1", DriveCommands.followPath(drive, "AbbyAuto1"));
     NamedCommands.registerCommand("Swipe+Swipe Auto", DriveCommands.followPath(drive, "Swipe+Swipe Auto"));
     NamedCommands.registerCommand("fullSendCommand", 
         TurretCommands.fullSendCommand(shooter, feeder, spindexer, rotator).withTimeout(4.0));
@@ -138,7 +136,7 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoRunIntake2Sec", 
         IntakeCommands.autoRunIntake(intake).withTimeout(2.0));
     NamedCommands.registerCommand("intakePumpFake", 
-        IntakeCommands.autoIntakeShake(intake).withTimeout(4));
+        IntakeCommands.autoIntakeShake(intake));
     // NamedCommands.registerCommand("autoDeployAndRunIntake", 
     //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 
@@ -256,7 +254,7 @@ private void registerNamedCommands() {
       );
     player2.povUp().whileTrue(ClimbCommands.climbUp(climb));
     player2.povDown().whileTrue(ClimbCommands.climbDown(climb));
-    
+    player2.povLeft().onTrue(TurretCommands.autoFullSendCommand(shooter, feeder, spindexer, rotator));
   }
 
   //add oomph function

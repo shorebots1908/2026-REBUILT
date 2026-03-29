@@ -130,11 +130,13 @@ public class TurretCommands {
   }
 
   public static Command autoFullSendCommand(Shooter shooter, Feeder feeder, Spindexer spindexer, Rotator rotator) {
-    return Commands.run(
+    return Commands.runOnce(
+      () -> {shooter.resetSensorAccumulation();}, shooter
+    ).andThen(Commands.run(
         () -> {
             shooter.runShooter(shooter.calculatePower());
             rotator.setShooting(true);
-        }, shooter
+        }, shooter)
     ).alongWith(Commands.run(
         () -> {
             if (Math.abs(shooter.getFilteredAcceleration()) < shooter.getAccelerationThreshold()
@@ -149,7 +151,7 @@ public class TurretCommands {
                 spindexer.setRunning(true);
             }
         }, spindexer))
-    ).until(() -> shooter.getBallSensorValue() < 100  // <-- ends the command
+    ).until(shooter::sensorTimeout  // ends the command
     ).finallyDo(() -> {
         shooter.stopShooter();
         feeder.stopFeeder();

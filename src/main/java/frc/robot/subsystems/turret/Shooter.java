@@ -13,7 +13,7 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.drive.Drive;
+//import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.turret.Rotator;
 
 public class Shooter extends SubsystemBase{
@@ -28,6 +28,7 @@ public class Shooter extends SubsystemBase{
   private double oomph = 0.0;
   final VoltageOut m_request = new VoltageOut(0);
   private final AnalogInput ballSensor;
+  private int sensorNondetectionCycles = 0;
 
 
   public Shooter(Rotator _rotator) {
@@ -106,8 +107,26 @@ public class Shooter extends SubsystemBase{
     oomph = _oomph;
   }
 
+  public boolean getSensorTripped() {
+    return ballSensor.getValue() > sensorThreshold;
+  }
+
   public int getBallSensorValue() {
     return ballSensor.getValue();
+  }
+
+  public boolean sensorTimeout() {
+    if(sensorNondetectionCycles < sensorInterval/periodInterval) {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  public void resetSensorAccumulation() {
+    sensorNondetectionCycles = 0;
   }
 
   @Override
@@ -116,6 +135,14 @@ public class Shooter extends SubsystemBase{
     SmartDashboard.putNumber("Filtered Shooter Acceleration", filteredAcceleration);
     SmartDashboard.putNumber("Calculated Shooter Power", calculatePower());
     SmartDashboard.putNumber("ballSensor value", ballSensor.getValue());
+    SmartDashboard.putNumber("Sensor cycles", sensorNondetectionCycles);
+
+    if(getSensorTripped()) {
+      resetSensorAccumulation();
+    }
+    else {
+      sensorNondetectionCycles ++;
+    }
   }
 
   public void primeShooter(){
