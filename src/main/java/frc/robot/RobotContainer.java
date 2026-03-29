@@ -256,7 +256,7 @@ private void registerNamedCommands() {
       );
     player2.povUp().whileTrue(ClimbCommands.climbUp(climb));
     player2.povDown().whileTrue(ClimbCommands.climbDown(climb));
-    
+    player2.povLeft().whileTrue(TurretCommands.autoFullSendCommand(shooter, feeder, spindexer, rotator));
   }
 
   //add oomph function

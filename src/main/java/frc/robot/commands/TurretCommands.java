@@ -149,7 +149,7 @@ public class TurretCommands {
                 spindexer.setRunning(true);
             }
         }, spindexer))
-    ).until(() -> shooter.getBallSensorValue() < 100  // <-- ends the command
+    ).until(() -> shooter.getBallSensorValue() < 500  // ends the command
     ).finallyDo(() -> {
         shooter.stopShooter();
         feeder.stopFeeder();
