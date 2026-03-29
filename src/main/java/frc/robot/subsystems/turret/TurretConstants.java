@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
 public class TurretConstants {
+    public static final double periodInterval = 0.02; //time per robot cycle. Should not need adjustment. 
     public static final int rotatorID = 26;
     public static final int spindexID = 28;
     public static final int feederID = 27;
@@ -30,7 +31,7 @@ public class TurretConstants {
     public static final Rotation2d turretZeroOffset = new Rotation2d(Units.degreesToRadians(0));
     public static final double rotatorP = 75.0; //was 30.0
     public static final double rotatorI = 0.9;  //was 1.0
-    public static final double rotatorD = 0.2;  //was 0.1
+    public static final double rotatorD = 0.3;  //was 0.1
     public static final double rotatorS = 0.1;  //was 0.1
     public static final double rotatorGearRatio = 48.0; //motor spins per turret revolution
     public static final double allowableRotatorError = 0.005; 
@@ -50,5 +51,7 @@ public class TurretConstants {
     public static final double shooterMinimumPower = -0.3;
     public static final double shooterMaximumPower = -0.9; //ADJUST THIS!!!!!!!!!!!
     public static final double shooterNominalVoltage = 11.0; // 12v battery but setting lower for when power dips
+    public static final double sensorInterval = 1.0; //time until sensor times out in seconds
+    public static final int sensorThreshold = 1000;
   }   
 

@@ -5,6 +5,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 // import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import frc.robot.subsystems.intake.Intake;
 
@@ -110,6 +111,7 @@ public static Command autoStopIntake(Intake intake) {
   }
 
   public static Command autoIntakeShake(Intake intake){
-    return Commands.run(() -> intake.shake(), intake).andThen(() -> intake.deployIntake(), intake).until(intake::isDeployed);
+    return Commands.run(() -> intake.shake(), intake).andThen(() -> intake.deployIntake(), intake);
   }
+
 }
