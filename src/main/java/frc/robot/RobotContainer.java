@@ -131,6 +131,8 @@ private void registerNamedCommands() {
         IntakeCommands.autoDeployIntake(intake));
     NamedCommands.registerCommand("autoUndeployIntake", 
         IntakeCommands.autoUndeployIntake(intake));
+    NamedCommands.registerCommand("autoRunIntakeNoTimeout", 
+        IntakeCommands.autoRunIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
         IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
     NamedCommands.registerCommand("autoRunIntake2Sec", 

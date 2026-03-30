@@ -15,7 +15,7 @@ public class TurretConstants {
     public static final boolean shooterMotorInversionSwapped = true;
     public static final int pitchChannel1 = 0;
     public static final int pitchChannel2 = 1;
-    public static final double spinnerDefaultSpeed = 0.9; 
+    public static final double spinnerDefaultSpeed = 0.85; 
     public static final double feederSpeed = 0.6;
     public static final double shooterSpeed = -0.9; //was -0.7
     public static final double shooterAccelerationThreshold = 0.2;
@@ -47,11 +47,11 @@ public class TurretConstants {
     public static final double passingDistanceCoefficient = 0.0832;
     public static final double timeCoefficient = 0.225; // -- relationship between distance to target and ball flight time -- used to counteract robot motion (should lower to make it correct less) --initial calculated as 0.225
     public static final double timeIntercept = 0.385; // starting amount that we get from any thrown ball in terms of time -- used same as above () -- initial calculated 0.385
-    public static final double shooterPrespinPower = -0.3; //was -0.3. 
-    public static final double shooterMinimumPower = -0.3;
-    public static final double shooterMaximumPower = -0.9; //ADJUST THIS!!!!!!!!!!!
+    public static final double shooterPrespinPower = -0.35; //was -0.3. 
+    public static final double shooterMinimumPower = -0.35;
+    public static final double shooterMaximumPower = -0.7; //ADJUST THIS!!!!!!!!!!!
     public static final double shooterNominalVoltage = 11.0; // 12v battery but setting lower for when power dips
-    public static final double sensorInterval = 1.0; //time until sensor times out in seconds
-    public static final int sensorThreshold = 1000;
+    public static final double sensorInterval = 0.75; //time until sensor times out in seconds
+    public static final int sensorThreshold = 800;
   }   
 
