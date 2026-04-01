@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.349578036935066,
-        "y": 5.026363959393357
+        "x": 6.379682887276697,
+        "y": 4.874624350782977
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.0939194250094815,
-        "y": 7.514399153694771
+        "x": 6.518168352415481,
+        "y": 6.9703081180112045
       },
       "isLocked": false,
       "linkedName": "EndofSwipe+Swipe3"
@@ -20,8 +20,8 @@
         "y": 7.410196814583117
       },
       "prevControl": {
-        "x": 7.081871180959148,
-        "y": 7.497618501330106
+        "x": 6.609486097574001,
+        "y": 7.399585087764786
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.75,
-    "maxAcceleration": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -48,7 +48,7 @@
   "folder": "Swipe+Swipe",
   "idealStartingState": {
     "velocity": 0.5,
-    "rotation": -90.0
+    "rotation": -112.21996589214194
   },
   "useDefaultConstraints": false
 }
