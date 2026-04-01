@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.0,
-        "y": 0.680192771084337
+        "x": 4.247069699245705,
+        "y": 0.6641956962839095
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.811036144578313,
-        "y": 0.6474096385542167
+        "x": 8.05810584382402,
+        "y": 0.6314125637537893
       },
       "isLocked": false,
       "linkedName": "StartofSwipe+Outpost"

@@ -43,7 +43,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -72,12 +72,31 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "intakePumpFake"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakePumpFake"
+                      }
+                    }
+                  ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoDeployIntake"
           }
         },
         {
@@ -87,13 +106,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Swipe+Swipe3"
+                  "pathName": "SwoopSwipe3"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRunIntakeNoTimeout"
+                  "name": "autoRunIntake"
                 }
               }
             ]
@@ -102,13 +121,45 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Swipe+Swipe4"
+            "pathName": "SwoopSwipe4"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "fullSendCommandNoTimeout"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "fullSendCommandNoTimeout"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakePumpFake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       ]

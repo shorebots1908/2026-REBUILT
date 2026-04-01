@@ -4,11 +4,12 @@
   "holonomicMode": true,
   "pathFolders": [
     "ClimbPaths",
-    "SAFE Swipe+Climb",
+    "Swoop Swipe",
     "Outpost",
     "Outpost+Climb",
     "SAFE OutpostSwipe",
     "SAFE Swipe",
+    "SAFE Swipe+Climb",
     "Swipe+Depot",
     "Swipe+Outpost",
     "Swipe+Swipe",
