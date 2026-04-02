@@ -164,10 +164,18 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
-      () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+      () -> (drive.isShooting() && !rotator.getOutsideTeamZone()) 
+          ? -0.7 * player1.getLeftY() : -player1.getLeftY(),
+      () -> (drive.isShooting() && !rotator.getOutsideTeamZone()) 
+          ? -0.7 * player1.getLeftX() : -player1.getLeftX(), 
       () -> -player1.getRightX())
     );
+
+    // DriveCommands.joystickDrive(drive, 
+    //   () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+    //   () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+    //   () -> -player1.getRightX())
+    // );
 
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
     player1.x().onTrue(TurretCommands.spindexCommand(spindexer));

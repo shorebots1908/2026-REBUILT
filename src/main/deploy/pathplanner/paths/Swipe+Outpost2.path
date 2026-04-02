@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 4.247069699245705,
-        "y": 0.6641956962839095
+        "x": 4.3310749810044715,
+        "y": 0.6704559882134629
       },
       "prevControl": {
-        "x": 7.828623916113175,
-        "y": 0.6860511179706568
+        "x": 7.912629197871942,
+        "y": 0.6923114099002101
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartofSwipe+Outpost"
     }
   ],
   "rotationTargets": [],
