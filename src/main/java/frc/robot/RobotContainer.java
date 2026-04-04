@@ -134,11 +134,11 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoRunIntakeNoTimeout", 
         IntakeCommands.autoRunIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
-        IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
+        IntakeCommands.autoRunIntake(intake).withTimeout(3.0));
     NamedCommands.registerCommand("autoRunIntake2Sec", 
         IntakeCommands.autoRunIntake(intake).withTimeout(2.0));
     NamedCommands.registerCommand("intakePumpFake", 
-        IntakeCommands.autoIntakeShake(intake));
+        IntakeCommands.autoIntakeShake(intake).withTimeout(2));
     // NamedCommands.registerCommand("autoDeployAndRunIntake", 
     //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 

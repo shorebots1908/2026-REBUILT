@@ -4,7 +4,8 @@
   "holonomicMode": true,
   "pathFolders": [
     "ClimbPaths",
-    "Swoop Swipe",
+    "GraysonAuto",
+    "FullSweep",
     "Outpost",
     "Outpost+Climb",
     "SAFE OutpostSwipe",
@@ -13,7 +14,8 @@
     "Swipe+Depot",
     "Swipe+Outpost",
     "Swipe+Swipe",
-    "Swipe+SwipeBUMP"
+    "Swipe+SwipeBUMP",
+    "Swoop Swipe"
   ],
   "autoFolders": [],
   "defaultMaxVel": 2.5,

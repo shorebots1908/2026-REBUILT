@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.791115099828193,
+        "y": 4.6126804350934325
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.782054208273894,
+        "y": 3.8862054208273893
+      },
+      "isLocked": false,
+      "linkedName": "EndofSwipe+Swipe1"
+    },
+    {
+      "anchor": {
+        "x": 6.818448092299185,
+        "y": 7.116865524273429
+      },
+      "prevControl": {
+        "x": 7.119831114455925,
+        "y": 6.5912410572472675
+      },
+      "nextControl": {
+        "x": 6.556413292854845,
+        "y": 7.573865061986632
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.355304012153277,
+        "y": 7.403075927952355
+      },
+      "prevControl": {
+        "x": 5.389487981732857,
+        "y": 7.363917516530452
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3582089552238785,
+      "rotationDegrees": 100.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 0.589042590308906
+  },
+  "reversed": false,
+  "folder": "GraysonAuto",
+  "idealStartingState": {
+    "velocity": 1.5,
+    "rotation": -100.0
+  },
+  "useDefaultConstraints": false
+}

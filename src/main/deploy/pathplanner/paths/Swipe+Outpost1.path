@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 7.7454698795180725,
-        "y": 3.0624337349397592
+        "x": 7.713637660485022,
+        "y": 3.472168330955778
       },
       "prevControl": {
-        "x": 7.854746987951808,
-        "y": 0.636481927710844
+        "x": 7.822914768918757,
+        "y": 1.0462165237268626
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": 90.0
+    "rotation": 100.0
   },
   "reversed": false,
   "folder": "Swipe+Outpost",
