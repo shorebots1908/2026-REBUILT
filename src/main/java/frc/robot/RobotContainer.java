@@ -178,7 +178,8 @@ private void registerNamedCommands() {
     // );
 
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
-    player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    //player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    player1.x().whileTrue(IntakeCommands.intakeReverseCommand(intake));
     player1.y().whileTrue(TurretCommands.unjam(spindexer, feeder));
 
     // climber commands
