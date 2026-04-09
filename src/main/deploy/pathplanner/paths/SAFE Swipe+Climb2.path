@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.801585812862806,
-        "y": 5.3795697807037515
+        "x": 7.791115099828193,
+        "y": 4.531036850992269
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.584251069900143,
-        "y": 7.431398002853067
+        "x": 7.57378035686553,
+        "y": 6.582865073141584
       },
       "isLocked": false,
       "linkedName": "EndofSwipe+Swipe1"
     },
     {
       "anchor": {
-        "x": 4.295304915898907,
-        "y": 7.410196814583117
+        "x": 4.325531923704659,
+        "y": 7.404108883003258
       },
       "prevControl": {
-        "x": 7.793731260363783,
-        "y": 7.414982559560173
+        "x": 7.823958268169536,
+        "y": 7.408894627980313
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "SAFE Swipe+Climb",
   "idealStartingState": {
     "velocity": 0.5,
-    "rotation": -90.0
+    "rotation": -100.0
   },
   "useDefaultConstraints": true
 }

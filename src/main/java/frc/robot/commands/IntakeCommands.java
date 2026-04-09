@@ -49,6 +49,14 @@ public class IntakeCommands {
     );
   }
 
+  public static Command intakeReverseCommand(Intake intake) {
+    return Commands.runEnd(
+      () -> intake.reverseIntake(),
+      () -> intake.stopIntake(),
+      intake
+    );
+  }
+
   public static Command intakeSetRunCommand(boolean _isRunning, Intake intake) {
     return Commands.runOnce(
       () -> {intake.setIsRunning(_isRunning);}, intake

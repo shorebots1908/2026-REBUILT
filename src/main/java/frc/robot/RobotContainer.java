@@ -134,11 +134,11 @@ private void registerNamedCommands() {
     NamedCommands.registerCommand("autoRunIntakeNoTimeout", 
         IntakeCommands.autoRunIntake(intake));
     NamedCommands.registerCommand("autoRunIntake", 
-        IntakeCommands.autoRunIntake(intake).withTimeout(3.5));
+        IntakeCommands.autoRunIntake(intake).withTimeout(3.0));
     NamedCommands.registerCommand("autoRunIntake2Sec", 
         IntakeCommands.autoRunIntake(intake).withTimeout(2.0));
     NamedCommands.registerCommand("intakePumpFake", 
-        IntakeCommands.autoIntakeShake(intake));
+        IntakeCommands.autoIntakeShake(intake).withTimeout(2));
     // NamedCommands.registerCommand("autoDeployAndRunIntake", 
     //     IntakeCommands.autoDeployAndRunIntake(intake));
     NamedCommands.registerCommand("climbUp", 
@@ -164,13 +164,22 @@ private void registerNamedCommands() {
   private void configureBindings() {
     drive.setDefaultCommand(
       DriveCommands.joystickDrive(drive, 
-      () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
-      () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+      () -> (drive.isShooting() && !rotator.getOutsideTeamZone()) 
+          ? -0.7 * player1.getLeftY() : -player1.getLeftY(),
+      () -> (drive.isShooting() && !rotator.getOutsideTeamZone()) 
+          ? -0.7 * player1.getLeftX() : -player1.getLeftX(), 
       () -> -player1.getRightX())
     );
 
+    // DriveCommands.joystickDrive(drive, 
+    //   () -> drive.isShooting() ? -0.7 * player1.getLeftY() : -player1.getLeftY(), //was -0.87
+    //   () -> drive.isShooting() ? -0.7 * player1.getLeftX() : -player1.getLeftX(), //was -0.87
+    //   () -> -player1.getRightX())
+    // );
+
     //spindexer.setDefaultCommand(TurretCommands.spindex(spindexer));
-    player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    //player1.x().onTrue(TurretCommands.spindexCommand(spindexer));
+    player1.x().whileTrue(IntakeCommands.intakeReverseCommand(intake));
     player1.y().whileTrue(TurretCommands.unjam(spindexer, feeder));
 
     // climber commands

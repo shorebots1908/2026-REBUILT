@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.247069699245705,
-        "y": 0.6641956962839095
+        "x": 4.3310749810044715,
+        "y": 0.6704559882134629
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.701934178560969,
-        "y": 0.6743595585804565
+        "x": 7.785939460319736,
+        "y": 0.6806198505100098
       },
       "isLocked": false,
       "linkedName": "StartofSwipe+Outpost"
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": 90.0
+    "rotation": 95.0
   },
   "reversed": false,
   "folder": "Swipe+Outpost",

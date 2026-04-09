@@ -78,7 +78,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 3.0
+                        "waitTime": 1.5
                       }
                     },
                     {
@@ -119,13 +119,19 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "SwoopSwipe4"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "SwoopSwipe4"
+                  "name": "fullSendCommandNoTimeout"
                 }
               },
               {
@@ -141,7 +147,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "autoFullSendCommand"
+                        "name": "intakePumpFake"
                       }
                     }
                   ]

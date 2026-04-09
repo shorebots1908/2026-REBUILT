@@ -1,0 +1,88 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.914932456858589,
+        "y": 4.201774813675302
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.887832432584985,
+        "y": 3.43082244659029
+      },
+      "isLocked": false,
+      "linkedName": "G2End"
+    },
+    {
+      "anchor": {
+        "x": 6.818448092299185,
+        "y": 7.116865524273429
+      },
+      "prevControl": {
+        "x": 7.119831114455925,
+        "y": 6.5912410572472675
+      },
+      "nextControl": {
+        "x": 6.556413292854845,
+        "y": 7.573865061986632
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.355304012153277,
+        "y": 7.403075927952355
+      },
+      "prevControl": {
+        "x": 5.389487981732857,
+        "y": 7.363917516530452
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.0,
+      "rotationDegrees": 90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "autoRunIntakeNoTimeout",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.7967589466576628,
+      "command": null
+    },
+    {
+      "name": "autoFullSendCommand",
+      "waypointRelativePos": 1.8095881161377365,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": 0.589042590308906
+  },
+  "reversed": false,
+  "folder": "GraysonAuto",
+  "idealStartingState": {
+    "velocity": 1.5,
+    "rotation": -144.78676656347147
+  },
+  "useDefaultConstraints": false
+}
