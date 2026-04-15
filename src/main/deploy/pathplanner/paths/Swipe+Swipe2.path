@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 4.325531923704659,
-        "y": 7.404108883003258
+        "x": 4.103751783166904,
+        "y": 7.379643366619116
       },
       "prevControl": {
-        "x": 7.690324245008416,
-        "y": 7.394130598253014
+        "x": 7.46854410447066,
+        "y": 7.369665081868872
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "StartofSwipe+Swipe"
+      "linkedName": "EndofSwipe+Swipe2"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0.0
+    "rotation": 53.47114463301486
   },
   "reversed": false,
   "folder": "Swipe+Swipe",

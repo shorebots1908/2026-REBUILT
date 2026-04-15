@@ -24,7 +24,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -36,7 +36,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRunIntake2Sec"
+                  "name": "autoRunIntake"
                 }
               }
             ]
@@ -70,7 +70,7 @@
         {
           "type": "named",
           "data": {
-            "name": "fullSendCommand4.5Sec"
+            "name": "autoFullSendCommand"
           }
         },
         {
