@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0305702604007285,
-        "y": 5.576647307942142
+        "x": 0.6338705827282789,
+        "y": 5.9952068473609135
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0476288989445584,
-        "y": 6.509024181468432
+        "x": 1.11260096789233,
+        "y": 5.9952068473609135
       },
       "isLocked": false,
-      "linkedName": "EndofDoubleBump2"
+      "linkedName": "EndofDepot+Climb2"
     },
     {
       "anchor": {
-        "x": 3.0305702604007285,
-        "y": 7.3023855421686745
+        "x": 1.3607560627674748,
+        "y": 5.9952068473609135
       },
       "prevControl": {
-        "x": 3.0305702604007285,
-        "y": 6.526441120395105
+        "x": 1.0114122681883024,
+        "y": 5.982268188302426
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofDoubleBump3"
+      "linkedName": "EndofDepot+Climb1"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
-    "maxAcceleration": 0.75,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0.5,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "DoubleBump",
+  "folder": "New Folder",
   "idealStartingState": {
-    "velocity": 0.25,
-    "rotation": 90.0
+    "velocity": 0.5,
+    "rotation": 180.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

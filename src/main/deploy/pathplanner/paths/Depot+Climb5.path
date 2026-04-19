@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0305702604007285,
-        "y": 5.576647307942142
+        "x": 0.877,
+        "y": 4.575
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0476288989445584,
-        "y": 6.509024181468432
+        "x": 1.1269600615832678,
+        "y": 4.570531486456437
       },
       "isLocked": false,
-      "linkedName": "EndofDoubleBump2"
+      "linkedName": "StartofDepotClimb"
     },
     {
       "anchor": {
-        "x": 3.0305702604007285,
-        "y": 7.3023855421686745
+        "x": 1.19,
+        "y": 4.575
       },
       "prevControl": {
-        "x": 3.0305702604007285,
-        "y": 6.526441120395105
+        "x": 0.9400367578464441,
+        "y": 4.570713092946796
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofDoubleBump3"
+      "linkedName": "EndofDepotClimb"
     }
   ],
   "rotationTargets": [],
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
-    "rotation": 90.0
+    "velocity": 0,
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "DoubleBump",
+  "folder": "New Folder",
   "idealStartingState": {
     "velocity": 0.25,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": false
 }

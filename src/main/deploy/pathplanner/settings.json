@@ -4,9 +4,10 @@
   "holonomicMode": true,
   "pathFolders": [
     "ClimbPaths",
+    "DoubleBump",
     "FullSweep",
     "GraysonAuto",
-    "DoubleBump",
+    "New Folder",
     "Outpost",
     "Outpost+Climb",
     "SAFE OutpostSwipe",

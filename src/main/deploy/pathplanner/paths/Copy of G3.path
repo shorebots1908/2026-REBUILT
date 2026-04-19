@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.791115099828193,
-        "y": 4.531036850992269
+        "x": 7.696498761069705,
+        "y": 4.548602409637426
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.782054208273894,
-        "y": 3.8045618367262257
+        "x": 6.6874378695154055,
+        "y": 3.822127395371383
       },
       "isLocked": false,
       "linkedName": "EndofSwipe+Swipe1"
@@ -69,7 +69,7 @@
   "folder": "GraysonAuto",
   "idealStartingState": {
     "velocity": 1.5,
-    "rotation": -100.0
+    "rotation": -98.26884831025168
   },
   "useDefaultConstraints": false
 }

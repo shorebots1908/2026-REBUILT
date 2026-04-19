@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.260784593437946,
-        "y": 6.38336661911555
+        "x": 7.199084337349397,
+        "y": 5.641373493975904
       },
       "isLocked": false,
       "linkedName": "EndofSwoopSwipe3"
@@ -20,8 +20,8 @@
         "y": 5.608449102017553
       },
       "prevControl": {
-        "x": 4.466034236804564,
-        "y": 5.6070470756062765
+        "x": 4.270457831325301,
+        "y": 5.477457831325301
       },
       "nextControl": null,
       "isLocked": false,
