@@ -47,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0.25,
-    "rotation": 90.0
+    "rotation": 99.29949445415434
   },
   "reversed": false,
   "folder": "DoubleBump",

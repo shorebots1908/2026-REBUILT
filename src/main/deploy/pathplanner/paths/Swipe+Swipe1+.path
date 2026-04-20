@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": "Swipe+Swipe",
   "idealStartingState": {
-    "velocity": 1.0,
+    "velocity": 1.5,
     "rotation": -89.5173314464216
   },
   "useDefaultConstraints": false
