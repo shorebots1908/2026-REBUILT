@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.791115099828193,
-        "y": 4.531036850992269
+        "x": 7.696498761069705,
+        "y": 4.548602409637426
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.57378035686553,
-        "y": 6.582865073141584
+        "x": 7.479164018107042,
+        "y": 6.600430631786741
       },
       "isLocked": false,
       "linkedName": "EndofSwipe+Swipe1"
@@ -48,7 +48,7 @@
   "folder": "SAFE Swipe+Climb",
   "idealStartingState": {
     "velocity": 0.5,
-    "rotation": -100.0
+    "rotation": -98.26884831025168
   },
   "useDefaultConstraints": true
 }

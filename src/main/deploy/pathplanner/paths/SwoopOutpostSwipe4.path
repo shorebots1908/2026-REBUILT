@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.044550641937084,
-        "y": 2.3853209700452376
+        "x": 6.173937232524963,
+        "y": 2.6570328102710414
       },
       "isLocked": false,
       "linkedName": "EndofSwoopOutpostSwipe3"
@@ -20,8 +20,8 @@
         "y": 2.7296901006482095
       },
       "prevControl": {
-        "x": 5.1145497577547125,
-        "y": 2.496794237595428
+        "x": 5.16472182596291,
+        "y": 2.592339514978602
       },
       "nextControl": null,
       "isLocked": false,

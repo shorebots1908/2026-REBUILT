@@ -106,7 +106,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SwoopSwipe3"
+                  "pathName": "Swipe+Swipe3"
                 }
               },
               {
@@ -125,29 +125,16 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SwoopSwipe4"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.25
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "autoFullSendCommand"
-                      }
-                    }
-                  ]
+                  "pathName": "Swipe+Swipe4"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoFullSendCommand"
           }
         }
       ]
