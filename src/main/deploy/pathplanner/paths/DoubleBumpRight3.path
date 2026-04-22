@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.877,
-        "y": 4.58
+        "x": 2.9651497860199716,
+        "y": 2.6570328102710414
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1269600615832678,
-        "y": 4.575531486456437
+        "x": 2.978088445078458,
+        "y": 1.7383880171184036
       },
       "isLocked": false,
-      "linkedName": "StartofDepotClimb"
+      "linkedName": "EndofDoubleBumpRight2"
     },
     {
       "anchor": {
-        "x": 1.2,
-        "y": 4.58
+        "x": 2.978088445078458,
+        "y": 0.8068045649072757
       },
       "prevControl": {
-        "x": 0.9500367578464441,
-        "y": 4.5757130929467955
+        "x": 2.9910271041369447,
+        "y": 1.5443081312410842
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EndofDepotClimb"
+      "linkedName": "EndofDoubleBumpRight3"
     }
   ],
   "rotationTargets": [],
@@ -34,21 +34,21 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 0.5,
-    "maxAcceleration": 0.75,
+    "maxAcceleration": 1.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 0.1,
+    "rotation": -90.51616422976487
   },
   "reversed": false,
-  "folder": "Depot+Climb",
+  "folder": "DoubleBumpRight",
   "idealStartingState": {
     "velocity": 0.25,
-    "rotation": 0.0
+    "rotation": -101.12918928961122
   },
   "useDefaultConstraints": false
 }

@@ -27,7 +27,7 @@ public class VisionConstants {
   // Camera names, must match names configured on coprocessor
   public static String camera0Name = "limelight-prime";
   public static String camera1Name = "limelight-second";
-  public static String camera2Name = "camera2";
+  public static String camera2Name = "limelight-third";
 
   public static Transform3d robotToCamera0 =
       new Transform3d(
@@ -64,7 +64,8 @@ public class VisionConstants {
   public static double[] cameraStdDevFactors =
       new double[] {
         1.0, // Camera 0
-        1.0 // Camera 1
+        1.0, // Camera 1
+        1.0  // Camera 2
       };
 
   // Multipliers to apply for MegaTag 2 observations

@@ -53,7 +53,7 @@
   "folder": "Swipe+Outpost",
   "idealStartingState": {
     "velocity": 0.5,
-    "rotation": 100.0
+    "rotation": 95.0
   },
   "useDefaultConstraints": false
 }
