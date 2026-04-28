@@ -1,0 +1,59 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.909614457831326,
+        "y": 5.41189156626506
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.248602409638554,
+        "y": 5.433746987951806
+      },
+      "isLocked": false,
+      "linkedName": "RightFullBallet1End"
+    },
+    {
+      "anchor": {
+        "x": 2.084915662650602,
+        "y": 5.838072289156627
+      },
+      "prevControl": {
+        "x": 4.117469879518072,
+        "y": 5.466530120481927
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 130.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "BalletPaths",
+  "idealStartingState": {
+    "velocity": 1.0,
+    "rotation": 130.0
+  },
+  "useDefaultConstraints": true
+}
