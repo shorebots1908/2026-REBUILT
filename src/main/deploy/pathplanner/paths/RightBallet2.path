@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.477855421686746,
-        "y": 1.9368795180722884
+        "x": 6.497403708987161,
+        "y": 2.3594436519258206
       },
       "isLocked": false,
       "linkedName": "EndofRightBallet1"
     },
     {
       "anchor": {
-        "x": 1.8882168674698794,
-        "y": 2.6690361445783126
+        "x": 1.3995720399429386,
+        "y": 2.527646219686162
       },
       "prevControl": {
-        "x": 4.372439406699538,
-        "y": 2.4232016224670425
+        "x": 3.883794579172596,
+        "y": 2.281811697574892
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -101.12918928961123
+    "rotation": -106.69924423399367
   },
   "reversed": false,
   "folder": "BalletPaths",
