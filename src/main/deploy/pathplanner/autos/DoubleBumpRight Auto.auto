@@ -62,7 +62,7 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -72,15 +72,22 @@
                 }
               },
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "DoubleBumpRight3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoRunIntakeNoTimeout"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "DoubleBumpRight3"
+                      }
+                    }
+                  ]
                 }
               }
             ]

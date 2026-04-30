@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.979008118976352,
-        "y": 6.088504283706615
+        "x": 8.088858773181169,
+        "y": 6.111654778887304
       },
       "isLocked": false,
       "linkedName": "EndofSwoopSwipe3"
@@ -28,13 +28,18 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5628997867803828,
+      "rotationDegrees": 130.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -50,5 +55,5 @@
     "velocity": 0.5,
     "rotation": -104.98756197105676
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

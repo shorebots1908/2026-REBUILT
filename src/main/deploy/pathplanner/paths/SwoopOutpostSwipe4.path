@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.484465049928673,
-        "y": 3.2522111269614835
+        "x": 6.083366619115549,
+        "y": 3.5368616262482178
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.173937232524963,
-        "y": 2.6570328102710414
+        "x": 7.97241084165478,
+        "y": 2.1394864479315263
       },
       "isLocked": false,
       "linkedName": "EndofSwoopOutpostSwipe3"
@@ -28,13 +28,18 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5842217484008494,
+      "rotationDegrees": 130.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -50,5 +55,5 @@
     "velocity": 0.5,
     "rotation": 105.1409838350769
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
